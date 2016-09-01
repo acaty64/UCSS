@@ -1,0 +1,5 @@
+@extends('layouts.app')
+
+@section('content')
+Este es el archivo welcome.blade.php que se encuentra en \resources\views
+@endsection
