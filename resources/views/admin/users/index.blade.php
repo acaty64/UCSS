@@ -42,8 +42,10 @@
 	 				<td>
 
 	 					<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning" data-toggle="tooltip" title="Modificar usuario"><span class="glyphicon glyphicon-wrench" aria-hidden='true'></span></a>
+
+	 					<a href="{{ route('admin.users.editpass', $user->id) }}" class="btn btn-danger" data-toggle="tooltip" title="Modificar password"><span class="glyphicon glyphicon-lock" aria-hidden='true'></span></a>
 	 					
-	 					<a href="{{ route('admin.users.destroy', $user->id) }}" onclick='return confirm("Está seguro de eliminar?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar usuario"><span class="glyphicon glyphicon-remove-circle" aria-hidden='true'></a>
+	 					<a href="{{ route('admin.users.destroy', $user->id) }}" onclick='return confirm("Está seguro de eliminar?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar usuario"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
 
 	 					<a href="{{ route('admin.datausers.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Modificar datos usuario"><span class="glyphicon glyphicon-earphone" aria-hidden='true'></span></a>
 
@@ -51,7 +53,7 @@
 
 	 					<a href="{{ route('admin.dcursos.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad de Cursos"><span class="glyphicon glyphicon-list-alt" aria-hidden='true'></span></a>
 	 					
-	 					<a href="{{ route('PDF.usuario', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Ver PDF"><span class="glyphicon glyphicon-eye-open" aria-hidden='true'></span></a>
+	 					<a href="{{ route('PDF.usuario', $user->id) }}" class="btn btn-primary" data-toggle="tooltip" title="Ver PDF"><span class="glyphicon glyphicon-eye-open" aria-hidden='true'></span></a>
 	 					<!--MODELO INVOICE Route::get('pdf', 'PdfController@invoice'); -->
 	 					<!-- route('pdf', 'PDFController@invoice') -->
 	 					<!-- a href="{{ route('pdf', 'PDFController@invoice') }}" class="btn btn-success">Invoice</a-->

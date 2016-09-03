@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddDatausersTable extends Migration
+class AddUsergruposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,17 +12,15 @@ class AddDatausersTable extends Migration
      */
     public function up()
     {
-        Schema::create('datausers', function (Blueprint $table) {
+        Schema::create('usergrupos', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('cdocente',6);
-            $table->string('fono1', 12);
-            $table->string('fono2', 12);
-            $table->string('email1', 80);
-            $table->string('email2', 80);
-            $table->boolean('whatsapp');
-            $table->integer('user_id')->unsigned();
+            $table->integer('user_id')->unsigned;
+            $table->integer('grupo_id')->unsigned;
+            $table->string('cgrupo');
+            $table->string('cdocente');
             
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('grupo_id')->references('id')->on('grupos')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,7 +32,6 @@ class AddDatausersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('datausers');
+        Schema::drop('usergrupos');
     }
 }
-?>

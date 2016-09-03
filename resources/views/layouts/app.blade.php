@@ -74,7 +74,7 @@
             </div>
         </div>
     </nav>
-
+    @include('template.partials.errors')
     @yield('content')
 
     <!-- JavaScripts -->

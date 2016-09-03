@@ -33,7 +33,7 @@ class GrupoCurso extends Model
     }
 */
     /** SCOPE grupo CGRUPO */
-    public function scopeSgrupo($query,$cgrupo){
+    public function scopeSgrupo($query, $cgrupo){
         //dd($query->where('cgrupo', '=', $cgrupo));
         return $query->where('cgrupo', '=', $cgrupo);
     }

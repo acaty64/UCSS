@@ -17,7 +17,7 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
           <li><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
-          <li><a href="#">Responsables</a></li>
+          <li><a href="{{ route('admin.usergrupos.index') }}">Responsables</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verificaciones<span class="caret"></span></a>
             <ul class="dropdown-menu">

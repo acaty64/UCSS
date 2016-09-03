@@ -30,10 +30,9 @@
 	<script src="{{ asset('plugins\chosen\chosen.jquery.js') }}"></script>
 
 	@yield('js')
-
-	<footer class='footer'>
-		
-	</footer>
+	<div class="panel-footer">
+		@include('template.partials.footer')
+	</div>
 
 
 </body>

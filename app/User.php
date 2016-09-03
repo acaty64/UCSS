@@ -60,6 +60,16 @@ class User extends Authenticatable
     {
          return $this->hasMany('App\Dhora');
     }
+
+    public function envios()
+    {
+         return $this->hasMany('App\Dhora');
+    }
+
+    public function usergrupo()
+    {
+        return $this->hasOne('App\UserGrupo');
+    }
 /* 
     public function getNameAttribute(){
         return this->wdoc2." ".this->wdoc3.", ".this->wdoc1;
@@ -69,6 +79,10 @@ class User extends Authenticatable
     /** SCOPE apellido paterno */
     public function scopeSdocente($query, $wdocente){
         return $query->where('wdoc2', 'LIKE', "%$wdocente%");
+    }
+    /** SCOPE tipo de usuario */
+    public function scopeStype($query, $type){
+        return $query->where('type', '=', "$type");
     }
     
 

@@ -42,12 +42,13 @@ class UsersController extends Controller
         // Recibe los datos del formulario de resources\admin\users\create.blade.php
         //dd('UsersController.store() Recibe los datos del formulario de resources\admin\users\create.blade.php');
         $user = new user($request->all());
-        $user->password = bcrypt($request->password);
+        //$user->password = bcrypt($request->password);
         $user->save(); 
         Flash::success('Se ha registrado '.$user->username.' de forma exitosa');
         return redirect()->route('admin.users.index');
     }
 
+    
 
     /**
      * Display the specified resource.
@@ -84,7 +85,7 @@ class UsersController extends Controller
     {
         $user = User::find($id);
         $user->fill($request->all());
-        $user->password = bcrypt($request->password);
+        //$user->password = bcrypt($request->password);
         $user->save();
 
         Flash::warning('Se ha modificado el registro: '.$user->id.' código:'.$user->username.' de forma exitosa');
@@ -101,11 +102,31 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        /*$user->delete();          ********* Desmarcar para borrar */  
+        $user->delete();          
         Flash::error('Se ha eliminado el registro: '.$user->id.' '.$user->username.' de forma exitosa');
         return redirect()->route('admin.users.index');
     }
 
+    public function editpass($id)
+    {
+        $user = User::find($id);
+        return view('admin.users.chpass')->with('user', $user);
+    }
 
+    public function savepass(Request $request, $id)
+    {
+//        dd($id);
+        if ($request->password == $request->checkpassword) 
+        {
+            $user = User::find($id);
+            $user->password = bcrypt($request->password);
+            $user->save(); 
+            Flash::success('Se ha modificado el password de '.$user->wdocente($id).' de forma exitosa');
+            return redirect()->route('admin.users.index');
+        }else{
+            Flash::success('Ingrese la misma clave en las dos casillas.');
+            return redirect()->back();
+        }
+    }
 
 }

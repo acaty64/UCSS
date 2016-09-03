@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEnvios extends Migration
+class AddEnviosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,10 +14,13 @@ class AddEnvios extends Migration
     {
         Schema::create('envios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned;
             $table->string('email_to');
             $table->string('email_cc');
-            
+            $table->string('fenvio');
+            $table->string('flimite');
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
