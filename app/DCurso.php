@@ -10,7 +10,7 @@ class DCurso extends Model
     protected $table = 'dcursos';		
     protected $fillable = [		
     	//'semestre','ccurso','cdocente'
-        'curso_id','user_id'	
+        'curso_id','user_id', 'cdocente', 'ccurso'	
     ];	
 
     public function curso()

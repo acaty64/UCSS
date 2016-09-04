@@ -127,6 +127,8 @@ class DcursosController extends Controller
 /*************************************************************************/    
     public function update(Request $request, $docente_id)
     {
+        // Docente seleccionado
+        $user = User::find($docente_id);
 //       dd($docente_id);
         // Nuevos cursos seleccionados
         $newCursos = $request->cursos;
@@ -149,7 +151,11 @@ class DcursosController extends Controller
         /*  Agrega registros  */
         $dCurso = new dCurso;
         foreach ($agregados as $curso_id) {
-            $nuevo = ['user_id'=>$docente_id,'curso_id'=>$curso_id];
+            $curso = Curso::find($curso_id);
+            $nuevo = ['user_id'=>$user->id, 
+                        'cdocente'=>$user->username, 
+                        'curso_id'=>$curso->id, 
+                        'ccurso' =>$curso->ccurso];
             $dCurso->fill($nuevo);
             $dCurso->save();
         }

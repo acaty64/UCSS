@@ -15,7 +15,7 @@ class AddDcursosTable extends Migration
         Schema::create('dcursos', function (Blueprint $table) {
             $table->increments('id');
             //$table->string('semestre',6);
-            //$table->string('ccurso',6);
+            $table->string('ccurso',6);
             //$table->string('cdocente',6);
             //$table->integer('orden');
             $table->integer('prioridad');
