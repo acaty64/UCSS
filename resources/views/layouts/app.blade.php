@@ -62,7 +62,7 @@
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->wdoc1." ".Auth::user()->wdoc2.", ".Auth::user()->wdoc3 }} <span class="caret"></span>
+                                {{ substr(Auth::user()->wdocente(Auth::user()->id),0,50) }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">

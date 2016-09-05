@@ -61,7 +61,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <!-- MODIFICAR CUANDO SE CORRIJA TABLA docentes -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->wdoc1 }}<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ substr(Auth::user()->wdocente(Auth::user()->id),0,50) }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a href="{{ url('/logout') }}">Salir</a></li>
             </ul>

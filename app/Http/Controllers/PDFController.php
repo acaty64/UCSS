@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\User;
+use App\Curso;
 
 class PdfController extends Controller
 {
@@ -22,6 +23,23 @@ class PdfController extends Controller
         return $pdf->stream('usuario');
     }
 
+    public function silaboCurso(Request $request)
+    {
+//        dd($request->all());
+        $curso = Curso::find($request->curso_id);
+//        dd($curso->wcurso);
+        $filename = $curso->ccurso.'.pdf';
+//dd($filename);
+    //    $arch_pdf = storage_path() . "/PDF/silabos/" . $filename;
+        $arch_pdf = '/PDF/silabos/'. $filename;
+//dd($arch_pdf);
+        return view('pdf.silabo')
+            ->with('arch_pdf',$arch_pdf)
+            ->with('wcurso',$curso->wcurso);
+    }
+
+
+    /****************************************************************************/
     public function invoice() 
     {
         $data = $this->getData();

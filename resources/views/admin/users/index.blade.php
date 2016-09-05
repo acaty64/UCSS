@@ -29,7 +29,7 @@
 	 				<td>{{ $user->id }}</td>
 	 				<td>{{ $user->username }}</td>
 	 				<!--  ACTIVAR CUANDO SE MODIFIQUE DATA docentes <td>{{ $user->wDocente($user->id) }}</td>-->
-	 				<td>{{ $user->wdoc1 }}</td>
+	 				<td>{{ substr($user->wdocente($user->id),0,50) }}</td>
 	 				<td>
 	 					@if($user->type == 'usuario')
 	 						<span class="label label-warning">{{$user->type}}</span>

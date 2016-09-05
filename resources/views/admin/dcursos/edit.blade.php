@@ -1,14 +1,13 @@
 @extends('template.main')
 
-<!--@section('title','Modificación de Disponibilidad de Cursos: '.$dcursos[1]->user->wDocente($dcursos[1]->user_id) )
--->
+@section('title','Modificación de Disponibilidad de Cursos: '.substr($dcursos[1]->user->wDocente($dcursos[1]->user_id),0,50) )
+
 
 @section('content')
 <table>
 	<tbody>
-		<tr>
-															<!-- $dcursos[0]->user_id -->
-		<!-- HAY ERROR AL TRATAR DE TRANSFERIR $dcursos EN LUGAR DE $dcursos[0]->user_id]  -->
+		<!-- INICIO Formulario para seleccionar disponibilidad de cursos -->
+		<tr>			
 			{!! Form::open(['route' => ['admin.dcursos.update', $docente->id ], 'method'=>'PUT']) !!}
 				{!! Form::label('cursos','Cursos') !!}
 				<!-- select(nombre del campo, lista de opciones, array con opciones seleccionadas,[opciones chosen]) -->
@@ -19,23 +18,27 @@
 				{!! Form::submit('Grabar modificaciones', ['class'=>'btn btn-primary']) !!}
 			{!! Form::close() !!}
 		</tr>
+		<!-- FIN Formulario para seleccionar disponibilidad de cursos -->
 		<hr />
-		<tr>
+		<!-- INICIO Formulario para ver silabo de cursos -->
+		<tr>			
 			<td colspan='2' style="text-align:center">SELECCIONE PARA VER EL SILABO DEL CURSO</td>
 		</tr>
 		<tr>
-			<td style = "width:90%" > Curso para visualizar el sílabo</td>
-			<td>Acción</td>
+			<td style = "width:90%" >Curso para visualizar el sílabo</td>
+			<td style = "width:20%" >Acción</td>
 		</tr>
+		{!! Form::open(['route' => 'PDF.silaboCurso', 'method'=>'PUT']) !!}
 		<tr>
-			<td style = "width:90%">
-				{!! Form::select('$xgrupo', $lxgrupos, null, ['class'=>'chosen-select select-curso', 'include_group_label_in_selected'=>'true']) !!}
+			<td style = "width:70%">
+				{!! Form::select('curso_id', $lxgrupos, null, ['class'=>'chosen-select select-curso', 'include_group_label_in_selected'=>'true']) !!}
 			</td>
 			<td style = "width:20%">
-				
+				{!! Form::submit('Ver silabo' ,['class'=>'btn btn-primary']) !!}
+				{!! Form::close() !!}
 			</td>
-
 		</tr>
+		<!-- FIN Formulario para ver silabo de cursos -->
 	</tbody>
 </table>
 

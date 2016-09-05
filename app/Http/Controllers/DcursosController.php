@@ -97,15 +97,14 @@ class DcursosController extends Controller
         $xcont_1 = 0;
         foreach($xlgrupos as $grupos)
         {  
-            $xcont_2 = 0;
+            //$xcont_2 = 0;
             foreach($grupos as $cursos)
             {
-                $lxgrupos[$grupos[0]->grupo->wgrupo][$xcont_2] = $cursos->curso->wcurso;
-                $xcont_2++;                
+                $lxgrupos[$grupos[0]->grupo->wgrupo][$cursos->curso->id] = $cursos->curso->wcurso ;
+                //$xcont_2++;                
             }
             $xcont_1++;
         }
-
         /* $dcursos: disponibilidad de cursos del usuario  */
         /* $lcursos: lista de cursos para el select  */
         /* $ch_cursos: Array de cursos del usuario para el chosen  */
@@ -197,10 +196,5 @@ class DcursosController extends Controller
     }
 
 /*************************************************************************/  
-    public function view_PDF($ccurso)
-    {
-        dd("view_PDF");
-    }
-
-
+    
 }

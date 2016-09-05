@@ -66,6 +66,12 @@ Route::get('pdf/{id}/usuario',[
 	'as'	=> 'PDF.usuario'
 ]);
 
+Route::put('pdf/silaboCurso',[
+	'uses'  => 'PDFController@silaboCurso',
+	'as'	=> 'PDF.silaboCurso'
+]);
+
+/***************************************************/
 
 Route::group(['middleware'=>['web']], function(){
 	Route::auth();
