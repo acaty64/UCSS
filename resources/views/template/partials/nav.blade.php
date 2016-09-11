@@ -33,12 +33,12 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></a>
             <ul class="dropdown-menu">
               <li><a></a></li>
-              <li><a href="#">Requerimiento de Disponibilidad Horaria y Cursos</a></li>
+              <li><a href="{{ route('admin.menvios.index') }}">Envíos de Correos Electrónicos</a></li>
               <li><a href="#"></a></li>
               <li role="separator" class="divider"></li>
               <li><a href="#">Requerimiento de Actualización de Datos</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#">One more separated link</a></li>
+              <li><a href="{{ route('admin.users.crypt',0) }}">Encriptar passwords</a></li>
             </ul>
           </li>
         </ul> 

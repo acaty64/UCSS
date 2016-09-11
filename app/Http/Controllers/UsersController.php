@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\UserRequest;
 use App\User;
+use App\Datauser;
+use App\Dhora;
 use Laracasts\Flash\Flash;
 
 class UsersController extends Controller
@@ -28,6 +30,7 @@ class UsersController extends Controller
      */
     public function create()
     {
+        //$user = new User;
         return view('admin.users.create');
     }
 
@@ -44,6 +47,16 @@ class UsersController extends Controller
         $user = new user($request->all());
         //$user->password = bcrypt($request->password);
         $user->save(); 
+
+        $datauser = new Datauser();
+        $datauser->cdocente = $user->username;
+        $datauser->user()->associate($user);
+        $datauser->save();
+
+        $dhora = new Dhora();
+        $dhora->user()->associate($user);
+        $dhora->save();
+
         Flash::success('Se ha registrado '.$user->username.' de forma exitosa');
         return redirect()->route('admin.users.index');
     }
@@ -87,7 +100,7 @@ class UsersController extends Controller
         $user->fill($request->all());
         //$user->password = bcrypt($request->password);
         $user->save();
-
+//dd($user);
         Flash::warning('Se ha modificado el registro: '.$user->id.' código:'.$user->username.' de forma exitosa');
         return redirect()->route('admin.users.index');
 
@@ -107,12 +120,18 @@ class UsersController extends Controller
         return redirect()->route('admin.users.index');
     }
 
+    /**********************************************/
+    /* Edita el password
+    /**********************************************/
     public function editpass($id)
     {
         $user = User::find($id);
         return view('admin.users.chpass')->with('user', $user);
     }
 
+    /**********************************************/
+    /* Graba el password 
+    /**********************************************/
     public function savepass(Request $request, $id)
     {
 //        dd($id);
@@ -127,6 +146,31 @@ class UsersController extends Controller
             Flash::success('Ingrese la misma clave en las dos casillas.');
             return redirect()->back();
         }
+    }
+
+    /**********************************************/
+    /* Encripta los passwords
+    /**********************************************/
+    public function cryptpass($id)
+    {
+        // dd('cryptpass');
+        $contador = 0;
+        $users = User::all(); 
+        foreach ($users as $user) 
+        {
+//            dd($user);
+            $password = $user->password;
+//            dd('lenght'.strlen($password));
+            if (strlen(trim($password)) < 15) {
+                $xuser = User::find($user->id);
+                $user->password = bcrypt($password);
+                $user->save();
+                $contador++;
+            }    
+        }
+        Flash::success($contador.' Passwords encriptados.');
+            return redirect()->back();
+
     }
 
 }

@@ -1,8 +1,21 @@
 <?php
+/*** RUTAS GENERALES *******************************/
 Route::get('/', function(){
 	return view('welcome');
 });
-// Rutas ADMIN
+Route::group(['middleware'=>['web']], function(){
+	Route::auth();
+	Route::get('/home', 'HomeController@index');
+});
+
+Route::get('auth/logout',[
+	'uses'	=>	'Auth\AuthController@getLogout',
+	'as'	=>	'auth.logout'
+	]);
+/*** fin rutas GENERALES ***************************/
+
+/***************************************************/
+/***  RUTAS ADMIN **********************************/
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	// Rutas USERS
 	Route::resource('users','UsersController');
@@ -14,9 +27,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'uses'  => 'UsersController@editpass',
 		'as'	=> 'admin.users.editpass'
 	]);
-	Route::put('users/{users}',[
+	Route::put('users/{users}/savepass',[
 		'uses'  => 'UsersController@savepass',
 		'as'	=> 'admin.users.savepass'
+	]);
+	Route::get('users/{id}/crypt',[
+		'uses'  => 'UsersController@cryptpass',
+		'as'	=> 'admin.users.crypt'
 	]);
 
 
@@ -30,6 +47,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 	// Rutas DATAUSERS
 	Route::resource('datausers','DataUsersController');
+	Route::post('datausers/{datausers}/update',[
+		'uses'  => 'DatausersController@update',
+		'as'	=> 'admin.datausers.update'
+	]);
 
 	// Rutas DHORAS
 	Route::resource('dhoras','DhorasController');
@@ -37,7 +58,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	// Rutas DCURSOS
 	Route::resource('dcursos','DcursosController');
 
-	/***********************************************************************/
 	// Rutas RESPONSABLES
 	Route::resource('usergrupos', 'UserGruposController');
 	Route::get('usergrupos/{id}/destroy',[
@@ -52,8 +72,38 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 		'as'	=> 'admin.grupocursos.orden'
 		]); 
 
-});
+	// Rutas MAESTRO DE ENVIOS
+	Route::resource('menvios', 'MenviosController');
+	Route::get('menvios/{id}/destroy',[
+		'uses'  => 'MenviosController@destroy',
+		'as'	=> 'admin.menvios.destroy'
+	]);
+	Route::get('menvios/{id}/dshow',[
+		'uses'  => 'MenviosController@dshow',
+		'as'	=> 'admin.menvios.dshow'
+	]);
+	Route::post('menvios/dupdate',[
+		'uses'  => 'MenviosController@dupdate',
+		'as'	=> 'admin.menvios.dupdate'
+	]);
+	Route::get('menvios/{id}/dmarkall',[
+		'uses'  => 'MenviosController@dmarkall',
+		'as'	=> 'admin.menvios.dmarkall'
+	]);
+	Route::get('menvios/{id}/dunmarkall',[
+		'uses'  => 'MenviosController@dunmarkall',
+		'as'	=> 'admin.menvios.dunmarkall'
+	]);
+	// Rutas ENVIOS
+	Route::get('envios/{id}/send',[
+		'uses'  => 'EnviosController@send',
+		'as'	=> 'admin.envios.send'
+	]);
 
+});
+/*** fin Rutas ADMIN *******************************/
+
+/*** RUTAS PDF *************************************/
 // Ruta para imprimir en PDF
 //Route::get('pdf', 'PdfController@invoice');
 Route::get('pdf',[
@@ -71,18 +121,6 @@ Route::put('pdf/silaboCurso',[
 	'as'	=> 'PDF.silaboCurso'
 ]);
 
-/***************************************************/
-
-Route::group(['middleware'=>['web']], function(){
-	Route::auth();
-
-	Route::get('/home', 'HomeController@index');
-});
-
-Route::get('auth/logout',[
-	'uses'	=>	'Auth\AuthController@getLogout',
-	'as'	=>	'auth.logout'
-	]);
-
+/*** fin rutas PDF *********************************/
 
 ?>

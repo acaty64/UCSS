@@ -22,11 +22,6 @@
 		</div>
 
 		<div class="form-group">
-			{!! Form::label('password','Contraseña') !!}
-			{!! Form::password('password', ['class'=>'form-control', 'placeholder'=>'**********','required']) !!}
-		</div>
-
-		<div class="form-group">
 			{!! Form::label('type','Tipo') !!}
 			{!! Form::select('type', ['usuario'=>'Docente','respon'=>'Responsable','admin'=>'Administrador'], $user->type, ['class'=>'form-control', 'required']) !!}
 		</div>

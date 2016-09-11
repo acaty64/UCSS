@@ -45,7 +45,7 @@
 
 	 					<a href="{{ route('admin.users.editpass', $user->id) }}" class="btn btn-danger" data-toggle="tooltip" title="Modificar password"><span class="glyphicon glyphicon-lock" aria-hidden='true'></span></a>
 	 					
-	 					<a href="{{ route('admin.users.destroy', $user->id) }}" onclick='return confirm("Está seguro de eliminar?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar usuario"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
+	 					<a href="{{ route('admin.users.destroy', $user->id) }}" onclick='return confirm("Está seguro de eliminar el registro?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar usuario"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
 
 	 					<a href="{{ route('admin.datausers.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Modificar datos usuario"><span class="glyphicon glyphicon-earphone" aria-hidden='true'></span></a>
 

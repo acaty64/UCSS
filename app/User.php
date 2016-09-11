@@ -92,4 +92,5 @@ class User extends Authenticatable
         return $user->wdoc2." ".$user->wdoc3.", ".$user->wdoc1;
     }
 
+    
 }

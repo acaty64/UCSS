@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEnviosTable extends Migration
+class AddDenviosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,17 @@ class AddEnviosTable extends Migration
      */
     public function up()
     {
-        Schema::create('envios', function (Blueprint $table) {
+        Schema::create('denvios', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned;
+            $table->integer('menvio_id')->unsigned;
             $table->string('email_to');
             $table->string('email_cc');
-            $table->string('fenvio');
-            $table->string('flimite');
+            $table->boolean('sw_envio');
+            $table->boolean('sw_rpta');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('menvio_id')->references('id')->on('menvios')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +34,6 @@ class AddEnviosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('envios');
+        Schema::drop('denvios');
     }
 }

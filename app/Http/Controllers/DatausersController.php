@@ -83,7 +83,6 @@ class DatausersController extends Controller
     {
         $DataUser = DataUser::find($id);
         $DataUser->fill($request->all());
-
         $DataUser->save();
 
         Flash::warning('Se ha modificado el registro: '.$DataUser->user->id.' código:'.$DataUser->user->username.' de forma exitosa');
