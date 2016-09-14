@@ -5,3 +5,5 @@
 @section('content')
 	<embed src= {{$arch_pdf}} width="100%" height="800" margin-left:auto margin-right:auto></embed>
 @endsection
+
+@section('view','pdf/silabo.blade.php')	

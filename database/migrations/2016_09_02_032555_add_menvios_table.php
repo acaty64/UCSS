@@ -21,6 +21,7 @@ class AddMenviosTable extends Migration
             $table->integer('rptas');
             $table->string('tipo', 4);
             $table->string('tablename', 20);
+            $table->boolean('sw_envio');
 
             $table->timestamps();
         });

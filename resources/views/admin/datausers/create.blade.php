@@ -27,3 +27,5 @@
 	{!! Form::close() !!}
 
 @endsection
+
+@section('view','admin/datausers/create.blade.php')	

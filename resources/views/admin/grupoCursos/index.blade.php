@@ -1,32 +1,34 @@
 @extends('template.main')
 
-@section('title','Grupo de Cursos')
+@section('title','Cursos del grupo '.$cursos[0]->grupo->wgrupo)
 
 @section('content')
-	<a href="{{ route('admin.grupoCursos.create') }}" class="btn btn-info">Crear Nuevo Grupo</a>
 	<table class="table table-striped">
  		<thead>
  			<th>id</th>
  			<th>Código</th>
- 			<th>Grupo</th>
+ 			<th>Curso</th>
  		</thead>
  		<tbody>
- 			@foreach($grupoCursos as $grupoCurso)
+ 			@foreach($cursos as $curso)
  				<tr>
-	 				<td>{{ $grupoCurso->id }}</td>
-	 				<td>{{ $grupoCurso->cGrupo }}</td>
-	 				<td>{{ $grupoCurso->grupo->wgrupo }}</td>
+	 				<td>{{ $curso->curso_id }}</td>
+	 				<td>{{ $curso->curso->ccurso }}</td>
+	 				<td>{{ $curso->curso->wcurso }}</td>
 	 				<td>
-	 					<a href="{{ route('admin.grupoCursos.edit', $grupoCurso->id) }}" class="btn btn-warning"><span class="glyphicon glyphicon-wrench" aria-hidden='true'></span></a>
-
-	 					<a href="{{ route('admin.grupoCursos.destroy', $grupoCurso->id) }}" onclick='return confirm("Está seguro de eliminar?")' class="btn btn-danger"><span class="glyphicon glyphicon-remove-circle" aria-hidden='true'></a>
-
+	 					<a href="{{ route('admin.grupocursos.orden', $curso->curso_id) }}" class="btn btn-warning" data-toggle="tooltip" title="Seleccionar"><span class="glyphicon glyphicon-menu-right" aria-hidden='true'></span></a>
 	 				</td>
 	 			</tr>
  			@endforeach
  			
  		</tbody>
 	</table>
-	{!! $grupoCursos->render() !!}
 
 @endsection
+@section('js')
+	<script>
+
+	</script>
+@endsection
+
+@section('view','admin/grupocursos/index.blade.php')

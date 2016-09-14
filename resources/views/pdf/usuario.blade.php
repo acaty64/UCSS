@@ -32,4 +32,6 @@
 
 @endsection
 
+@section('view','pdf/usuario.blade.php')	
+
 

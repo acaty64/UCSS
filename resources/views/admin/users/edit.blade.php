@@ -33,3 +33,5 @@
 	{!! Form::close() !!}
 
 @endsection
+
+@section('view','admin/users/edit.blade.php')

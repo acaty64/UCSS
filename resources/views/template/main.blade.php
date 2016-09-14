@@ -24,16 +24,15 @@
 			@yield('content')
 		</div>
 	</section>
-	
 	<script src="{{ asset('plugins\jquery\js\jquery-3.1.0.js') }}"></script>
 	<script src="{{ asset('plugins\bootstrap\js\bootstrap.js') }}"></script>
 	<script src="{{ asset('plugins\chosen\chosen.jquery.js') }}"></script>
-
 	@yield('js')
 	<div class="panel-footer">
 		@include('template.partials.footer')
 	</div>
-
-
+	<div class="panel-footer">
+		@yield('view','Vista')
+	</div>
 </body>
 </html>

@@ -17,7 +17,13 @@
         <ul class="nav navbar-nav">
           <li class="active"><a href="#">Inicio <span class="sr-only">(current)</span></a></li>
           <li><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
-          <li><a href="{{ route('admin.usergrupos.index') }}">Responsables</a></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grupos<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="{{ route('admin.grupos.index') }}">Grupos</a></li>
+              <li><a href="{{ route('admin.usergrupos.index') }}">Responsables</a></li>  
+            </ul>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verificaciones<span class="caret"></span></a>
             <ul class="dropdown-menu">
@@ -43,7 +49,6 @@
           </li>
         </ul> 
       @endif
-
       @if(Auth::user()->type == 'usuario' or Auth::user()->type == 'respon')
         <ul class="nav navbar-nav">
           <li><a href="{{ route('admin.datausers.edit', Auth::user()->id) }}">Datos Personales</a></li>
@@ -56,8 +61,7 @@
             </ul>
           </li>
         </ul> 
-      @endif
-  
+      @endif  
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <!-- MODIFICAR CUANDO SE CORRIJA TABLA docentes -->

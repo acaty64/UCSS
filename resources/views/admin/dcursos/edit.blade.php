@@ -53,3 +53,5 @@
 		}); 
 	</script>
 @endsection
+
+@section('view','admin/dcursos/edit.blade.php')	

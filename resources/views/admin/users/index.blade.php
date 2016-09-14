@@ -67,3 +67,5 @@
 	{!! $users->render() !!}
 
 @endsection
+
+@section('view','admin/users/index.blade.php')

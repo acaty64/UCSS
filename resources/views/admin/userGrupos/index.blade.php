@@ -20,9 +20,9 @@
 	 				<td>{{ $user->username }}</td>
 	 				<td>{{ $user->wdoc1 }}</td>
 	 				<td>@if (empty($user->usergrupo->grupo->wgrupo))	
-	 						<div class='btn btn-danger'>ASOCIE UN GRUPO</div>
+	 						<div class='label label-danger'>ASOCIE UN GRUPO</div>
 	 					@else 
-	 						<div class='btn btn-success'>{{$user->usergrupo->grupo->wgrupo}}</div>
+	 						<div class='label label-success'>{{$user->usergrupo->grupo->wgrupo}}</div>
 	 					@endif
 	 				</td>
 	 				<!-- BOTONES -->
@@ -40,3 +40,5 @@
 	</table>
 	{!! $users->render() !!}
 @endsection
+
+@section('view','admin/userGrupos/index.blade.php')

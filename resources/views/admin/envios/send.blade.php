@@ -69,5 +69,7 @@
 		}
 	
 	</script>			
-@endsection			
+@endsection		
+
+@section('view','admin/envios/send.blade.php')	
 

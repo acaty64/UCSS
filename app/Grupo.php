@@ -12,15 +12,21 @@ class Grupo extends Model
         'cgrupo','wgrupo'	
     ];		
 
-    public function cursos()
+/*    public function cursos()
     {
          return $this->hasMany('App\GrupoCurso');
     }
+*/
+    
     public function usergrupo()
     {
         return $this->hasOne('App\UserGrupo');
     }
 
+    public function grupocursos()
+    {
+        return $this->hasMany('App\GrupoCurso');
+    }
     /** SCOPE grupo SEMESTRE actual 
     public function scopeSsemestre($query){
         return $query->where('semestre', '=', \Auth::user()->semestre);

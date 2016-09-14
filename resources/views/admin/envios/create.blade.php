@@ -17,8 +17,8 @@
 		</div>	
 		<br>
 		<div>
-			{!! Form::label('tx_need','Texto del correo') !!}
-			{!! Form::textarea('tx_need', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el texto (máximo 255 caracteres)','required']) !!}
+			{!! Form::label('tx_need','Asunto del correo') !!}
+			{!! Form::textarea('tx_need', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el asunto (máximo 255 caracteres)','required']) !!}
 		</div>
 		<br>		
 		<div class="form-group">
@@ -28,3 +28,5 @@
 	{!! Form::close() !!}
 
 @endsection
+
+@section('view','admin/envios/create.blade.php')	

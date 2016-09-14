@@ -10,12 +10,13 @@ class DCurso extends Model
     protected $table = 'dcursos';		
     protected $fillable = [		
     	//'semestre','ccurso','cdocente'
-        'curso_id','user_id', 'cdocente', 'ccurso'	
+        'curso_id','user_id', 'cdocente', 'ccurso', 'prioridad'
     ];	
 
     public function curso()
     {
-        return $this->belongsTo('App\Curso')->withTimeStamps();
+        //return $this->belongsTo('App\Curso')->withTimeStamps();
+        return $this->belongsTo('App\Curso');
     }	
 
     public function user()

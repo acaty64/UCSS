@@ -8,7 +8,7 @@ class Menvio extends Model
 {
     protected $table = 'menvios';		
     protected $fillable = [		
-    	'fenvio', 'flimite', 'envios', 'rptas', 'tipo', 'tablename', 'tx_need'
+    	'fenvio', 'flimite', 'envios', 'rptas', 'tipo', 'tablename', 'tx_need', 'sw_envio'
     ];	
 
     public function Denvios()

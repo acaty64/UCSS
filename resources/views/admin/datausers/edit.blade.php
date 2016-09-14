@@ -60,3 +60,5 @@
 	}
 </script>		
 @endsection
+
+@section('view','admin/datausers/edit.blade.php')	

@@ -17,9 +17,9 @@ class Curso extends Model
          return $this->hasMany('App\Dcurso');
     }
 
-    public function grupocursos()
+    public function grupocurso()
     {
-         return $this->hasMany('App\GrupoCurso');
+         return $this->hasOne('App\GrupoCurso');
     }
 
 }

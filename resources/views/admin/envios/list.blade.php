@@ -47,3 +47,5 @@
 	</table>
 	{!! $Denvios->render() !!}
 @endsection
+
+@section('view','admin/envios/list.blade.php')	

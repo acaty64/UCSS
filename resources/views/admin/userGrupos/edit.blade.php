@@ -15,3 +15,5 @@
 
 	{!! Form::close() !!}
 @endsection
+
+@section('view','admin/userGrupos/edit.blade.php')

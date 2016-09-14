@@ -43,3 +43,5 @@
 	{!! Form::close() !!}
 
 @endsection
+
+@section('view','admin/users/create.blade.php')

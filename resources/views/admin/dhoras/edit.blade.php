@@ -74,9 +74,6 @@
 			<?php endforeach ?>
 		}
 	</script>				
-					
-
-
-
 @endsection
 
+@section('view','admin/dhoras/edit.blade.php')

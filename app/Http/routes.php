@@ -37,13 +37,31 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 	]);
 
 
-	// Rutas SEMESTRES
-/*		Route::resource('semestres','SemestresController');
-	Route::get('semestres/{id}/destroy',[
-		'uses'  => 'SemestresController@destroy',
-		'as'	=> 'admin.semestres.destroy'
+	// Rutas GRUPOS
+	Route::resource('grupos','GruposController');
+	Route::get('grupos/{id}/destroy',[
+		'uses'  => 'GruposController@destroy',
+		'as'	=> 'admin.grupos.destroy'
 	]);
-*/
+
+	// Rutas GRUPOCURSOS
+	Route::resource('grupocursos','GrupoCursosController');
+	Route::get('grupocursos/{id}/index',[
+		'uses'  => 'GrupoCursosController@index',
+		'as'	=> 'admin.grupocursos.index'
+	]);
+	Route::post('grupocursos/{grupocurso}/orden',[
+		'uses'  => 'GrupoCursosController@orden',
+		'as'	=> 'admin.grupocursos.orden'
+	]);
+	Route::get('grupocursos/{id}/uporden',[
+		'uses'  => 'GrupoCursosController@uporden',
+		'as'	=> 'admin.grupocursos.uporden'
+	]);
+	Route::get('grupocursos/{id}/downorden',[
+		'uses'  => 'GrupoCursosController@downorden',
+		'as'	=> 'admin.grupocursos.downorden'
+	]);
 
 	// Rutas DATAUSERS
 	Route::resource('datausers','DataUsersController');
@@ -67,6 +85,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 	// Rutas GRUPOCURSOS
 	Route::resource('grupocursos', 'GrupoCursosController');
+	Route::get('grupocursos/{id}/destroy',[
+		'uses'  => 'GrupocursosController@destroy',
+		'as'	=> 'admin.grupocursos.destroy'
+		]); 
 	Route::get('grupocursos/{cursos}/orden',[
 		'uses'	=> 'GrupocursosController@orden',
 		'as'	=> 'admin.grupocursos.orden'
@@ -74,6 +96,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 	// Rutas MAESTRO DE ENVIOS
 	Route::resource('menvios', 'MenviosController');
+	Route::post('menvios/{id}/update',[
+		'uses'  => 'MenviosController@update',
+		'as'	=> 'admin.menvios.update'
+	]);
 	Route::get('menvios/{id}/destroy',[
 		'uses'  => 'MenviosController@destroy',
 		'as'	=> 'admin.menvios.destroy'

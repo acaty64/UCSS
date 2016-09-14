@@ -128,12 +128,9 @@ class DcursosController extends Controller
     {
         // Docente seleccionado
         $user = User::find($docente_id);
-//       dd($docente_id);
         // Nuevos cursos seleccionados
         $newCursos = $request->cursos;
-//dd($newCursos);
         // Usuario
-
         $oldCursos = [];
         $contador = 0;
         $dCursos = User::find($docente_id)->dcursos;
@@ -141,45 +138,38 @@ class DcursosController extends Controller
             $oldCursos[$contador] = $dCurso->curso_id ;
             $contador++;
         }
-//dd($oldCursos);
         /* MODIFICA LOS REGISTROS */
         $iguales = array_intersect($newCursos, $oldCursos);
         $agregados = array_diff($newCursos, $oldCursos);
         $eliminados = array_diff($oldCursos, $newCursos);
-//dd($eliminados);
         /*  Agrega registros  */
         $dCurso = new dCurso;
         foreach ($agregados as $curso_id) {
             $curso = Curso::find($curso_id);
-            $nuevo = ['user_id'=>$user->id, 
-                        'cdocente'=>$user->username, 
+            $nuevo = ['user_id'=>$user->id,
                         'curso_id'=>$curso->id, 
-                        'ccurso' =>$curso->ccurso];
+                        'ccurso' =>$curso->ccurso,
+                        'prioridad' => '99' ];
             $dCurso->fill($nuevo);
             $dCurso->save();
         }
-//dd($dCurso);
         /* Elimina registros */
         foreach ($eliminados as $curso_id) {
-//dd($curso_id);
             $dCurso = User::find($docente_id)->dcursos->toarray();
-//dd($dCurso);
             $clave = array_search( $curso_id, array_column($dCurso, 'curso_id'));
-//dd($clave);
+            //dd($clave);
             $clave_id = $dCurso[$clave]['id'];
-//dd($clave_id);
+            //dd($clave_id);
             $dCursos = dCurso::find($clave_id);
-//dd($dCursos);
+            //dd($dCursos);
             $dCursos->delete();  
         }
-        
         Flash::success('Se ha registrado la modificación de disponibilidad de cursos de forma exitosa');
         if (\Auth::user()->type == 'admin') {
             return redirect()->route('admin.users.index');
         }else{
             return redirect()->route('admin.dcursos.edit', $dhoras->user_id);
         }
-
     }
 
 /*************************************************************************/    

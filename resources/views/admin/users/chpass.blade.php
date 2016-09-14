@@ -23,3 +23,5 @@
 	{!! Form::close() !!}
 
 @endsection
+
+@section('view','admin/users/chpass.blade.php')
