@@ -57,8 +57,8 @@ return [
     |
     */
 
-    //'from' => ['address' => null, 'name' => null],
-    'from' => ['address' => 'acaty2@gmail.com', 'name' => 'AnaArashiro'],
+    'from' => ['address' => null, 'name' => null],
+    /*'from' => ['address' => 'acaty2@gmail.com', 'name' => 'Ana Arashiro'],
 
     /*
     |--------------------------------------------------------------------------
@@ -100,7 +100,7 @@ return [
     */
 
     'password' => env('MAIL_PASSWORD'),
-    //'password' => env('yuriko1064'),
+    //'password' => env('y'),
 
     /*
     |--------------------------------------------------------------------------

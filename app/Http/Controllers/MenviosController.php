@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection as Collection;
+use Carbon\Carbon;
 use DB;
 
 use App\Http\Requests;
@@ -28,10 +29,17 @@ class MenviosController extends Controller
         $this->tfcia_rptas();
         $this->recontar_envios();
         $this->recontar_rptas();
-
+        /*  PARA SELECT HORA DE ENVIO QUEUE
+        date_default_timezone_set('America/Lima');
+        $contador = 1;
+        $hora_ini = substr(Carbon::now()->format('H:i:s'),0,2)+1;
+        $hora_fin = 24;
+        */
         $Menvios = Menvio::orderBy('fenvio', 'DESC')->paginate(6);
         return view('admin.envios.index')
             ->with('Menvios', $Menvios);
+        //    ->with('hora_ini',$hora_ini)
+        //    ->with('hora_fin',$hora_fin);
     }
 
     /**
@@ -300,25 +308,30 @@ class MenviosController extends Controller
      */
     public function tfcia_rptas()
     {
+        // Selecciona todos los Menvios
         $Menvios = Menvio::all();
         if ($Menvios->isEmpty() == false) 
         {
+            // Por cada Menvio
             foreach ($Menvios as $Menvio) 
             {
                 $xfenvio = $Menvio->fenvio;
+                $xflimite = $Menvio->flimite;
                 $xrptas = DB::table($Menvio->tablename)
-                        ->where( 'updated_at' , '>' , $xfenvio)->get();
-                    foreach ($xrptas as $xrpta) 
+                        ->where( 'updated_at' , '>' , $xfenvio )
+                        ->where( 'updated_at' , '<' , $xflimite )
+                        ->get();
+                foreach ($xrptas as $xrpta) 
+                {
+                    $xDenvio = Denvio::where( 'user_id' , '=' , $xrpta->user_id )
+                        ->where('menvio_id' , '=' , $Menvio->id)->get();
+                    if ($xDenvio->isEmpty() == false ) 
                     {
-                        $xDenvio = Denvio::where( 'user_id' , '=' , $xrpta->user_id )
-                            ->where('menvio_id' , '=' , $Menvio->id)->get();
-                        if ($xDenvio->isEmpty() == false ) 
-                        {
-                            $xxDenvio = Denvio::find($xDenvio[0]->id);
-                            $xxDenvio->sw_rpta = 1;
-                            $xxDenvio->save();
-                        }
+                        $xxDenvio = Denvio::find($xDenvio[0]->id);
+                        $xxDenvio->sw_rpta = 1;
+                        $xxDenvio->save();
                     }
+                }
 
             }
         } 

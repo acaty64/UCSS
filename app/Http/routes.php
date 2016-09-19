@@ -17,6 +17,7 @@ Route::get('auth/logout',[
 /***************************************************/
 /***  RUTAS ADMIN **********************************/
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
+	
 	// Rutas USERS
 	Route::resource('users','UsersController');
 	Route::get('users/{id}/destroy',[
