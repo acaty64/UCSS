@@ -16,7 +16,7 @@
 	 				<td>{{ $curso->curso->ccurso }}</td>
 	 				<td>{{ $curso->curso->wcurso }}</td>
 	 				<td>
-	 					<a href="{{ route('admin.grupocursos.orden', $curso->curso_id) }}" class="btn btn-warning" data-toggle="tooltip" title="Seleccionar"><span class="glyphicon glyphicon-menu-right" aria-hidden='true'></span></a>
+	 					<a href="{{ route('admin.grupocursos.orden', $curso->curso_id) }}" class="btn btn-warning" data-toggle="tooltip" title="Seleccionar" name="Seleccionar"><span class="glyphicon glyphicon-menu-right" aria-hidden='true'></span></a>
 	 				</td>
 	 			</tr>
  			@endforeach

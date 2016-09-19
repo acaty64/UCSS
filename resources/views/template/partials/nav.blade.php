@@ -8,19 +8,24 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <img class="navbar-brand" src="favicon.ico"></img>
+      <img class="navbar-brand" src="/favicon.ico"></img>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
-      @if(Auth::user())  
+      @if(Auth::user())
+        <ul class="nav navbar-nav">
+          <li>
+            <a href="{{ '/home' }}">Inicio <span class="sr-only">(current)</span></a>
+          </li>
+        </ul>
         @if(Auth::user()->type == 'admin')
           <ul class="nav navbar-nav">
             <li><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Grupos<span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" name="opcGrupoCursos">Grupos de Cursos<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                <li><a href="{{ route('admin.grupos.index') }}">Grupos</a></li>
-                <li><a href="{{ route('admin.usergrupos.index') }}">Responsables</a></li>  
+                <li><a href="{{ route('admin.grupos.index') }}" name="opcGrupos">Grupos</a></li>
+                <li><a href="{{ route('admin.usergrupos.index') }}" name="opcResponsables">Responsables</a></li>  
               </ul>
             </li>
             <li class="dropdown">
@@ -59,14 +64,15 @@
                 <li><a href="{{ route('admin.dcursos.edit', Auth::user()->id) }}">Cursos</a></li>
               </ul>
             </li>
-          </ul> 
+            <li><a href="{{ route('admin.grupocursos.index2', Auth::user()->id) }}">Prioridad Docentes</a></li>
+          </ul>
         @endif  
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <!-- MODIFICAR CUANDO SE CORRIJA TABLA docentes -->
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ substr(Auth::user()->wdocente(Auth::user()->id),0,50) }}<span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" name='opcLogin'>{{ substr(Auth::user()->wdocente(Auth::user()->id),0,50) }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{ url('/logout') }}">Salir</a></li>
+              <li><a href="{{ url('/logout') }}" name='opcLogout'>Salir</a></li>
             </ul>
           </li>
         </ul>

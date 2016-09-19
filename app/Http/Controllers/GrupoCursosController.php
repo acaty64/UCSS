@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
+use App\User;
 use App\GrupoCurso;
 use App\Grupo;
 use App\Curso;
@@ -20,6 +21,21 @@ class GrupoCursosController extends Controller
      */
     public function index($grupo_id)
     {
+//        dd('GrupoCursosController.index');
+        $grupo = Grupo::find($grupo_id);
+//dd($grupo);
+        $cursos = Grupo::find($grupo_id)->grupocursos->all();
+//dd($cursos[0]->curso->wcurso);
+        return view('admin.grupocursos.index')
+                ->with('grupo',$grupo)
+                ->with('cursos',$cursos);        
+    }
+
+    public function index2($user_id)
+    {
+        $user = User::find($user_id);
+        $grupo_id = $user->usergrupo->grupo_id;
+//dd($grupo_id);
 //        dd('GrupoCursosController.index');
         $grupo = Grupo::find($grupo_id);
 //dd($grupo);

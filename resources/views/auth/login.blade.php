@@ -1,69 +1,37 @@
-<!'\resources\views\auth\login.blade.php'!>
 @extends('layouts.app')
+
+@section('title','Login')
+
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+	<div class="row">
+        <div class="col-md-4 col-md-offset-3">
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
-                <div class="panel-body">
-                    <!form class="form-horizontal" role="form" method="POST" route="{{ 'auth.login' }}">                                   
-
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
-                        {{ csrf_field() }}
-
-                        <div class="form-group{{ $errors->has('user') ? ' has-error' : '' }}">
-                            <label for="username" class="col-md-4 control-label">Código Docente</label>
-
-                            <div class="col-md-6">
-                                <input id="username" class="form-control" name="username" value="{{ old('username') }}">
-
-                                @if ($errors->has('username'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password">
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-sign-in"></i> Acceder
-                                </button>
-
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">¿Olvidó su Password?</a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+	                <div class="panel-body">
+						{!! Form::open(['route' => 'auth.login', 'method' => 'POST']) !!}
+							 {!! csrf_field() !!}
+							<div>
+								{!! Form::label('username','Código de Docente') !!}
+								{!! Form::text('username',null,['class'=>'form-control','placeholder'=>'000000','required']) !!} 
+							</div>
+							<div>
+								{!! Form::label('password','Password') !!}
+								{!! Form::password('password',['class'=>'form-control','required' ]) !!}
+							</div>
+							<br>
+							<div>
+								{!! Form::checkbox('remember', false) !!} Recuérdame
+							</div>
+							<br>
+							<div>
+								{!! Form::submit('Acceder', ['class' => 'btn btn-primary']) !!}
+							</div>
+						{!! Form::close() !!}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 @endsection
-@section('view','auth/login.blade.php')

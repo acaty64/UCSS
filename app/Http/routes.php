@@ -8,6 +8,16 @@ Route::group(['middleware'=>['web']], function(){
 	Route::get('/home', 'HomeController@index');
 });
 
+Route::get('auth/login',[
+	'uses'	=>	'Auth\AuthController@getLogin',
+	'as'	=>	'auth.login'
+	]);
+
+Route::post('auth/login',[
+	'uses'	=>	'Auth\AuthController@postLogin',
+	'as'	=>	'auth.login'
+	]);
+
 Route::get('auth/logout',[
 	'uses'	=>	'Auth\AuthController@getLogout',
 	'as'	=>	'auth.logout'
@@ -47,9 +57,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function(){
 
 	// Rutas GRUPOCURSOS
 	Route::resource('grupocursos','GrupoCursosController');
-	Route::get('grupocursos/{id}/index',[
+	Route::get('grupocursos/{grupo_id}/index',[
 		'uses'  => 'GrupoCursosController@index',
 		'as'	=> 'admin.grupocursos.index'
+	]);
+	Route::get('grupocursos/{user_id}/index2',[
+		'uses'  => 'GrupoCursosController@index2',
+		'as'	=> 'admin.grupocursos.index2'
 	]);
 	Route::post('grupocursos/{grupocurso}/orden',[
 		'uses'  => 'GrupoCursosController@orden',
