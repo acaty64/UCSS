@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+
 class AuthController extends Controller
 {
    
@@ -72,8 +73,9 @@ class AuthController extends Controller
     //protected $redirectTo = '/'; 
     //protected $redirectPath = '/admin';
     //protected $loginPath = '/auth/login';
+    //protected $redirectTo = '/home';
     protected $redirectTo = '/home';
-    protected $redirectAfterLogout = '/login';
+    //protected $redirectAfterLogout = '/login';
 
 /*    protected function getLogin(){
         //dd('\app\Http\Controllers\Auth\AuthController\getLogin()');
@@ -84,9 +86,10 @@ class AuthController extends Controller
         return view('index');
     }*/
 
-    /*protected function getLogout(){
-        dd(Auth::guest());
+    protected function getLogout(){
+        //dd(Auth::guest());
+        Auth::logout();
         return view('auth.login');
-    }*/
+    }
 
 }

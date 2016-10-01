@@ -19,6 +19,7 @@ class AddDcursosTable extends Migration
             //$table->string('cdocente',6);
             //$table->integer('orden');
             $table->integer('prioridad');
+            $table->boolean('sw_cambio');
             
             //$table->integer('semestr_id')->unsigned();
             $table->integer('curso_id')->unsigned();

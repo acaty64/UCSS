@@ -11,8 +11,10 @@ class Menvio extends Model
     	'fenvio', 'flimite', 'envios', 'rptas', 'tipo', 'tablename', 'tx_need', 'sw_envio'
     ];	
 
-    public function Denvios()
+    public function denvios()
     {
          return $this->hasMany('App\Denvio');
     }
+
+   	
 }

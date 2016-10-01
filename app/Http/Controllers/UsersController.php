@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\UserRequest;
+
+use Laracasts\Flash\Flash;
+use Carbon\Carbon;
+
 use App\User;
 use App\Datauser;
 use App\Dhora;
-use Laracasts\Flash\Flash;
 
 class UsersController extends Controller
 {
@@ -19,8 +22,12 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        //date_default_timezone_set('America/Lima');
+        $hoy = Carbon::now();
         $users = User::sDocente($request->wdocente)->orderBy('id', 'DESC')->paginate(6);
-        return view('admin.users.index')->with('users',$users);
+        return view('admin.users.index')
+            ->with('users',$users)
+            ->with('hoy',$hoy);
     }
 
     /**

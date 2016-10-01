@@ -5,7 +5,6 @@
 @section('content')
 
 	{!! Form::model($user, array('route' => array('admin.users.update', $user->id), 'method' => 'PUT')) !!}
-
 		<div class="form-group">
 			{!! Form::label('wdoc1','Nombres') !!}
 			{!! Form::text('wdoc1', $user->wdoc1, ['class'=>'form-control', 'placeholder'=>'Ingrese sus Nombres','required']) !!}
@@ -23,7 +22,7 @@
 
 		<div class="form-group">
 			{!! Form::label('type','Tipo') !!}
-			{!! Form::select('type', ['usuario'=>'Docente','respon'=>'Responsable','admin'=>'Administrador'], $user->type, ['class'=>'form-control', 'required']) !!}
+			{!! Form::select('type', ['01'=>'Administrativo','02'=>'Docente','03'=>'Responsable','09'=>'Master'], $user->type, ['class'=>'form-control', 'required']) !!}
 		</div>
 
 		<div class="form-group">

@@ -1,11 +1,12 @@
 @extends('template.main')
 
-@section('title','Disponibilidad Horaria del Docente: ' . $wdocente )
+@section('title','Disponibilidad Horaria del Docente: ' . $wdocente->wdocente($wdocente->id) )
 
 @section('content')
 	{!! Form::model($dhoras, array('route' => ['admin.dhoras.update', $dhoras->id], 'method' => 'PUT')) !!}
+	<input type="hidden" name="user_id" value="{{ $wdocente->id }}"></input>
+	<input type="hidden" name="dhoras_id" value="{{ $dhoras->id }}"></input>
 	<table class="horario">
-		
 		<thead>
 			<tr>
 				<th><div class = 'horario-header'>LUNES</div></th>
@@ -30,8 +31,14 @@
 		</tbody>
 	</table>
 	<div class="form-group">
-
+		@if( $sw_cambio == '1' )
 			{!! Form::submit('Grabar modificaciones', ['class'=>'btn btn-primary']) !!}
+		@else
+			<p style="color:red">
+				La fecha límite de modificación ha expirado. Si necesita modificar su disponibilidad comuníquese con la coordinación académica.
+			</p>
+		@endif
+		{!! Form::close() !!}
 	</div>	
 					
 	<script	type="text/javascript">	

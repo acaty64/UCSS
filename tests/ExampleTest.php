@@ -31,7 +31,7 @@ class ExampleTest extends TestCase
     {
         $this->test09();
         $this->click('Usuarios')
-            ->seePageIs('admin/users')
+            ->seePageIs('users')
             ->click('Registrar Nuevo Usuario')
             ->see('Crear Usuario')
             ->click('opcLogin')
@@ -56,8 +56,9 @@ class ExampleTest extends TestCase
             ->click('opcLogout');
     }
 
+
     // Prueba acceso usuario 
-    public function test01()
+    public function test02()
     {
         $this->visit('/login')
             ->type('000006', 'username')
@@ -68,22 +69,22 @@ class ExampleTest extends TestCase
             ->see('Disponibilidad');
     }
 
-    public function test0102()
+    public function test0202()
     {
-        $this->test01();
+        $this->test02();
         $this->click('Datos Personales')
             ->see('Modificación de Datos del Docente');
     }
 
-    public function test0103()
+    public function test0203()
     {
-        $this->test01();
+        $this->test02();
         $this->click('Dias y Horas')
             ->see('Disponibilidad Horaria');
     }
     
     // Prueba acceso responsable 
-    public function test02()
+    public function test03()
     {
         $this->visit('/login')
             ->type('000152', 'username')
@@ -95,13 +96,33 @@ class ExampleTest extends TestCase
             ->see('Prioridad Docentes');
     }
 
-    public function test0201()
+    public function test0301()
     {
-        $this->test02();
+        $this->test03();
         $this->click('Prioridad Docentes')
             ->see('Cursos del grupo')            
             ->click('Seleccionar')
             ->see('Prioridad de Docentes del curso');
+    }
+
+    // Prueba acceso Administrativos
+    public function test01()
+    {
+        $this->visit('/login')
+            ->type('999999', 'username')
+            ->type('999999', 'password')
+            ->press('Acceder')
+            ->seePageIs('home')
+            ->see('Datos Personales');
+    }
+
+    public function test0101()
+    {
+        $this->test01();
+        $this->click('Datos Personales')
+            ->seePageIs('users')
+            ->Click('Ver PDF')
+            ->see('pdf');
     }
 
 }

@@ -10,7 +10,7 @@
 		<tbody>
 			<tr>
 				<td style="width:30%">
-					<a href="{{ route('admin.menvios.dmarkall', $denvios[0]->menvio->id ) }}" class="btn btn-success" data-toggle="tooltip" title="Marcar todos"><span class="glyphicon glyphicon-check" aria-hidden='true'> Marcar Todos</span></a>
+					<a href="{{ route('admin.menvios.dmarkall', $denvios[0]->menvio->id) }}" class="btn btn-success" data-toggle="tooltip" title="Marcar todos"><span class="glyphicon glyphicon-check" aria-hidden='true'> Marcar Todos</span></a>
 					</td>
 				<td style="width:30%">
 					<a href="{{ route('admin.menvios.dunmarkall', $denvios[0]->menvio->id ) }}" class="btn btn-info" data-toggle="tooltip" title="Desmarcar todos"><span class="glyphicon glyphicon-unchecked" aria-hidden='true'> Desmarcar Todos</span></a>

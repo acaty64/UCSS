@@ -20,7 +20,7 @@ class UserGruposController extends Controller
     public function index()
     {
 //        dd('Muestra los responsables y los grupos asociados');
-        $users = User::sType('respon')->paginate(6);
+        $users = User::sType('03')->paginate(6);
         
         return view('admin.userGrupos.index')
             ->with('users', $users);

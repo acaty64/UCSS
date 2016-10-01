@@ -26,7 +26,7 @@ class MenviosController extends Controller
     {
         //dd('Aqui viene la vista admin.envios.index');
         
-        $this->tfcia_rptas();
+        // NO ES NECESARIO //$this->tfcia_rptas();
         $this->recontar_envios();
         $this->recontar_rptas();
         /*  PARA SELECT HORA DE ENVIO QUEUE
@@ -157,7 +157,7 @@ class MenviosController extends Controller
      * Display the specified resource.
      *
      * @param  admin.Menvios.index.blade.php : Menvio->$id
-     * @return view('admin.envios.send')
+     * @return view('admin.envios.send') 
                 ->with('denvios', $denvios);
      */
     public function dshow($id)
@@ -165,7 +165,7 @@ class MenviosController extends Controller
         //dd('En construcción: MenviosController@dshow($id)');
         // Recuperar los Denvios del Menvio
         $denvios = Menvio::find($id)->denvios()->get();
-
+        $tipo = Menvio::find($id)->tipo;
         if($denvios->isEmpty())
         {
             $users = User::orderBy('wdoc2','ASC')
@@ -178,10 +178,24 @@ class MenviosController extends Controller
                 $denvio->email_to = $user->datauser->email1;
                 $denvio->email_cc = $user->datauser->email2;
                 // Grabar registro a registro
-                $denvio->save();
+                if ($tipo = 'disp') {
+                    $denvio->tipo = 'horas';
+                    $denvio->save();
+                    $denvio_c = new Denvio;
+                    $denvio_c->fill($denvio->toArray());
+                    $denvio_c->tipo = 'cursos';
+                    $denvio_c->save();
+                }else{
+                    $denvio->tipo = 'carga';
+                    $denvio->save();
+                }
             }
         }
-        $denvios = Menvio::find($id)->denvios()->paginate(10);
+        if ($tipo = 'disp') {
+            $denvios = Denvio::Stipo(['menvio_id'=>$id, 'type'=>'horas'])->paginate(10);
+        }else{
+            $denvios = Menvio::find($id)->denvios->Stipo('carga')->paginate(10);
+        }
         //    dd($denvios);
         // Enviar a la vista send los denvios
         return view('admin.envios.send')
@@ -224,9 +238,15 @@ class MenviosController extends Controller
      */
     public function dmarkall($id)
     {
+        $menvio = Menvio::find($id);
+        $id = $menvio->id;
+        $type = $menvio->tipo;
+        if ($type == 'disp') {
+            $denvios = Denvio::Stipo(['menvio_id'=>$id, 'type'=>'horas'])->get();
+        }else{
+            $denvios = Menvio::find($id)->denvios()->get();    
+        }
         $newvalue = 1;
-        $denvios = Menvio::find($id)->denvios()->get();
-        //dd($denvios);
         $contador01 = 0;
         $contador10 = 0;
         foreach ($denvios as $denvio) {
@@ -253,8 +273,15 @@ class MenviosController extends Controller
      */
     public function dunmarkall($id)
     {
+        $menvio = Menvio::find($id);
+        $id = $menvio->id;
+        $type = $menvio->tipo;
+        if ($type == 'disp') {
+            $denvios = Denvio::Stipo(['menvio_id'=>$id, 'type'=>'horas'])->get();
+        }else{
+            $denvios = Menvio::find($id)->denvios()->get();    
+        }
         $newvalue = 0;
-        $denvios = Menvio::find($id)->denvios()->get();
         $contador01 = 0;
         $contador10 = 0;
         foreach ($denvios as $denvio) {

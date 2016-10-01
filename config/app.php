@@ -1,4 +1,4 @@
-<?php
+<?php 
 
 return [
 
@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'America/Lima',
 
     /*
     |--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return [
     |
     */
 
-    'fallback_locale' => 'es',
+    'fallback_locale' => 'en',
 
     /*
     |--------------------------------------------------------------------------
@@ -148,6 +148,7 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
+        
         /*
          * Application Service Providers...
          */
@@ -159,12 +160,12 @@ return [
         /*
         * Providers personales
         */
-
         Collective\Html\HtmlServiceProvider::class,
         Cviebrock\EloquentSluggable\ServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
-
+        Barryvdh\Debugbar\ServiceProvider::class,
+        
     ],
 
     /*
@@ -179,7 +180,6 @@ return [
     */
 
     'aliases' => [
-
         'App' => Illuminate\Support\Facades\App::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
@@ -218,7 +218,6 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Flash'=> Laracasts\Flash\Flash::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
-
-    ],
-
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+    ]
 ];

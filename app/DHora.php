@@ -63,7 +63,8 @@ class DHora extends Model
         'D6_H22' ,
         'D6_H31' ,
         'D6_H32' ,
-        'D6_H33' 
+        'D6_H33' ,
+        'sw_cambio'
     ];
 
     public function user()

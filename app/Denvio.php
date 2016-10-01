@@ -8,7 +8,7 @@ class Denvio extends Model
 {
     protected $table = 'Denvios';		
     protected $fillable = [		
-    	'user_id', 'menvio_id', 'email_to', 'email_cc', 'fenvio', 'flimite', 'sw_envio','sw_rpta'
+    	'user_id', 'menvio_id', 'email_to', 'email_cc', 'fenvio', 'flimite', 'sw_envio','sw_rpta', 'tipo'
     ];	
 
     public function user()
@@ -19,5 +19,11 @@ class Denvio extends Model
 	public function menvio()
     {
          return $this->belongsTo('App\Menvio');
+    }
+    /* Requiere array['id'=>menvio_id, 'type'=>tipo]*/
+    public function scopeStipo($query, $id_type){
+        $id = $id_type['menvio_id'];
+        $type = $id_type['type']; 
+        return $query->where('menvio_id', '=', $id )->where('tipo', '=', $type) ;
     }
 }

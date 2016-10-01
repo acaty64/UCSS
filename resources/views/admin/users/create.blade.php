@@ -33,7 +33,7 @@
 		
 		<div class="form-group">
 			{!! Form::label('type','Tipo') !!}
-			{!! Form::select('type',['usuario'=>'Docente','respon'=>'Responsable','admin'=>'Administrador'], null, ['class'=>'form-control', 'placeholder'=>'Seleccione el tipo','required']) !!}
+			{!! Form::select('type',['01'=>'Administrativo','02'=>'Docente','03'=>'Responsable','09'=>'Master'], null, ['class'=>'form-control', 'placeholder'=>'Seleccione el tipo','required']) !!}
 		</div>
 		<br>
 		<div class="form-group">

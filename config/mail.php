@@ -16,7 +16,8 @@ return [
     |
     */
 
-    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'driver' => env('MAIL_DRIVER', 'log'),
+    //'driver' => env('MAIL_DRIVER', 'smtp'),
 
     /*
     |--------------------------------------------------------------------------
@@ -44,7 +45,8 @@ return [
     */
 
     //'port' => env('MAIL_PORT', 587),
-    'port' => env('MAIL_PORT', 25),
+    //'port' => env('MAIL_PORT', 25),
+    'port' => env('MAIL_PORT', 587),
 
     /*
     |--------------------------------------------------------------------------
@@ -58,7 +60,7 @@ return [
     */
 
     'from' => ['address' => null, 'name' => null],
-    /*'from' => ['address' => 'acaty2@gmail.com', 'name' => 'Ana Arashiro'],
+    //'from' => ['address' => 'ana.arashiro@gmail.com', 'name' => 'Ana Arashiro'],
 
     /*
     |--------------------------------------------------------------------------
@@ -71,8 +73,8 @@ return [
     |
     */
 
-    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-    //'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+    //'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
 
     /*
     |--------------------------------------------------------------------------

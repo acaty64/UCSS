@@ -10,6 +10,8 @@ use Carbon\Carbon;
 use App\User;
 use App\Menvio;
 use App\Denvio;
+use App\Dhora;
+use App\DCurso;
 use Laracasts\Flash\Flash;
 use Swift_SwiftException;
 
@@ -45,19 +47,21 @@ class EnviosController extends Controller
                         'username'=>$correo->user->username );
                     $blade = 'admin.envios.email_01';
                 }elseif($correo->Menvio->tipo='hora'){
+///////////////////////////////////////
                     $data = 'FALTA DEFINIR DATA PARA ENVIAR AL BLADE';
                     
                     $blade = 'admin.envios.email_02';
                 }
                 // Enviar correo
                 try{
-                    Mail::send($blade, $data, function($message) use ($correo)
-                    {
+                    Mail::send($blade, $data, function($message) use ($correo){
                     // MODIFICAR AL CORREGIR TABLA USERS: $correo->user->wdocente($correo->user->id)
                     $message ->to($correo->email_to, $correo->user->wdoc1)
                             ->subject($correo->menvio->tx_need);
                     });
+                    $this->enviado($correo);
                 } catch(Swift_SwiftException $e) {
+///////////////////////////////////////
                     // *********** ERROR DE ENVIO DE CORREO ELECTRONICO ***********
                         dd($e);
                 }
@@ -71,4 +75,29 @@ class EnviosController extends Controller
         Flash::success('Se han enviado '.$contador.' correos de forma exitosa');
         return redirect()->route('admin.menvios.index');
     }
+
+    /*
+     * MARCAR SW_CAMBIO EN LOS ARCHIVOS QUE SE REQUIEREN INFORMACION
+     *
+     */
+    public function enviado($correo)
+    {
+        if ($correo->menvio->tipo == 'disp') 
+        {   
+            $user_id = $correo->user_id;
+            /* Permite acceso a la disponibilidad de horarios */
+            $dhora = $correo->user->dhora;
+            $dhora->sw_cambio = '1';
+            $dhora->save();
+            /* Permite acceso a la disponibilidad de cursos */
+            $dcursos = Dcurso::where('user_id','=',$user_id);
+            foreach ($dcursos as $dcurso) {
+                $dcurso->sw_cambio = '1';
+                $dcurso->save();
+            }
+        }else{
+            /// FALTA PROGRAMAR ACCESO A HORARIOS
+        }
+    }
+
 }

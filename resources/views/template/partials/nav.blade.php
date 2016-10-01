@@ -18,7 +18,7 @@
             <a href="{{ '/home' }}">Inicio <span class="sr-only">(current)</span></a>
           </li>
         </ul>
-        @if(Auth::user()->type == 'admin')
+        @if(Auth::user()->type == '09')
           <ul class="nav navbar-nav">
             <li><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
             <li class="dropdown">
@@ -32,7 +32,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verificaciones<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a></a></li>
-                <li><a href="#">Actualización de Disponibilidad Horaria</a></li>
+                <li><a href="{{ route('admin.dhoras.status_horas') }}">Actualización de Disponibilidad Horaria</a></li>
                 <li><a href="#">Actualización de Disponibilidad de Cursos</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Actualización de Datos Usuarios</a></li>
@@ -53,7 +53,12 @@
             </li>
           </ul> 
         @endif
-        @if(Auth::user()->type == 'usuario' or Auth::user()->type == 'respon')
+        @if(Auth::user()->type == '01')
+          <ul class="nav navbar-nav">
+            <li><a href="{{ route('admin.users.index') }}">Datos Personales</a></li>
+          </ul>
+        @endif
+        @if(Auth::user()->type == '02' or Auth::user()->type == '03')
           <ul class="nav navbar-nav">
             <li><a href="{{ route('admin.datausers.edit', Auth::user()->id) }}">Datos Personales</a></li>
             <li class="dropdown">
@@ -64,9 +69,12 @@
                 <li><a href="{{ route('admin.dcursos.edit', Auth::user()->id) }}">Cursos</a></li>
               </ul>
             </li>
-            <li><a href="{{ route('admin.grupocursos.index2', Auth::user()->id) }}">Prioridad Docentes</a></li>
+            @if(Auth::user()->type == '03')
+              <li><a href="{{ route('admin.grupocursos.index2', Auth::user()->id) }}">Prioridad Docentes</a></li>
+            @endif
           </ul>
-        @endif  
+        @endif
+
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <!-- MODIFICAR CUANDO SE CORRIJA TABLA docentes -->

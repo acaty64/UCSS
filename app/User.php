@@ -1,13 +1,6 @@
 <?php
 /* MODEL User */
 namespace App;
-
-use Illuminate\Foundation\Auth\User as Authenticatable;
-
-class User extends Authenticatable
-{
-//    use Sluggable;
-
     /**
      * Return the sluggable configuration array for this model.
      *
@@ -27,7 +20,14 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array
-     */
+    */
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+
+class User extends Authenticatable
+{
+//    use Sluggable;
+
     protected $fillable = [
         'username', 
         'wdoc1',
@@ -56,14 +56,14 @@ class User extends Authenticatable
          return $this->hasMany('App\Dcurso');
     }
 
-    public function dhoras()
+    public function dhora()
     {
-         return $this->hasMany('App\Dhora');
+         return $this->hasOne('App\Dhora');
     }
 
-    public function envios()
+    public function denvios()
     {
-         return $this->hasMany('App\Dhora');
+         return $this->hasMany('App\Denvio');
     }
 
     public function usergrupo()

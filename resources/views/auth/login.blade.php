@@ -20,9 +20,9 @@
 								{!! Form::password('password',['class'=>'form-control','required' ]) !!}
 							</div>
 							<br>
-							<div>
+							<!--div>
 								{!! Form::checkbox('remember', false) !!} Recuérdame
-							</div>
+							</div-->
 							<br>
 							<div>
 								{!! Form::submit('Acceder', ['class' => 'btn btn-primary']) !!}
@@ -35,3 +35,4 @@
 	</div>
 </div>
 @endsection
+@section('view','login')

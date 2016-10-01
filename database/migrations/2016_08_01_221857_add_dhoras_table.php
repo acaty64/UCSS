@@ -71,6 +71,7 @@ class AddDhorasTable extends Migration
             $table->boolean('D6_H31');
             $table->boolean('D6_H32');
             $table->boolean('D6_H33');
+            $table->boolean('sw_cambio');
 
             //$table->integer('semestr_id')->unsigned();
             $table->integer('sede_id')->unsigned();

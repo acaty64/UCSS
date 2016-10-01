@@ -15,7 +15,7 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        dd('Hola desde el middleware Admin');
+dd('Hola desde el middleware Admin');
         return $next($request);
     }
 }

@@ -20,6 +20,7 @@ class AddDenviosTable extends Migration
             $table->string('email_cc');
             $table->boolean('sw_envio');
             $table->boolean('sw_rpta');
+            $table->string('tipo');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('menvio_id')->references('id')->on('menvios')->onDelete('cascade');
