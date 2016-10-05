@@ -8,6 +8,7 @@
  			<th>id</th>
  			<th>Código</th>
  			<th>Curso</th>
+ 			<th>Acción</th>
  		</thead>
  		<tbody>
  			@foreach($cursos as $curso)
@@ -17,6 +18,11 @@
 	 				<td>{{ $curso->curso->wcurso }}</td>
 	 				<td>
 	 					<a href="{{ route('admin.grupocursos.orden', $curso->curso_id) }}" class="btn btn-warning" data-toggle="tooltip" title="Seleccionar" name="Seleccionar"><span class="glyphicon glyphicon-menu-right" aria-hidden='true'></span></a>
+	 					@if($curso->sw_cambio == '0')
+	 						<span style="Color:red">PENDIENTE</span>
+	 					@else 
+	 						<span style="Color:green">Actualizado</span>
+	 					@endif
 	 				</td>
 	 			</tr>
  			@endforeach
@@ -24,11 +30,6 @@
  		</tbody>
 	</table>
 
-@endsection
-@section('js')
-	<script>
-
-	</script>
 @endsection
 
 @section('view','admin/grupocursos/index.blade.php')

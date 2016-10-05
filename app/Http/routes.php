@@ -6,6 +6,11 @@ Route::get('/', function(){
 	return view('welcome');
 });
 
+Route::get('/init/{clave}', [
+		'uses'	=> 'InitController@master',
+		'as'	=> 'init.master'
+	]);
+
 Route::group(['middleware'=>['web']], function(){
 	Route::auth();
 	Route::get('/home', 'HomeController@index');
@@ -28,44 +33,7 @@ Route::get('auth/logout',[
 
 
 /***********************************************************************************/
-
-//devuelve el nombre del rol del usuario según el número
-if(!function_exists('getRole'))
-{
-	function getRole($role)
-	{	
-		switch ($role) {
-			case '00':
-				return "Invitado.";
-				break;
-			case '01':
-				return "Administrativo.";
-				break;
-			case '02':
-				return "Docente.";
-				break;
-			case '03':
-				return "Responsable.";
-				break; 
-			case '09':
-				return "Master.";
-				break; 
-			default:
-				return "Invitado.";
-				break;
-		 }	 
-	 }
-}
-
-/*ruta con el prefijo home que comprueba primero si 
-//existe la sesión, si es así comprueba el rol del usuario
-/
-/admin: 3
-/editor: 2
-/suscriptor: 1
-/invitado: 0
-/
-*/
+/* DEBE ESTAR LOGUEADO */
 Route::group(['middleware' => ['auth']], function()
 {
 	//http://localhost/roles_users_laravel/public/home/admin
@@ -74,8 +42,20 @@ Route::group(['middleware' => ['auth']], function()
 	Route::group(['middleware' => ['roles:01-09']], function()
 	{
 		Route::get('users',['uses'=>'UsersController@index','as'=>'admin.users.index']);
-		Route::get('dhoras/status_horas',['uses'=>'DhorasController@status_horas','as'=>'admin.dhoras.status_horas']);
+		Route::get('dhoras/lista',[
+			'uses'	=>'DhorasController@lista',
+			'as'	=>'admin.dhoras.lista']);
+		Route::get('dhoras/list2excel',[
+			'uses'	=>	'DhorasController@List2Excel',
+			'as'	=>	'admin.dhoras.List2Excel']);
+		Route::get('dcursos/lista',[
+			'uses'=>'DcursosController@lista',
+			'as'=>'admin.dcursos.lista']);
+		Route::get('dcursos/list2excel',[
+			'uses'	=>	'DcursosController@List2Excel',
+			'as'	=>	'admin.dcursos.List2Excel']);
 	});
+	// Fin middleware 01, 09
 
 	//sólo pueden acceder usuarios con role_id 9
 	Route::group(['middleware' => ['roles:09']], function()
@@ -159,9 +139,25 @@ Route::group(['middleware' => ['auth']], function()
 
 		// Rutas ENVIOS
 		Route::get('envios/{data}/send',['uses'  => 'EnviosController@send','as'	=> 'admin.envios.send']);
+		Route::get('envios/testsend',['uses'  => 'EnviosController@testsend','as'	=> 'admin.envios.testsend']);
 		Route::get('envios/{user_id, tipo}/enviados',['uses'  => 'EnviosController@enviados','as'	=> 'admin.envios.enviados']);
 
+		Route::get('acciones/downdata',[
+				'uses'	=>	'AccionesController@DownData',
+				'as'	=>	'acciones.downdata'
+			]);
+
+		Route::get('importar/index',[
+				'uses'	=>	'ImportController@index',
+				'as'	=>	'import.index'
+			]);
+
+		Route::get('importar/{tipo}',[
+				'uses'	=>	'ImportController@updata',
+				'as'	=>	'import.updata'
+			]);
 	});
+	// Fin middleware 09
 	 
 	//http://localhost/roles_users_laravel/public/home/new_post
 	//sólo pueden acceder usuarios con role_id 3 y 9
@@ -179,6 +175,7 @@ Route::group(['middleware' => ['auth']], function()
 		Route::get('grupocursos/{id}/downorden',['uses'  => 'GrupoCursosController@downorden',
 			'as'	=> 'admin.grupocursos.downorden']);
 	});
+	// Fin middleware 03, 09
 	 
 	//http://localhost/roles_users_laravel/public/home/show_reply
 	//sólo pueden acceder usuarios con role_id 2, 3 y 9
@@ -214,6 +211,7 @@ Route::group(['middleware' => ['auth']], function()
 		Route::delete('dcursos/{dcursos}',['uses'=>'DcursosController@destroy','as'=>'admin.dcursos.destroy']);
 
 	});
+	// Fin middleware 02, 03, 09
 
 	//sólo pueden acceder usuarios con role_id 1, 2 y 3
 	Route::group(['middleware' => ['roles:01-02-03-09']], function()
@@ -230,6 +228,7 @@ Route::group(['middleware' => ['auth']], function()
 		Route::put('pdf/silaboCurso',['uses'  => 'PDFController@silaboCurso','as'	=> 'PDF.silaboCurso']);	
 	
 	});
+	// Fin middleware 01, 02, 03, 09
 
 
 

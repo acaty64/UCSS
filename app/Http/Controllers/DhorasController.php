@@ -70,9 +70,15 @@ class DhorasController extends Controller
         
         $franjas = Franja::get();
         $gfranjas = Franja::orderby('turno','ASC')->orderby('hora','ASC')->groupby('turno','hora')->get();
-        $dhoras = User::find($user_id)->dhora;
-        //$dhoras = $xhoras[0];
         $wdocente = User::find($user_id);
+        $dhoras = $wdocente->dhora;
+        if(empty($dhoras)){
+            $dhoras = new Dhora;
+            $dhoras->user_id = $wdocente->id;
+            $dhoras->cdocente = $wdocente->username;
+            $dhoras->save();
+        }
+        
         $sw_cambio = $this->sw_cambio($user_id, 'disp');
 
         return view('admin.dhoras.edit')
@@ -185,6 +191,14 @@ class DhorasController extends Controller
         return $sw_cambio;
     }
 
+    /* Lista las actualizaciones de disponibilidad de horas */
+    public function lista()
+    {
+        $lista = $this->status_horas();
+        return view('admin.dhoras.list')
+            ->with('lista', $lista);
+    } 
+
     public function status_horas()
     {
         // Lista los usuarios con lo siguiente:
@@ -203,29 +217,30 @@ class DhorasController extends Controller
                 'wdocente' => $user->wdocente($user->id) ]);
             $denvios = $user->denvios;
             foreach ($denvios as $denvio) {
-                if ($denvio->menvio->tipo == 'disp') {
+                if ($denvio->menvio->tipo == 'disp' 
+                        and $denvio->tipo == 'horas'
+                        and $denvio->sw_envio == '1') {
                     if($denvio->updated_at > $denvio->menvio->fenvio){
-                        $registro = $registro->merge([
-                                'user_denvio' => $denvio->id,
+                        $registro = $registro->merge([                                
                                 'sw_rpta' => $denvio->sw_rpta,
                                 'updated_at' => $denvio->updated_at->toDateString(),
-                                'tipo' => $denvio->menvio->tipo,
                                 'fenvio' => $denvio->menvio->fenvio,
                                 'flimite' => $denvio->menvio->flimite,
-                                'sw_actualizacion' => 'actualizado'
+                                'sw_actualizacion' => 'actualizado',
+                                'tipo' => $denvio->menvio->tipo,
+                                'user_denvio' => $denvio->id
                             ]);
                     }else{
                         $registro = $registro->merge([
-                                'user_denvio' => $denvio->id,
                                 'sw_rpta' => $denvio->sw_rpta,
                                 'updated_at' => $denvio->updated_at->toDateString(),
-                                'tipo' => $denvio->menvio->tipo,
                                 'fenvio' => $denvio->menvio->fenvio,
                                 'flimite' => $denvio->menvio->flimite,
-                                'sw_actualizacion' => 'PENDIENTE'
+                                'sw_actualizacion' => 'PENDIENTE',
+                                'tipo' => $denvio->menvio->tipo,
+                                'user_denvio' => $denvio->id
                             ]);
                     }
-
                     $xlista[$contador++] = $registro;
                 }
             }
@@ -243,18 +258,20 @@ class DhorasController extends Controller
         }
         $lista = collect($lista);
         $lista = $lista->sortBy('wdocente');
-        return view('admin.dhoras.lista')
-            ->with('lista', $lista);
+        return $lista;
     }
-    public function status_horas_XX()
-    {
-        // Lista los usuarios con lo siguiente:
-        //      Solicitado: fecha de envio
-        //      Limite: fecha limite
-        //      Respuesta: fecha de respuesta
-        $denvios = Denvio::all()
-            ->where('menvio.tipo','disp')
-            ->groupBy('user_id')->sortBy('menvio.fenvio');
-dd($denvios);
+
+    public function List2Excel()
+    {        
+        $lista = $this->status_horas();
+        $namefile = 'DispHoras_'.Carbon::now();
+        $now = Carbon::now();
+        $namefile = 'DH_'.$now->format('Y').'_'.$now->format('m').'_'.$now->format('d').'_'.$now->format('H').'_'.$now->format('i').'_'.$now->format('s');
+        Excel::create($namefile, function($excel) use($lista){
+            $excel->sheet('Disponibilidad Horaria', function($sheet) use($lista){
+                $sheet->fromArray($lista);
+            });
+        })->download('xls');
     }
+    
 }

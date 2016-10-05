@@ -9,7 +9,7 @@ class GrupoCurso extends Model
     protected $table = 'grupocursos';		
     protected $fillable = [		
     	//'semestre','cgrupo','ccurso'
-        'cgrupo','ccurso'	
+        'cgrupo','ccurso', 'sw_cambio'	
     ];
 
 /*    public function semestre()

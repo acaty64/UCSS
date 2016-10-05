@@ -21,6 +21,7 @@ class AddGrupocursosTable extends Migration
             //$table->integer('semestr_id')->unsigned();
             $table->integer('grupo_id')->unsigned();
             $table->integer('curso_id')->unsigned();
+            $table->boolean('sw_cambio');
             
             //$table->foreign('semestr_id')->references('id')->on('semestres')->onDelete('cascade');
             $table->foreign('grupo_id')->references('id')->on('grupos')->onDelete('cascade');

@@ -45,6 +45,7 @@
 	 					<a href="{{ route('admin.menvios.destroy', $envio->id) }}" onclick='return confirm("Está seguro de eliminar este envio?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar envio"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
 	 					@if($envio->envios != 0 and $envio->sw_envio == 0)
 	 						<a href="{{ route('admin.envios.send', $envio->id) }}" class="btn btn-success" data-toggle="tooltip" title="Enviar los correos electrónicos"><span class="glyphicon glyphicon-send" aria-hidden='true'></a>
+	 						<!-- a href="{{ route('admin.envios.testsend') }}" class="btn btn-danger" data-toggle="tooltip" title="TEST Enviar los correos electrónicos"><span class="glyphicon glyphicon-send" aria-hidden='true'></a -->
 	 					@endif
 	 				</td>
 	 						

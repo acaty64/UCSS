@@ -12,7 +12,9 @@
         "laracasts/flash": "^2.0",
         "nesbot/carbon": "~1.14",
         "barryvdh/laravel-dompdf": "0.6.*",
-        "barryvdh/laravel-debugbar": "^2.3"
+        "barryvdh/laravel-debugbar": "^2.3",
+        "maatwebsite/excel": "~2.1.0",
+        "themsaid/laravel-mail-preview": "^1.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

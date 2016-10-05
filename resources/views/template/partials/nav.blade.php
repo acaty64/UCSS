@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <img class="navbar-brand" src="/favicon.ico"></img>
+      <a href="http://ucss.edu.pe"><img class="navbar-brand" src="/favicon.ico"></img></a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
@@ -32,8 +32,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verificaciones<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a></a></li>
-                <li><a href="{{ route('admin.dhoras.status_horas') }}">Actualización de Disponibilidad Horaria</a></li>
-                <li><a href="#">Actualización de Disponibilidad de Cursos</a></li>
+                <li><a href="{{ route('admin.dhoras.lista') }}">Actualización de Disponibilidad Horaria</a></li>
+                <li><a href="{{ route('admin.dcursos.lista') }}">Actualización de Disponibilidad de Cursos</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Actualización de Datos Usuarios</a></li>
                 <li role="separator" class="divider"></li>
@@ -49,6 +49,9 @@
                 <li><a href="#">Requerimiento de Actualización de Datos</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="{{ route('admin.users.crypt',0) }}">Encriptar passwords</a></li>
+
+                <li><a href="{{ route('acciones.downdata') }}">Exportar información</a></li>
+                <li><a href="{{ route('import.index') }}">Importar información</a></li>
               </ul>
             </li>
           </ul> 

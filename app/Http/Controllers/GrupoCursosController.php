@@ -15,35 +15,32 @@ use Laracasts\Flash\Flash;
 class GrupoCursosController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Muestra los cursos para priorizar los docentes segun el grupo_id
      *
      * @return \Illuminate\Http\Response
      */
     public function index($grupo_id)
     {
-//        dd('GrupoCursosController.index');
         $grupo = Grupo::find($grupo_id);
-//dd($grupo);
         $cursos = Grupo::find($grupo_id)->grupocursos->all();
-//dd($cursos[0]->curso->wcurso);
         return view('admin.grupocursos.index')
                 ->with('grupo',$grupo)
                 ->with('cursos',$cursos);        
     }
 
+    /* Muestra los cursos para priorizar los docentes segun el user_id del responsable */
     public function index2($user_id)
     {
         $user = User::find($user_id);
         $grupo_id = $user->usergrupo->grupo_id;
-//dd($grupo_id);
-//        dd('GrupoCursosController.index');
+        $this->index($grupo_id);
+        /*
         $grupo = Grupo::find($grupo_id);
-//dd($grupo);
         $cursos = Grupo::find($grupo_id)->grupocursos->all();
-//dd($cursos[0]->curso->wcurso);
         return view('admin.grupocursos.index')
                 ->with('grupo',$grupo)
                 ->with('cursos',$cursos);        
+        */
     }
 
     /**
@@ -128,11 +125,6 @@ class GrupoCursosController extends Controller
             $dcurso->prioridad = $contador;
             $dcurso->save();
         }
-        
-//$xcursos = GrupoCurso::get();
-
-//        dd($dcursos);
-//        dd('GrupoCursosController.orden($grupo_id, $curso_id)');
         return view('admin.grupocursos.orden')
             ->with('dcursos', $dcursos);
 
@@ -144,9 +136,13 @@ class GrupoCursosController extends Controller
      * @param  $orden
      * @return index
      */
-    public function uporden($id)
+    public function uporden($dcurso_id)
     {
-        $dcurso = Dcurso::find($id);
+        // Recuperacion de datos
+        $dcurso = Dcurso::find($dcurso_id);
+        $curso = Curso::find($dcurso->curso_id);
+        $grupocurso_id = $curso->grupocurso->id;
+        // Procesamiento de datos
         $nact = $dcurso->prioridad;
         $usuarios = Dcurso::where('curso_id','=',$dcurso->curso_id)->orderBy('prioridad','ASC')->get();
         $ids = $usuarios->pluck('id');
@@ -162,13 +158,15 @@ class GrupoCursosController extends Controller
         $new = $new->merge($fin);
         // Grabacion de nuevo orden
         foreach ($new as $key => $id) {
-            //dd($key);
             $dcurso = Dcurso::find($id);
             $dcurso->prioridad = $key+1;
             $dcurso->save();
         }
+        // Grabación de sw_cambio en grupos
+        $grupocurso = GrupoCurso::find($grupocurso_id);
+        $grupocurso->sw_cambio = '1';
+        $grupocurso->save();
         return redirect()->back();
-        //dd('GrupoCursosController.uporden($orden)');
     }
 
     public function downorden($id)
