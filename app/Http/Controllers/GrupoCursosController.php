@@ -32,8 +32,16 @@ class GrupoCursosController extends Controller
     public function index2($user_id)
     {
         $user = User::find($user_id);
-        $grupo_id = $user->usergrupo->grupo_id;
-        $this->index($grupo_id);
+        $usergrupo = $user->usergrupo;
+        if (empty($usergrupo)) {
+            Flash::success('No se le ha asignado grupo de responsabilidad');
+            return redirect()->back();
+        }else{
+            $grupo_id = $usergrupo->grupo_id;
+            return redirect()->route('admin.grupocursos.index',$grupo_id);
+            //$this->index($grupo_id);
+        }
+        dd('index2 fuera del if');
         /*
         $grupo = Grupo::find($grupo_id);
         $cursos = Grupo::find($grupo_id)->grupocursos->all();
@@ -50,7 +58,7 @@ class GrupoCursosController extends Controller
      */
     public function create()
     {
-        dd('GrupoCursosController.create');
+        return view('errors.000');
     }
 
     /**
@@ -61,7 +69,7 @@ class GrupoCursosController extends Controller
      */
     public function store(Request $request)
     {
-        dd('GrupoCursosController.store ($request) ');
+        return view('errors.000');
     }
 
     /**
@@ -72,7 +80,7 @@ class GrupoCursosController extends Controller
      */
     public function show($id)
     {
-        dd('GrupoCursosController.show ($id)');
+        return view('errors.000');
     }
 
     /**
@@ -83,7 +91,7 @@ class GrupoCursosController extends Controller
      */
     public function edit($id)
     {
-        dd('GrupoCursosController.edit ($id)');
+        return view('errors.000');
     }
 
     /**
@@ -95,7 +103,7 @@ class GrupoCursosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd('GrupoCursosController.update($request, $id)');
+        return view('errors.000');
     }
 
     /**
@@ -106,7 +114,7 @@ class GrupoCursosController extends Controller
      */
     public function destroy($id)
     {
-        dd('GrupoCursosController.destroy($id)');
+        return view('errors.000');
     }
 
     /**

@@ -24,7 +24,7 @@ class DhorasController extends Controller
      */
     public function index()
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -34,7 +34,7 @@ class DhorasController extends Controller
      */
     public function create()
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -45,7 +45,7 @@ class DhorasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -56,7 +56,7 @@ class DhorasController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -151,7 +151,7 @@ class DhorasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return view('errors.000');
     }
 
     /* Identifica si tiene envio de disponibilidad pendiente */
@@ -201,6 +201,7 @@ class DhorasController extends Controller
 
     public function status_horas()
     {
+return view('errors.000');
         // Lista los usuarios con lo siguiente:
         //      Solicitado: fecha de envio
         //      Limite: fecha limite

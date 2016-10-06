@@ -40,7 +40,7 @@ class SemestresController extends Controller
      */
     public function store(SemestreRequest $request)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -51,7 +51,7 @@ class SemestresController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -62,7 +62,7 @@ class SemestresController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -74,7 +74,7 @@ class SemestresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -85,7 +85,7 @@ class SemestresController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return view('errors.000');
     }
 
     

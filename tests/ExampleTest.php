@@ -20,8 +20,8 @@ class ExampleTest extends TestCase
     public function test09()
     {
         $this->visit('/login')
-            ->type('000001', 'username')
-            ->type('123456', 'password')
+            ->type('000152', 'username')
+            ->type('000152', 'password')
             ->press('Acceder')
             ->seePageIs('home');
     }
@@ -62,7 +62,7 @@ class ExampleTest extends TestCase
     {
         $this->visit('/login')
             ->type('000006', 'username')
-            ->type('123456', 'password')
+            ->type('000006', 'password')
             ->press('Acceder')
             ->seePageIs('home')
             ->see('Datos Personales')
@@ -87,8 +87,8 @@ class ExampleTest extends TestCase
     public function test03()
     {
         $this->visit('/login')
-            ->type('000152', 'username')
-            ->type('123456', 'password')
+            ->type('000007', 'username')
+            ->type('000007', 'password')
             ->press('Acceder')
             ->seePageIs('home')
             ->see('Datos Personales')
@@ -109,8 +109,8 @@ class ExampleTest extends TestCase
     public function test01()
     {
         $this->visit('/login')
-            ->type('999999', 'username')
-            ->type('999999', 'password')
+            ->type('001419', 'username')
+            ->type('001419', 'password')
             ->press('Acceder')
             ->seePageIs('home')
             ->see('Datos Personales');

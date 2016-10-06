@@ -15,3 +15,4 @@
     </div>
 </div>
 @endsection
+@section('view','/welcome.blade.php')

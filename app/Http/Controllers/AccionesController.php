@@ -10,6 +10,6 @@ class AccionesController extends Controller
 {
     public function DownData()
     {
-    	dd('DownData');
+    	return view('errors.000');
     }
 }

@@ -13,7 +13,7 @@ Route::get('/init/{clave}', [
 
 Route::group(['middleware'=>['web']], function(){
 	Route::auth();
-	Route::get('/home', 'HomeController@index');
+	Route::get('/home','HomeController@index');
 });
 
 Route::get('auth/login',[
@@ -95,7 +95,7 @@ Route::group(['middleware' => ['auth']], function()
 		Route::get('grupocursos/{grupocursos}',['uses'=>'GrupoCursosController@show','as'=>'admin.grupocursos.show']);
 		Route::delete('grupocursos/{grupocursos}',['uses'=>'GrupoCursosController@destroy','as'=>'admin.grupocursos.destroy']);
 
-		Route::get('grupocursos/{grupo_id}/index',['uses'  => 'GrupoCursosController@index','as'	=> 'admin.grupocursos.index']);
+		
 		
 		// Rutas DATAUSERS
 		//Route::resource('datausers','DataUsersController');
@@ -168,6 +168,7 @@ Route::group(['middleware' => ['auth']], function()
 //	 	return "Como mínimo tu role debe ser responsable, tu eres " . getRole(Auth::user()->type);
 	 	// Rutas GRUPOCURSOS
 	    Route::get('grupocursos/{user_id}/index2',['uses'  => 'GrupoCursosController@index2','as'	=> 'admin.grupocursos.index2']);
+		Route::get('grupocursos/{grupo_id}/index',['uses'  => 'GrupoCursosController@index','as'	=> 'admin.grupocursos.index']);
 		Route::get('grupocursos/{curso_id}/orden',['uses'  => 'GrupoCursosController@orden',
 			'as'	=> 'admin.grupocursos.orden']);
 		Route::get('grupocursos/{id}/uporden',['uses'  => 'GrupoCursosController@uporden',
@@ -217,6 +218,7 @@ Route::group(['middleware' => ['auth']], function()
 	Route::group(['middleware' => ['roles:01-02-03-09']], function()
 //	Route::get('/home',array("before" => "roles:01-02-03-09,administrativo", function()
 	{
+
 		/*** RUTAS PDF *************************************/
 		// Ruta para imprimir en PDF
 		//Route::get('pdf', 'PdfController@invoice');
@@ -252,4 +254,6 @@ Route::get("logout", function()
 	Auth::logout();
 	return Redirect::to('login');
 });
+
+
 ?>

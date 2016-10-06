@@ -31,7 +31,7 @@ class GruposController extends Controller
      */
     public function create()
     {
-        dd('admin.grupos.create');
+        return view('errors.000');
     }
 
     /**
@@ -42,7 +42,7 @@ class GruposController extends Controller
      */
     public function store(Request $request)
     {
-        dd('admin.grupos.store (Request $request)');
+        return view('errors.000');
     }
 
     /**
@@ -53,7 +53,7 @@ class GruposController extends Controller
      */
     public function show($id)
     {
-        dd('admin.grupos.show($id)');
+        return view('errors.000');
     }
 
     /**
@@ -100,7 +100,7 @@ class GruposController extends Controller
      */
     public function update(Request $request, $id)
     {
-        dd('admin.grupos.update(Request $request, $id)');
+        return view('errors.000');
     }
 
     /**
@@ -111,6 +111,6 @@ class GruposController extends Controller
      */
     public function destroy($id)
     {
-        dd('admin.grupos.destroy($id)');
+        return view('errors.000');
     }
 }

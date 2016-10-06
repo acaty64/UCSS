@@ -26,7 +26,7 @@ class DcursosController extends Controller
      */
     public function index()
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -36,7 +36,7 @@ class DcursosController extends Controller
      */
     public function create()
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -47,7 +47,7 @@ class DcursosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -58,7 +58,7 @@ class DcursosController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('errors.000');
     }
 
 /*************************************************************************/  
@@ -200,7 +200,7 @@ class DcursosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return view('errors.000');
     }
 
     /* Identifica si tiene envio de disponibilidad pendiente */
@@ -243,6 +243,11 @@ class DcursosController extends Controller
     /* Lista las actualizaciones de disponibilidad de cursos */
     public function lista()
     {
+
+
+return view('errors.000');
+
+
         $lista = $this->status_cursos();
         return view('admin.dcursos.list')
             ->with('lista', $lista);
@@ -329,7 +334,8 @@ dd($xlista);
     }
 
     public function List2Excel()
-    {        
+    {
+return view('errors.000');        
         $lista = $this->status_horas();
         $namefile = 'DispCursos_'.Carbon::now();
         $now = Carbon::now();

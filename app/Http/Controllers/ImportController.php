@@ -24,6 +24,7 @@ class ImportController extends Controller
 	// IMPORTAR DATOS
     public function updata($tipo)
     {
+return view('errors.000');
 dd($tipo);
     	if ($tipo == 'dcursos') {
 	    	Excel::load('/CSV/dcursos.csv', function($reader) {

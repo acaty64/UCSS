@@ -28,6 +28,7 @@ class EnviosController extends Controller
      */
     public function send($id)
     {
+return view('errors.000');
     //dd('No envia con el correo de .env');
         $dias = array("domingo","lunes","martes","mi&eacute;rcoles","jueves","viernes","s&aacute;bado");
         $contador_xx = 0;

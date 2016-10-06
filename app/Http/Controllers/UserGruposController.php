@@ -33,7 +33,7 @@ class UserGruposController extends Controller
      */
     public function create()
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserGruposController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -55,7 +55,7 @@ class UserGruposController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('errors.000');
     }
 
     /**

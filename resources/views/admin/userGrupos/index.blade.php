@@ -18,7 +18,7 @@
  				<tr>
 	 				<td>{{ $user->id }}</td>
 	 				<td>{{ $user->username }}</td>
-	 				<td>{{ $user->wdoc1 }}</td>
+	 				<td>{{ $user->wdocente($user->id) }}</td>
 	 				<td>@if (empty($user->usergrupo->grupo->wgrupo))	
 	 						<div class='label label-danger'>ASOCIE UN GRUPO</div>
 	 					@else 

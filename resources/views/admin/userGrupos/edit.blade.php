@@ -1,6 +1,6 @@
 @extends('template.main')
 
-@section('title','Designar Grupo Responsable '.$usergrupo->user->wdoc1." : Código ".$usergrupo->user->username)
+@section('title','Designar Grupo Responsable '.$usergrupo->user->wdocente($usergrupo->user->id)." : Código ".$usergrupo->user->username)
 
 @section('content')
 	{!! Form::model($usergrupo, array('route' => array('admin.usergrupos.update', $usergrupo->user_id), 'method' => 'PUT')) !!}

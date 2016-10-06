@@ -18,7 +18,7 @@ class DatausersController extends Controller
      */
     public function index()
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -46,7 +46,7 @@ class DatausersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -57,7 +57,7 @@ class DatausersController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('errors.000');
     }
 
     /**
@@ -97,6 +97,6 @@ class DatausersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return view('errors.000');
     }
 }
