@@ -243,10 +243,7 @@ class DcursosController extends Controller
     /* Lista las actualizaciones de disponibilidad de cursos */
     public function lista()
     {
-
-
 return view('errors.000');
-
 
         $lista = $this->status_cursos();
         return view('admin.dcursos.list')

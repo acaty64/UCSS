@@ -194,6 +194,7 @@ class DhorasController extends Controller
     /* Lista las actualizaciones de disponibilidad de horas */
     public function lista()
     {
+return view('errors.000');
         $lista = $this->status_horas();
         return view('admin.dhoras.list')
             ->with('lista', $lista);
@@ -264,6 +265,7 @@ return view('errors.000');
 
     public function List2Excel()
     {        
+return view('errors.000');
         $lista = $this->status_horas();
         $namefile = 'DispHoras_'.Carbon::now();
         $now = Carbon::now();

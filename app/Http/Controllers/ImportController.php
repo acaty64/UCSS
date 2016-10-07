@@ -13,6 +13,7 @@ class ImportController extends Controller
 {
 	public function index()
 	{	
+return view('errors.000');
 		$tipos =[
 			'usuarios'	=> 'Usuarios',
 			'dhoras'	=> 'Disponibilidad de Horarios',
