@@ -53,12 +53,12 @@ class User extends Authenticatable
 
     public function dcursos()
     {
-         return $this->hasMany('App\Dcurso');
+         return $this->hasMany('App\DCurso');
     }
 
     public function dhora()
     {
-         return $this->hasOne('App\Dhora');
+         return $this->hasOne('App\DHora');
     }
 
     public function denvios()
