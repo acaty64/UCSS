@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a href="http://ucss.edu.pe"><img class="navbar-brand" src="/favicon.ico"></img></a>
+      <a href="http://ucss.edu.pe"  target="_blank"><img class="navbar-brand" src="{{asset('favicon.ico')}}" ></img></a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     

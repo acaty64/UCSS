@@ -33,8 +33,8 @@
         <div class="container">
             <div class="navbar-header">
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="http://www.ucss.edu.pe" >
-                    <img src="/logo-ucss.png" width="40%"></img>
+                <a class="navbar-brand" href="http://www.ucss.edu.pe"  target="_blank">
+                    <img src="{{asset('logo-ucss.png')}}" width="40%"></img>
                 </a>
             </div>
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
