@@ -30,8 +30,11 @@ class PdfController extends Controller
 //        dd($curso->wcurso);
         $filename = $curso->ccurso.'.pdf';
 //dd($filename);
-    //    $arch_pdf = storage_path() . "/PDF/silabos/" . $filename;
-        $arch_pdf = '/pdf/silabos/'. $filename;
+        $arch_pdf = asset('pdf\silabos\\').$filename;
+//dd($path);
+
+    //    $arch_pdf = storage_path() . "\pdf\silabos\\" . $filename;
+//        $arch_pdf = '/pdf/silabos/'. $filename;
 //dd($arch_pdf);
         return view('pdf.silabo')
             ->with('arch_pdf',$arch_pdf)
