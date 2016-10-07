@@ -17,7 +17,7 @@ class PdfController extends Controller
     	$view_user = User::find($user_id)->toArray();
         $datauser = User::find($user_id)->datauser()->get()->toArray();
 //dd($datauser);
-    	$view = \View::make('PDF.usuario', compact('view_user','datauser'))->render();
+    	$view = \View::make('pdf.usuario', compact('view_user','datauser'))->render();
     	$pdf = \App::make('dompdf.wrapper');
         $pdf->loadHTML($view);
         return $pdf->stream('usuario');
@@ -31,7 +31,7 @@ class PdfController extends Controller
         $filename = $curso->ccurso.'.pdf';
 //dd($filename);
     //    $arch_pdf = storage_path() . "/PDF/silabos/" . $filename;
-        $arch_pdf = '/PDF/silabos/'. $filename;
+        $arch_pdf = '/pdf/silabos/'. $filename;
 //dd($arch_pdf);
         return view('pdf.silabo')
             ->with('arch_pdf',$arch_pdf)
