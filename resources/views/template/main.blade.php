@@ -32,7 +32,7 @@
 		@include('template.partials.footer')
 	</div>
 	<div class="panel-footer">
-		@yield('view','Vista')
+		@yield('view','Archivo view')
 	</div>
 </body>
 </html>

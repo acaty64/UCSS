@@ -228,7 +228,10 @@ Route::group(['middleware' => ['auth']], function()
 		Route::get('pdf/{id}/usuario',['uses'  => 'PDFController@usuario','as'	=> 'PDF.usuario']);
 
 		Route::put('pdf/silaboCurso',['uses'  => 'PDFController@silaboCurso','as'	=> 'PDF.silaboCurso']);	
-	
+
+		/*** RUTAS CARGA HORARIA ******************************/
+		Route::get('horarios/show',['uses'=>'HorariosController@show','as'=>'admin.horario.show']
+		);
 	});
 	// Fin middleware 01, 02, 03, 09
 

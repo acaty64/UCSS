@@ -39,16 +39,7 @@ class GrupoCursosController extends Controller
         }else{
             $grupo_id = $usergrupo->grupo_id;
             return redirect()->route('admin.grupocursos.index',$grupo_id);
-            //$this->index($grupo_id);
         }
-        dd('index2 fuera del if');
-        /*
-        $grupo = Grupo::find($grupo_id);
-        $cursos = Grupo::find($grupo_id)->grupocursos->all();
-        return view('admin.grupocursos.index')
-                ->with('grupo',$grupo)
-                ->with('cursos',$cursos);        
-        */
     }
 
     /**
@@ -101,9 +92,34 @@ class GrupoCursosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $grupo_id)
     {
-        return view('errors.000');
+        $grupo = Grupo::find($grupo_id);
+        // Elimina los cursos sobrantes
+        $grupocursos = Grupo::find($grupo_id)->grupocursos;
+        $array = $request->cursos;
+        foreach ($grupocursos as $grupocurso) {
+            $curso_id = $grupocurso->curso_id;
+            $seek = array_search($curso_id, $array);
+            if(!$seek){
+                $grupocurso->delete();
+            }
+        }
+        // Agrega los cursos faltantes 
+        $grupocursos = Grupo::find($grupo_id)->grupocursos;
+        $array = $request->cursos;
+        foreach ($array as $key => $value) {
+//            dd($value);
+            $curso = Curso::find($value);
+            $grupocurso = new GrupoCurso;
+            $grupocurso->cgrupo = $grupo->cgrupo;
+            $grupocurso->ccurso = $curso->ccurso;
+            $grupocurso->grupo_id = $grupo->id;
+            $grupocurso->curso_id = $curso->id;
+            $grupocurso->save();
+        }
+        Flash::success('Actualización realizada con éxito');
+        return redirect()->back();
     }
 
     /**

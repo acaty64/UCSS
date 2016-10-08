@@ -72,6 +72,7 @@
                 <li><a href="{{ route('admin.dcursos.edit', Auth::user()->id) }}">Cursos</a></li>
               </ul>
             </li>
+            <li><a href="{{ route('admin.horario.show') }}">Carga Asignada</a></li>
             @if(Auth::user()->type == '03')
               <li><a href="{{ route('admin.grupocursos.index2', Auth::user()->id) }}">Prioridad Docentes</a></li>
             @endif
