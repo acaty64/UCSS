@@ -24,8 +24,7 @@
  			<th>Tipo</th>
  			<th>Acción</th>
  		</thead>
- 		<tbody>
- 			
+ 		<tbody> 			
  			@foreach($users as $user)
  				<tr>
 	 				<td>{{ $user->id }}</td>
@@ -56,8 +55,7 @@
 		 					<a href="{{ route('admin.dhoras.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad Horaria"><span class="glyphicon glyphicon-calendar" aria-hidden='true'></span></a>
 
 		 					<a href="{{ route('admin.dcursos.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad de Cursos"><span class="glyphicon glyphicon-list-alt" aria-hidden='true'></span></a>
-		 				@endif
-	 					
+		 				@endif	 					
 	 					<a href="{{ route('PDF.usuario', $user->id) }}" class="btn btn-primary" data-toggle="tooltip" title="Ver PDF" name="Ver PDF"><span class="glyphicon glyphicon-eye-open" aria-hidden='true'></span></a>
 	 					<!--MODELO INVOICE Route::get('pdf', 'PdfController@invoice'); -->
 	 					<!-- route('pdf', 'PDFController@invoice') -->

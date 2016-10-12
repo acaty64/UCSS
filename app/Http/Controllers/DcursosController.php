@@ -243,8 +243,6 @@ class DcursosController extends Controller
     /* Lista las actualizaciones de disponibilidad de cursos */
     public function lista()
     {
-return view('errors.000');
-
         $lista = $this->status_cursos();
         return view('admin.dcursos.list')
             ->with('lista', $lista);
@@ -273,9 +271,6 @@ return view('errors.000');
             $denvios = Denvio::where('user_id','=',$user->id)
                         ->where('tipo', '=', 'cursos')
                         ->where('sw_envio', '=', '1')->get();
-            if($user->id == 10){
-dd($denvios);
-            }
             if ($denvios->count() == 0) {
                 $registro = $registro->merge([
                     'sw_actualizacion' => 'NO COMUNICADO',
@@ -313,7 +308,7 @@ dd($denvios);
             }
         }
         $xlista = collect($xlista);
-dd($xlista);
+//dd($xlista);
         // Selecciona el ultimo envio modificado
         // $lista: Lista de registros a visualizar
         $lista = [];
@@ -331,8 +326,7 @@ dd($xlista);
     }
 
     public function List2Excel()
-    {
-return view('errors.000');        
+    {   
         $lista = $this->status_horas();
         $namefile = 'DispCursos_'.Carbon::now();
         $now = Carbon::now();

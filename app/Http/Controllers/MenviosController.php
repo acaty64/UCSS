@@ -13,7 +13,7 @@ use App\Menvio;
 use App\Denvio;
 use App\User;
 use Laracasts\Flash\Flash;
-
+ 
 class MenviosController extends Controller
 {
     /**
@@ -229,11 +229,9 @@ class MenviosController extends Controller
                 }
                 $denvio->save();
                 // Actualiza la marca de detalles de envios CURSOS (es un solo registro)
-                $envio_curso = Denvio::where('user_id','=',$id)
-                                ->where('tipo','=','cursos')
-                                ->where('menvio_id','=',$id->menvio_id)->get();
+                $envio_curso = Denvio::where('id','=',$id)->get();
                 foreach ($envio_curso as $envio) {
-                    $envio->sw_envio = '1';
+                    $envio->sw_envio = $value;
                     $envio->save();
                 }
             }
@@ -321,7 +319,7 @@ class MenviosController extends Controller
         {
             foreach ($Menvios as $Menvio) 
             {
-                $Denvios = $Menvio->denvios()->get();
+                $Denvios = $Menvio->denvios;
                 $envios = 0;
                 if ($Denvios->isEmpty() == false)
                 { 

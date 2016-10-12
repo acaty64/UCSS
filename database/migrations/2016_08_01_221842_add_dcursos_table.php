@@ -16,7 +16,7 @@ class AddDcursosTable extends Migration
             $table->increments('id');
             //$table->string('semestre',6);
             $table->string('ccurso',6);
-            //$table->string('cdocente',6);
+            $table->string('cdocente',6);
             //$table->integer('orden');
             $table->integer('prioridad');
             $table->boolean('sw_cambio');

@@ -141,7 +141,7 @@ Route::group(['middleware' => ['auth']], function()
 		Route::get('envios/{data}/send',['uses'  => 'EnviosController@send','as'	=> 'admin.envios.send']);
 		Route::get('envios/testsend',['uses'  => 'EnviosController@testsend','as'	=> 'admin.envios.testsend']);
 		Route::get('envios/{user_id, tipo}/enviados',['uses'  => 'EnviosController@enviados','as'	=> 'admin.envios.enviados']);
-
+		// Rutas para importacion/exportacion
 		Route::get('acciones/downdata',[
 				'uses'	=>	'AccionesController@DownData',
 				'as'	=>	'acciones.downdata'
@@ -152,10 +152,11 @@ Route::group(['middleware' => ['auth']], function()
 				'as'	=>	'import.index'
 			]);
 
-		Route::get('importar/{tipo}',[
+		Route::post('importar/updata',[
 				'uses'	=>	'ImportController@updata',
 				'as'	=>	'import.updata'
 			]);
+
 	});
 	// Fin middleware 09
 	 

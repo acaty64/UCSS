@@ -48,10 +48,10 @@
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Requerimiento de Actualización de Datos</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="{{ route('admin.users.crypt',0) }}">Encriptar passwords</a></li>
-
                 <li><a href="{{ route('acciones.downdata') }}">Exportar información</a></li>
                 <li><a href="{{ route('import.index') }}">Importar información</a></li>
+                <li role="separator" class="divider"></li>
+                <li><a href="{{ route('admin.users.crypt',0) }}">Encriptar passwords</a></li>
               </ul>
             </li>
           </ul> 

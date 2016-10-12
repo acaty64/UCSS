@@ -27,7 +27,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
 //    use Sluggable;
-
+    protected $table = 'users';
     protected $fillable = [
         'username', 
         'wdoc1',

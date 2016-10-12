@@ -168,6 +168,7 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Themsaid\MailPreview\MailPreviewServiceProvider::class,
         
+        
     ],
 
     /*
@@ -216,11 +217,12 @@ return [
         /*
         * Aliases personales
         */
-        'Form' => Collective\Html\FormFacade::class,
-        'Html' => Collective\Html\HtmlFacade::class,
-        'Flash'=> Laracasts\Flash\Flash::class,
-        'PDF' => Barryvdh\DomPDF\Facade::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+        'Form'      => Collective\Html\FormFacade::class,
+        'Html'      => Collective\Html\HtmlFacade::class,
+        'Flash'     => Laracasts\Flash\Flash::class,
+        'PDF'       => Barryvdh\DomPDF\Facade::class,
+        'Debugbar'  => Barryvdh\Debugbar\Facade::class,
+        'Excel'     => Maatwebsite\Excel\Facades\Excel::class,
+        
     ]
 ];

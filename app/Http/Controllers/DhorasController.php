@@ -194,7 +194,7 @@ class DhorasController extends Controller
     /* Lista las actualizaciones de disponibilidad de horas */
     public function lista()
     {
-return view('errors.000');
+//return view('errors.000');
         $lista = $this->status_horas();
         return view('admin.dhoras.list')
             ->with('lista', $lista);
@@ -202,7 +202,7 @@ return view('errors.000');
 
     public function status_horas()
     {
-return view('errors.000');
+//return view('errors.000');
         // Lista los usuarios con lo siguiente:
         //      Solicitado: fecha de envio
         //      Limite: fecha limite
@@ -218,32 +218,45 @@ return view('errors.000');
                 'username' => $user->username,
                 'wdocente' => $user->wdocente($user->id) ]);
             $denvios = $user->denvios;
-            foreach ($denvios as $denvio) {
-                if ($denvio->menvio->tipo == 'disp' 
-                        and $denvio->tipo == 'horas'
-                        and $denvio->sw_envio == '1') {
-                    if($denvio->updated_at > $denvio->menvio->fenvio){
-                        $registro = $registro->merge([                                
-                                'sw_rpta' => $denvio->sw_rpta,
-                                'updated_at' => $denvio->updated_at->toDateString(),
-                                'fenvio' => $denvio->menvio->fenvio,
-                                'flimite' => $denvio->menvio->flimite,
-                                'sw_actualizacion' => 'actualizado',
-                                'tipo' => $denvio->menvio->tipo,
-                                'user_denvio' => $denvio->id
-                            ]);
-                    }else{
-                        $registro = $registro->merge([
-                                'sw_rpta' => $denvio->sw_rpta,
-                                'updated_at' => $denvio->updated_at->toDateString(),
-                                'fenvio' => $denvio->menvio->fenvio,
-                                'flimite' => $denvio->menvio->flimite,
-                                'sw_actualizacion' => 'PENDIENTE',
-                                'tipo' => $denvio->menvio->tipo,
-                                'user_denvio' => $denvio->id
-                            ]);
+            if($denvios->count() == 0) {
+                $registro = $registro->merge([
+                    'sw_rpta' => '',
+                    'updated_at' => '',
+                    'fenvio' => '',
+                    'flimite' => '',
+                    'sw_actualizacion' => 'no comunicado',
+                    'tipo' => '',
+                    'user_denvio' => ''
+                ]);
+                $xlista[$contador++] = $registro;
+            }else{
+                foreach ($denvios as $denvio) {
+                    if ($denvio->menvio->tipo == 'disp' 
+                            and $denvio->tipo == 'horas'
+                            and $denvio->sw_envio == '1') {
+                        if($denvio->updated_at > $denvio->menvio->fenvio){
+                            $registro = $registro->merge([
+                                    'sw_rpta' => $denvio->sw_rpta,
+                                    'updated_at' => $denvio->updated_at->toDateString(),
+                                    'fenvio' => $denvio->menvio->fenvio,
+                                    'flimite' => $denvio->menvio->flimite,
+                                    'sw_actualizacion' => 'actualizado',
+                                    'tipo' => $denvio->menvio->tipo,
+                                    'user_denvio' => $denvio->id
+                                ]);
+                        }else{
+                            $registro = $registro->merge([
+                                    'sw_rpta' => $denvio->sw_rpta,
+                                    'updated_at' => $denvio->updated_at->toDateString(),
+                                    'fenvio' => $denvio->menvio->fenvio,
+                                    'flimite' => $denvio->menvio->flimite,
+                                    'sw_actualizacion' => 'PENDIENTE',
+                                    'tipo' => $denvio->menvio->tipo,
+                                    'user_denvio' => $denvio->id
+                                ]);
+                        }
+                        $xlista[$contador++] = $registro;
                     }
-                    $xlista[$contador++] = $registro;
                 }
             }
         }
@@ -264,8 +277,7 @@ return view('errors.000');
     }
 
     public function List2Excel()
-    {        
-return view('errors.000');
+    {       
         $lista = $this->status_horas();
         $namefile = 'DispHoras_'.Carbon::now();
         $now = Carbon::now();
