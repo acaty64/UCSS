@@ -35,7 +35,7 @@ class MenviosController extends Controller
         $hora_ini = substr(Carbon::now()->format('H:i:s'),0,2)+1;
         $hora_fin = 24;
         */
-        $Menvios = Menvio::orderBy('fenvio', 'DESC')->paginate(6);
+        $Menvios = Menvio::orderBy('id', 'DESC')->paginate(6);
         return view('admin.envios.index')
             ->with('Menvios', $Menvios);
         //    ->with('hora_ini',$hora_ini)
@@ -170,9 +170,7 @@ class MenviosController extends Controller
         $updated_at = $menvio->created_at;
         if($denvios->isEmpty())
         {
-            $users = User::orderBy('wdoc2','ASC')
-                    ->orderBy('wdoc3','ASC')
-                    ->orderBy('wdoc1','ASC')->get();
+            $users = User::orderBy('wdoc2','ASC')->get();
             foreach ($users as $user) {
                 $denvio = new Denvio;
                 $denvio->user_id = $user->id;
@@ -184,6 +182,7 @@ class MenviosController extends Controller
                 if ($tipo = 'disp') {
                     $denvio->tipo = 'horas';
                     $denvio->save();
+                    // Graba registro 'cursos'
                     $denvio_c = new Denvio;
                     $denvio_c->fill($denvio->toArray());
                     $denvio_c->tipo = 'cursos';
@@ -196,9 +195,9 @@ class MenviosController extends Controller
             }
         }
         if ($tipo = 'disp') {
-            $denvios = Denvio::Stipo(['menvio_id'=>$id, 'type'=>'horas'])->paginate(10);
+            $denvios = Denvio::Stipo(['menvio_id'=>$id, 'type'=>'horas'])->orderBy('id','ASC')->paginate(10);
         }else{
-            $denvios = Menvio::find($id)->denvios->Stipo('carga')->paginate(10);
+            $denvios = Menvio::find($id)->denvios->Stipo('carga')->orderBy('id','ASC')->paginate(10);
         }
         //    dd($denvios);
         // Enviar a la vista send los denvios
@@ -228,8 +227,9 @@ class MenviosController extends Controller
                     $contador10++;
                 }
                 $denvio->save();
-                // Actualiza la marca de detalles de envios CURSOS (es un solo registro)
-                $envio_curso = Denvio::where('id','=',$id)->get();
+                // Actualiza la marca de detalles de envios CURSOS
+                $envio_curso = Denvio::where('user_id','=',$denvio->user_id)
+                    ->where('menvio_id','=',$denvio->menvio_id)->get();
                 foreach ($envio_curso as $envio) {
                     $envio->sw_envio = $value;
                     $envio->save();
@@ -320,59 +320,27 @@ class MenviosController extends Controller
             foreach ($Menvios as $Menvio) 
             {
                 $Denvios = $Menvio->denvios;
-                $envios = 0;
+                $envio1 = 0;
+                $envio2 = 0;
                 if ($Denvios->isEmpty() == false)
                 { 
                     foreach ($Denvios as $Denvio) 
                     {
-                        $envios = $envios + $Denvio->sw_envio;
+                        if ($Denvio->tipo == 'cursos') {
+                            $envio2 = $envio2 + $Denvio->sw_envio;
+                        }else{
+                            $envio1 = $envio1 + $Denvio->sw_envio;    
+                        }
                     }
                 }
                 $xEnvio = Menvio::find($Menvio->id);
-                if ($Menvio->tipo == 'disp') {
-                    $envios = $envios/2;
-                }
-                $xEnvio->envios = $envios;
+                $xEnvio->envio1 = $envio1;
+                $xEnvio->envio2 = $envio2;
                 $xEnvio->save();
             }  
         }           
     }
 
-    /**
-     * TRANSFIERE LAS RESPUESTAS DE LAS TABLAS DEFINIDAS EN MENVIOS A LOS REGISTROS DE DENVIOS
-     *
-     * @param  MenviosController.index()
-     */
-    public function tfcia_rptas()
-    {
-        // Selecciona todos los Menvios
-        $Menvios = Menvio::all();
-        if ($Menvios->isEmpty() == false) 
-        {
-            // Por cada Menvio
-            foreach ($Menvios as $Menvio) 
-            {
-                $xfenvio = $Menvio->fenvio;
-                $xflimite = $Menvio->flimite;
-                $xrptas = DB::table($Menvio->tablename)
-                        ->where( 'updated_at' , '>' , $xfenvio )
-                        ->where( 'updated_at' , '<' , $xflimite )
-                        ->get();
-                foreach ($xrptas as $xrpta) 
-                {
-                    $xDenvio = Denvio::where( 'user_id' , '=' , $xrpta->user_id )
-                        ->where('menvio_id' , '=' , $Menvio->id)->get();
-                    if ($xDenvio->isEmpty() == false ) 
-                    {
-                        $xxDenvio = Denvio::find($xDenvio[0]->id);
-                        $xxDenvio->sw_rpta = 1;
-                        $xxDenvio->save();
-                    }
-                }
-
-            }
-        } 
-    }
 
     /**
      * RECUENTA LAS RESPUESTAS DE LOS DETALLES DE ENVIOS
@@ -387,22 +355,25 @@ class MenviosController extends Controller
             foreach ($Menvios as $Menvio) 
             {
                 $Denvios = $Menvio->denvios()->get();
-                $rptas = 0;
+                $rpta1 = 0;
+                $rpta2 = 0;
                 if ($Denvios->isEmpty() == false) 
                 {
                     foreach ($Denvios as $Denvio) 
                     {
-                        $rptas = $rptas + $Denvio->sw_rpta;
+                        if ($Denvio->tipo == 'cursos') {
+                            $rpta2 = $rpta2 + $Denvio->sw_rpta;
+                        }else{
+                            $rpta1 = $rpta1 + $Denvio->sw_rpta;
+                        }
                     }
                 }
                 $xEnvio = Menvio::find($Menvio->id);
-                $xEnvio->rptas = $rptas;
+                $xEnvio->rpta1 = $rpta1;
+                $xEnvio->rpta2 = $rpta2;
                 $xEnvio->save();
             }    
         }
     }
-
-
-
 
 }

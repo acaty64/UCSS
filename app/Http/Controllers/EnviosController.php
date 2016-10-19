@@ -39,33 +39,38 @@ class EnviosController extends Controller
                 $contador_xx++;
                 $correo->delete();     
             }else{
-                $contador++;
-                // Define información según tipo de envío.                   
-                if ($correo->Menvio->tipo='disp') {
-                    $data=array('flimite'=>$correo->menvio->flimite,
-                        'dlimite'=>$dias[date("w")],
-                        'wdocente'=>$correo->user->wDocente($correo->user->id),
-                        'username'=>$correo->user->username );
-                    $blade = 'admin.envios.email_01';
-                }elseif($correo->Menvio->tipo='hora'){
-///////////////////////////////////////
-                    $data = 'FALTA DEFINIR DATA PARA ENVIAR AL BLADE';
-                    
-                    $blade = 'admin.envios.email_02';
-                }
-                // Enviar correo
-                try{
-                    Mail::send('admin.envios.email_test', $data, function ($message) use($correo) {
-                        // MODIFICAR AL CORREGIR TABLA USERS: $correo->user->wdocente($correo->user->id)
-                        $message->from(config('mail.username'), \Auth::user()->wDocente(\Auth::user()->id))
-                            ->to($correo->email_to, $correo->user->wdoc1)
-                            ->subject($correo->menvio->tx_need);
-                    });
-                    $this->enviado($correo);
-                } catch(Swift_SwiftException $e) {
-///////////////////////////////////////
-                    // *********** ERROR DE ENVIO DE CORREO ELECTRONICO ***********
-                        dd($e);
+                // Los correos cursos no se envian (son Menvio->tipo == 'disp')
+                if($correo != 'cursos')     
+                {                
+                    // Define información según tipo de envío.                   
+                    if ($correo->tipo='horas') {
+                        $data=array('flimite'=>$correo->menvio->flimite,
+                            'dlimite'=>$dias[date("w")],
+                            'wdocente'=>$correo->user->wDocente($correo->user->id),
+                            'username'=>$correo->user->username );
+                        $blade = 'admin.envios.email_01';
+                        $contador++;
+                    }elseif($correo->tipo='carga'){
+    ///////////////////////////////////////
+                        $data = 'FALTA DEFINIR DATA PARA ENVIAR AL BLADE';
+                        
+                        $blade = 'admin.envios.email_02';
+                        $contador++;
+                    }
+                    // Enviar correo
+                    try{
+                        Mail::send('admin.envios.email_test', $data, function ($message) use($correo) {
+                            // MODIFICAR AL CORREGIR TABLA USERS: $correo->user->wdocente($correo->user->id)
+                            $message->from(config('mail.username'), \Auth::user()->wDocente(\Auth::user()->id))
+                                ->to($correo->email_to, $correo->user->wdoc1)
+                                ->subject($correo->menvio->tx_need);
+                        });
+                        $this->enviado($correo);
+                    } catch(Swift_SwiftException $e) {
+    ///////////////////////////////////////
+                        // *********** ERROR DE ENVIO DE CORREO ELECTRONICO ***********
+                            dd($e);
+                    }
                 }
             }
         }

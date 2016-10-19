@@ -167,8 +167,8 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Themsaid\MailPreview\MailPreviewServiceProvider::class,
-        
-        
+        Spatie\Backup\BackupServiceProvider::class,
+        BackupManager\Laravel\Laravel5ServiceProvider::class,
     ],
 
     /*

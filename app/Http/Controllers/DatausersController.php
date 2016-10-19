@@ -79,14 +79,15 @@ class DatausersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
+        $id = $request->id;
         $DataUser = DataUser::find($id);
         $DataUser->fill($request->all());
         $DataUser->save();
 
-        Flash::warning('Se ha modificado el registro: '.$DataUser->user->id.' código:'.$DataUser->user->username.' de forma exitosa');
-        return redirect()->route('admin.datausers.edit', $DataUser);
+        Flash('Se ha modificado el registro: '.$DataUser->user->id.' código:'.$DataUser->user->username.' de forma exitosa','success');
+        return redirect()->back();
     }
 
     /**

@@ -52,6 +52,26 @@ return [
             'prefix' => '',
         ],
 
+        'sqlite_test' => [
+            'driver' => 'sqlite',
+            'database' => storage_path('database.sqlite'),
+            'prefix' => '',
+        ],
+
+        'mysql_test' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'test',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
+        ],
+
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
@@ -64,6 +84,7 @@ return [
             'prefix' => '',
             'strict' => false,
             'engine' => null,
+            'dump_command_path' => env('DB_MYSQLDUMP', ''),
         ],
 
         'pgsql' => [

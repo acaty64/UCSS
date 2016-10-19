@@ -1,6 +1,6 @@
 @extends('template.main')
  
-@section('title','Lista de Actualizaciones de Horas Disponibles')
+@section('title','Lista de Actualizaciones de Horarios Disponibles')
 
 @section('content')
 	<a href="{{ route('admin.dhoras.List2Excel') }}" class="btn btn-info">Exportar a Excel</a>

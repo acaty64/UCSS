@@ -16,9 +16,11 @@ class AddMenviosTable extends Migration
             $table->increments('id');
             $table->date('fenvio');
             $table->date('flimite');
-            $table->string('tx_need');
-            $table->integer('envios');
-            $table->integer('rptas');
+            $table->string('tx_need',100);
+            $table->integer('envio1');
+            $table->integer('envio2');
+            $table->integer('rpta1');
+            $table->integer('rpta2');
             $table->string('tipo', 4);
             $table->string('tablename', 20);
             $table->boolean('sw_envio');
@@ -34,6 +36,6 @@ class AddMenviosTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('menvios');
     }
 }

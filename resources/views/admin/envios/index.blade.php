@@ -30,10 +30,16 @@
  						{{ $envio->flimite }}
  					</td>
  					<td>
- 						 <span class="badge">{{ $envio->envios }}</span>
+ 						 <span class="badge">{{ $envio->envio1 }}</span>
+ 						 @if($envio->tipo == 'disp')
+ 						 	<span class="badge">{{ $envio->envio2 }}</span>
+ 						 @endif
  					</td>
  					<td>
- 						<span class="badge">{{ $envio->rptas }}</span>
+ 						<span class="badge">{{ $envio->rpta1 }}</span>
+ 						@if($envio->tipo == 'disp')
+ 						 	<span class="badge">{{ $envio->rpta2 }}</span>
+ 						@endif
  					</td>
 	 				<td>
 	 					@if($envio->sw_envio == 0)
@@ -43,7 +49,7 @@
 	 						<a href="{{ route('admin.menvios.show', $envio->id ) }}" class="btn btn-primary" data-toggle="tooltip" title="Ver Docentes Comunicados"><span class="glyphicon glyphicon-eye-open" aria-hidden='true'></span></a>
 	 					@endif
 	 					<a href="{{ route('admin.menvios.destroy', $envio->id) }}" onclick='return confirm("Está seguro de eliminar este envio?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar envio"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
-	 					@if($envio->envios != 0 and $envio->sw_envio == 0)
+	 					@if($envio->envio1 > 0 and $envio->sw_envio == 0)
 	 						<a href="{{ route('admin.envios.send', $envio->id) }}" class="btn btn-success" data-toggle="tooltip" title="Enviar los correos electrónicos"><span class="glyphicon glyphicon-send" aria-hidden='true'></a>
 	 						<!-- a href="{{ route('admin.envios.testsend') }}" class="btn btn-danger" data-toggle="tooltip" title="TEST Enviar los correos electrónicos"><span class="glyphicon glyphicon-send" aria-hidden='true'></a -->
 	 					@endif

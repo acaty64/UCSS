@@ -32,8 +32,8 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Verificaciones<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a></a></li>
-                <li><a href="{{ route('admin.dhoras.lista') }}">Actualización de Disponibilidad Horaria</a></li>
-                <li><a href="{{ route('admin.dcursos.lista') }}">Actualización de Disponibilidad de Cursos</a></li>
+                <li><a href="{{ route('admin.dhoras.lista') }}" name="opcListaDHoras">Actualización de Disponibilidad Horaria</a></li>
+                <li><a href="{{ route('admin.dcursos.lista') }}" name="opcListaDCursos">Actualización de Disponibilidad de Cursos</a></li>
                 <li role="separator" class="divider"></li>
                 <li><a href="#">Actualización de Datos Usuarios</a></li>
                 <li role="separator" class="divider"></li>
@@ -43,15 +43,16 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Acciones<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a></a></li>
-                <li><a href="{{ route('admin.menvios.index') }}">Envíos de Correos Electrónicos</a></li>
+                <li><a href="{{ route('admin.menvios.index') }}" name="opcSendEmail">Envíos de Correos Electrónicos</a></li>
                 <li><a href="#"></a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Requerimiento de Actualización de Datos</a></li>
+                <li><a href="{{ route('acciones.exportsql') }}" name="opcExportData">Exportar información</a></li>
+                <li><a href="{{ route('import.index') }}" name="opcImportData">Importar información</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="{{ route('acciones.downdata') }}">Exportar información</a></li>
-                <li><a href="{{ route('import.index') }}">Importar información</a></li>
-                <li role="separator" class="divider"></li>
-                <li><a href="{{ route('admin.users.crypt',0) }}">Encriptar passwords</a></li>
+                @if($app->environment() == 'local')
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{{ route('admin.users.crypt',0) }}">Encriptar passwords</a></li>
+                @endif
               </ul>
             </li>
           </ul> 
@@ -68,7 +69,7 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Disponibilidad <span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a></a></li>
-                <li><a href="{{ route('admin.dhoras.edit', Auth::user()->id) }}">Dias y Horas</a></li>
+                <li><a href="{{ route('admin.dhoras.edit', Auth::user()->id) }}">Días y Horas</a></li>
                 <li><a href="{{ route('admin.dcursos.edit', Auth::user()->id) }}">Cursos</a></li>
               </ul>
             </li>

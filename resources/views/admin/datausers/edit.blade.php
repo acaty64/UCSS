@@ -4,7 +4,7 @@
 
 @section('content')
 	{!! Form::model($datauser, array('route' => array('admin.datausers.update', $datauser->id), 'method' => 'POST')) !!}
-
+		{{Form::hidden('id',$datauser->id)}}
 		<div class="form-group">
 			{!! Form::label('fono1','Teléfono Celular') !!}
 			{!! Form::number('fono1', $datauser->fono1, ['class'=>'form-control']) !!}

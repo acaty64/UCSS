@@ -22,7 +22,8 @@ class ImportController extends Controller
 //return view('errors.000');
 		$subtipo =[
 			'01'	=> 'Disponibilidad de Horarios',
-			'02'	=> 'Disponibilidad de Cursos'
+			'02'	=> 'Disponibilidad de Cursos',
+            '03'    => 'Carga Horaria'
 		];
 		$filename = '';
 		return view('admin.import.index')
@@ -32,8 +33,6 @@ class ImportController extends Controller
 	// IMPORTAR DATOS
     public function updata(Request $request)
     {
-    	
-
 //dd($request->all());
     	$import = new Upload;
     	$import->fileuser = $request->file('fileuser')->getClientOriginalName();
@@ -59,7 +58,9 @@ class ImportController extends Controller
 				$sw_import = $this->import_9901($new_arch);
 			}elseif($import->subtipo == '02'){
 				$sw_import = $this->import_9902($new_arch);
-			}
+			}elseif($import->subtipo == '03'){
+                $sw_import = $this->import_9903($new_arch);
+            }
 			if ($sw_import == true) {
 				flash('Se ha importado '.$import->fileuser.' de forma exitosa','success');
 			}else{
@@ -68,7 +69,8 @@ class ImportController extends Controller
 			return redirect()->back();
 		}
     }
-
+    
+    /* Importa los datos del archivo dhoras.csv a tabla dhoras */
     public function import_9901($file)
     {
     	// Elimina los datos anteriores
@@ -106,6 +108,7 @@ class ImportController extends Controller
 		return true;
     }
 
+    /* Importa los datos del archivo dcursos.csv a tabla dcursos */
     public function import_9902($file)
     {
     	// Elimina los datos anteriores
@@ -147,5 +150,11 @@ class ImportController extends Controller
 			$dcurso->save();    		
     	}
 		return true;
+    }
+
+    /* Importa los datos del archivo carga.csv a tabla carga */
+    public function import_9903($file)
+    {
+        return view('errors.000');
     }
 }

@@ -12,7 +12,7 @@ class AddUploadsTable extends Migration
      */
     public function up()
     {
-        Schema::create('denvios', function (Blueprint $table) {
+        Schema::create('uploads', function (Blueprint $table) {
             $table->increments('id');
             $table->string('filename',60);
             $table->string('fileuser',60);
@@ -32,6 +32,6 @@ class AddUploadsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::drop('uploads');
     }
 }

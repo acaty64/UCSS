@@ -4,8 +4,8 @@
 
 @section('content')
 	{!! Form::model($dhoras, array('route' => ['admin.dhoras.update', $dhoras->id], 'method' => 'PUT')) !!}
-	<input type="hidden" name="user_id" value="{{ $wdocente->id }}"></input>
-	<input type="hidden" name="dhoras_id" value="{{ $dhoras->id }}"></input>
+	{{Form::hidden('user_id',$wdocente->id)}}
+	{{Form::hidden('dhoras_id',$dhoras->id)}}
 	<table class="horario">
 		<thead>
 			<tr>

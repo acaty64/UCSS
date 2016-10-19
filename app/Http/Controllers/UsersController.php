@@ -12,6 +12,8 @@ use Carbon\Carbon;
 use App\User;
 use App\Datauser;
 use App\Dhora;
+use App\Franja;
+use App\Sede;
 
 class UsersController extends Controller
 {
@@ -24,7 +26,8 @@ class UsersController extends Controller
     {
         //date_default_timezone_set('America/Lima');
         $hoy = Carbon::now();
-        $users = User::sDocente($request->wdocente)->orderBy('id', 'DESC')->paginate(6);
+        //$users = User::sDocente($request->wdocente)->orderBy('id', 'DESC')->paginate(6);
+        $users = User::search($request->get('wdocente'), $request->get('type'))->orderBy('id', 'ASC')->paginate(6);
         return view('admin.users.index')
             ->with('users',$users)
             ->with('hoy',$hoy);
@@ -52,20 +55,26 @@ class UsersController extends Controller
         // Recibe los datos del formulario de resources\admin\users\create.blade.php
         //dd('UsersController.store() Recibe los datos del formulario de resources\admin\users\create.blade.php');
         $user = new user($request->all());
-        //$user->password = bcrypt($request->password);
+        $user->password = bcrypt($request->password);
+        $user->swcierre = '0';
+        $user->slug = '';
         $user->save(); 
-
         $datauser = new Datauser();
         $datauser->cdocente = $user->username;
         $datauser->user()->associate($user);
         $datauser->save();
 
         $dhora = new Dhora();
+        //$dhora->csede = 'LIM';
+        $dhora->cdocente = $user->username;
+        //$dhora->sede_id = Sede::where('csede','=', $dhora->csede)->first()->id;
         $dhora->user()->associate($user);
+//        $dhora->sede()->associate($sede);
         $dhora->save();
 
         Flash::success('Se ha registrado '.$user->username.' de forma exitosa');
         return redirect()->route('admin.users.index');
+
     }
 
     

@@ -42,6 +42,11 @@ return [
     */
 
     'disks' => [
+        'exports' => [
+            'driver' => 'local',
+            'root' => storage_path('exports'),
+        ],
+
         'imports' => [
             'driver' => 'local',
             'root' => storage_path('imports'),

@@ -77,6 +77,10 @@ class DHora extends Model
         return $this->belongsTo('App\Franja');
     }		
 
+    public function sede()
+    {
+        return $this->belongsTo('App\Sede');
+    }   
     /** SCOPE Disponibilidad Horaria SEMESTRE actual 
     public function scopeSsemestre($query)
     {

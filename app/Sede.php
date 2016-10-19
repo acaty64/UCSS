@@ -15,4 +15,9 @@ class Sede extends Model
     {
          return $this->hasMany('App\Franja');
     }
+
+    public function dhoras()
+    {
+         return $this->hasMany('App\Dhora');
+    }
 }

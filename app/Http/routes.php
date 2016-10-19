@@ -11,10 +11,10 @@ Route::get('/init/{clave}', [
 		'as'	=> 'init.master'
 	]);
 
-Route::group(['middleware'=>['web']], function(){
+/*Route::group(['middleware'=>['web']], function(){
 	Route::auth();
-	Route::get('/home','HomeController@index');
-});
+	Route::get('/home2','HomeController@index');
+});*/
 
 Route::get('auth/login',[
 	'uses'	=>	'Auth\AuthController@getLogin',
@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth']], function()
 		
 		Route::delete('datausers/{datausers}',['uses'=>'DataUsersController@destroy','as'=>'admin.datausers.destroy']);
 
-		Route::post('datausers/{datausers}/update',['uses'  => 'DatausersController@update','as'	=> 'admin.datausers.update']);
+// duplicado ???		Route::post('datausers/{datausers}/update',['uses'  => 'DatausersController@update','as'	=> 'admin.datausers.update']);
 
 		
 		// Rutas RESPONSABLES
@@ -146,7 +146,12 @@ Route::group(['middleware' => ['auth']], function()
 				'uses'	=>	'AccionesController@DownData',
 				'as'	=>	'acciones.downdata'
 			]);
+		Route::get('acciones/exportsql',[
+				'uses'	=>	'AccionesController@ExportSQL',
+				'as'	=>	'acciones.exportsql'
+			]);
 
+		// Rutas Imports
 		Route::get('importar/index',[
 				'uses'	=>	'ImportController@index',
 				'as'	=>	'import.index'
@@ -156,6 +161,11 @@ Route::group(['middleware' => ['auth']], function()
 				'uses'	=>	'ImportController@updata',
 				'as'	=>	'import.updata'
 			]);
+
+		// ********* RUTAS DE PRUEBA
+		Route::get('/home2','HomeController@index');
+		Route::get('/prueba1',['uses'=>'PruebasController@backup', 'as'=>'backup']);
+		Route::get('/prueba2',['uses'=>'PruebasController@restore', 'as'=>'restore']);
 
 	});
 	// Fin middleware 09
@@ -188,7 +198,7 @@ Route::group(['middleware' => ['auth']], function()
 // 		return "Como mínimo tu role debe ser docente, tu eres " . getRole(Auth::user()->type);
  		// Rutas DATAUSERS
 	    Route::get('datausers/{users}/edit',['uses'=>'DataUsersController@edit','as'=>'admin.datausers.edit']);
-		Route::put('datausers/{datausers}',['uses'=>'DataUsersController@update','as'=>'admin.datausers.update']);
+		Route::post('datausers/{datausers}',['uses'=>'DataUsersController@update','as'=>'admin.datausers.update']);
 		Route::get('datausers/{datausers}',['uses'=>'DataUsersController@show','as'=>'admin.datausers.show']);
 
 		// Rutas DHORAS
@@ -242,9 +252,34 @@ Route::group(['middleware' => ['auth']], function()
 	//si ha iniciado sesión puede acceder, cualquier role
 	Route::get('/home', function()
 	{
-	 
-		//dd('get');
-	 	return view('main');
+		// Identifica los requerimientos de informacion
+		$errors = [];
+		$contador = 0;
+		$check_dhora = App\Denvio::where('user_id','=',Auth::user()->id)
+			->where('tipo','=','horas')
+			->get();
+		if (count($check_dhora)>0) {
+			if($check_dhora->last()->sw_rpta == '0') {
+				$errors[$contador++] = 'Debe actualizar su disponibilidad horaria.';
+			}
+		}
+		$check_dcurso = App\Denvio::where('user_id','=',Auth::user()->id)
+			->where('tipo','=','cursos')
+			->get();
+		if (count($check_dcurso)>0) {
+			if($check_dcurso->last()->sw_rpta == '0') {
+				$errors[$contador++] = 'Debe actualizar su disponibilidad de cursos.';
+			}
+		}
+		$check_dcarga = App\Denvio::where('user_id','=',Auth::user()->id)
+			->where('tipo','=','carga')
+			->get();
+		if (count($check_dcarga)>0) {
+			if($check_dcarga->last()->sw_rpta == '0') {
+				$errors[$contador++] = 'Debe confirmar su carga asignada.';
+			}
+		}
+	 	return view('main')->with('errors',$errors);
 	 	//"Si estás logueado ya puedes acceder aquí, tu eres " . getRole(Auth::user()->type);
 	     
 	});

@@ -18,7 +18,7 @@
 		<br>
 		<div>
 			{!! Form::label('tx_need','Asunto del correo') !!}
-			{!! Form::textarea('tx_need', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el asunto (máximo 255 caracteres)','required']) !!}
+			{!! Form::text('tx_need', null, ['class'=>'form-control', 'placeholder'=>'Ingrese el asunto (máximo 100 caracteres)','required', 'maxlength'=>100]) !!}
 		</div>
 		<br>		
 		<div class="form-group">

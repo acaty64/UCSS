@@ -5,7 +5,7 @@
 @section('content')
 
 	{!! Form::open(['route'=>'admin.users.store', 'method'=>'POST']) !!}
-
+		{!! csrf_field() !!}
 		<div class="form-group">
 			{!! Form::label('username','Código') !!}
 			{!! Form::text('username', null, ['class'=>'form-control', 'placeholder'=>'Código Docente','required']) !!}

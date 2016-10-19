@@ -116,7 +116,7 @@ class DhorasController extends Controller
         // Actualiza el sw_envio en archivo Denvios
         date_default_timezone_set('America/Lima');
         $hoy = Carbon::now();
-        $ayer = Carbon::now()->subDays(1);
+        $ayer = Carbon::today()->subDays(1);
         $denvios = User::find($request->user_id)->denvios;
         if (empty($denvios)) {
             Flash::success('No se ha enviado correo electronico');
@@ -203,6 +203,8 @@ class DhorasController extends Controller
     public function status_horas()
     {
 //return view('errors.000');
+        // Status: No comunicado.- Sin denvio
+        //          No comunicado.- Con denvio sin marca de envio
         // Lista los usuarios con lo siguiente:
         //      Solicitado: fecha de envio
         //      Limite: fecha limite
@@ -234,26 +236,28 @@ class DhorasController extends Controller
                     if ($denvio->menvio->tipo == 'disp' 
                             and $denvio->tipo == 'horas'
                             and $denvio->sw_envio == '1') {
-                        if($denvio->updated_at > $denvio->menvio->fenvio){
-                            $registro = $registro->merge([
+                        $registro = $registro->merge([
                                     'sw_rpta' => $denvio->sw_rpta,
                                     'updated_at' => $denvio->updated_at->toDateString(),
                                     'fenvio' => $denvio->menvio->fenvio,
                                     'flimite' => $denvio->menvio->flimite,
-                                    'sw_actualizacion' => 'actualizado',
                                     'tipo' => $denvio->menvio->tipo,
                                     'user_denvio' => $denvio->id
+                                ]);
+                        if($denvio->sw_rpta == '1'){
+                            $registro = $registro->merge([
+                                    'sw_actualizacion' => 'actualizado'
                                 ]);
                         }else{
-                            $registro = $registro->merge([
-                                    'sw_rpta' => $denvio->sw_rpta,
-                                    'updated_at' => $denvio->updated_at->toDateString(),
-                                    'fenvio' => $denvio->menvio->fenvio,
-                                    'flimite' => $denvio->menvio->flimite,
-                                    'sw_actualizacion' => 'PENDIENTE',
-                                    'tipo' => $denvio->menvio->tipo,
-                                    'user_denvio' => $denvio->id
-                                ]);
+                            if($denvio->flimite < Carbon::today()->addDays(1)){
+                                $registro = $registro->merge([
+                                        'sw_actualizacion' => 'VENCIDO'
+                                    ]);
+                            }else{
+                                $registro = $registro->merge([
+                                        'sw_actualizacion' => 'pendiente'
+                                    ]);
+                            }
                         }
                         $xlista[$contador++] = $registro;
                     }

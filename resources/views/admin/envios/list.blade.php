@@ -14,7 +14,7 @@
  			<th>Docente Comunicado</th>
  			<th>Email enviado</th>
  			<th>Email con copia</th>
- 			<th>Envío</th>
+ 			<th>Enviado</th>
  			<th>Respuesta</th>
  		</thead>
  		<tbody>

@@ -5,10 +5,13 @@
 @section('content')
 	<hr>
 		@if(\Auth::user()->type =='09')
-			<a href="{{ route('admin.users.create') }}" class="btn btn-info">Registrar Nuevo Usuario</a>
+			<a href="{{ route('admin.users.create') }}" class="btn btn-info" id='NuevoUsuario'>Registrar Nuevo Usuario</a>
 		@endif
 		<!-- INICIO DEL BUSCADOR  -->
 		{!! Form::open(['route' => 'admin.users.index', 'method'=>'GET', 'class'=>'navbar-form pull-right']) !!}
+			<div class="form-group">
+				{!! Form::select('type', ['01'=>'Administrativo','02'=>'Docente','03'=>'Responsable','09'=>'Master'],null,['placeholder'=>'Tipo']) !!}
+			</div>
 			<div class="input-group">
 				{!! Form::text('wdocente', null, ['class'=>'form-control', 'placeholder'=>'Buscar docente...', 'aria-describedby'=>'search']) !!}
 				<span class="input-group-addon" id='search'><span class="glyphicon glyphicon-search" "aria-hidden"="true"></span></span>
@@ -39,22 +42,22 @@
 	 					@elseif ($user->type =='03') 
 	 						<span class="label label-danger">Responsable</span>
 	 					@elseif($user->type == '09')
-	 						<span class="label label-danger">Master</span>
+	 						<span class="label label-info">Master</span>
 	 					@endif
 	 				</td>	
 	 				<td>
 	 					@if(\Auth::user()->type == '09')
-		 					<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning" data-toggle="tooltip" title="Modificar usuario"><span class="glyphicon glyphicon-wrench" aria-hidden='true'></span></a>
+		 					<a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning" data-toggle="tooltip" title="Modificar usuario" name = "{{'Mody'.$user->username}}"><span class="glyphicon glyphicon-wrench" aria-hidden='true'></span></a>
 
-		 					<a href="{{ route('admin.users.editpass', $user->id) }}" class="btn btn-danger" data-toggle="tooltip" title="Modificar password"><span class="glyphicon glyphicon-lock" aria-hidden='true'></span></a>
+		 					<a href="{{ route('admin.users.editpass', $user->id) }}" class="btn btn-danger" data-toggle="tooltip" title="Modificar password" name = "{{'EditPass'.$user->username}}"><span class="glyphicon glyphicon-lock" aria-hidden='true'></span></a>
 		 					
-		 					<a href="{{ route('admin.users.destroy', $user->id) }}" onclick='return confirm("Está seguro de eliminar el registro?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar usuario"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
+		 					<a href="{{ route('admin.users.destroy', $user->id) }}" onclick='return confirm("Está seguro de eliminar el registro?")' class="btn btn-danger" data-toggle="tooltip" title="Eliminar usuario" name = "{{'Dele'.$user->username}}"><span class="glyphicon glyphicon-trash" aria-hidden='true'></a>
 
-		 					<a href="{{ route('admin.datausers.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Modificar datos usuario"><span class="glyphicon glyphicon-earphone" aria-hidden='true'></span></a>
+		 					<a href="{{ route('admin.datausers.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Modificar datos usuario" name = "{{'EditData'.$user->username}}"><span class="glyphicon glyphicon-earphone" aria-hidden='true'></span></a>
 
-		 					<a href="{{ route('admin.dhoras.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad Horaria"><span class="glyphicon glyphicon-calendar" aria-hidden='true'></span></a>
+		 					<a href="{{ route('admin.dhoras.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad Horaria" name = "{{'Dhora'.$user->username}}"><span class="glyphicon glyphicon-calendar" aria-hidden='true'></span></a>
 
-		 					<a href="{{ route('admin.dcursos.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad de Cursos"><span class="glyphicon glyphicon-list-alt" aria-hidden='true'></span></a>
+		 					<a href="{{ route('admin.dcursos.edit', $user->id) }}" class="btn btn-success" data-toggle="tooltip" title="Disponibilidad de Cursos" name = "{{'Dcurso'.$user->username}}"><span class="glyphicon glyphicon-list-alt" aria-hidden='true'></span></a>
 		 				@endif	 					
 	 					<a href="{{ route('PDF.usuario', $user->id) }}" class="btn btn-primary" data-toggle="tooltip" title="Ver PDF" name="Ver PDF"><span class="glyphicon glyphicon-eye-open" aria-hidden='true'></span></a>
 	 					<!--MODELO INVOICE Route::get('pdf', 'PdfController@invoice'); -->

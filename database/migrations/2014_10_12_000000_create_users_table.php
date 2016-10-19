@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('wdoc1', 30);
             $table->string('wdoc2', 30);
             $table->string('wdoc3', 30);
-            $table->enum('type',['usuario','respon','admin'])->default('usuario')->onDelete('cascade');
+            $table->enum('type',['01','02','03','09'])->default('02')->onDelete('cascade');
             $table->boolean('swcierre');
             $table->rememberToken();
             $table->timestamps();

@@ -3,7 +3,7 @@
 @section('title','Disponibilidad de Cursos: '.substr($docente->wDocente($docente->id),0,50) )
 
 @section('content')
-<p>Agregue o elimine los cursos que está dispuesto a dictar en el presente semestre.</p>
+<p>Agregue o elimine los cursos que está dispuesto a dictar en el presente semestre dentro del recuadro Cursos.</p>
 <p>Grabe la información modificada o confirme los cursos presentados.</p>
 <br>
 <table>
@@ -13,7 +13,9 @@
 			{!! Form::open(['route' => ['admin.dcursos.update', $docente->id ], 'method'=>'PUT']) !!}
 				{!! Form::label('cursos','Cursos') !!}
 				<!-- select(nombre del campo, lista de opciones, array con opciones seleccionadas,[opciones chosen]) -->
+				<span>
 				{!! Form::select('cursos[]', $lcursos, $ch_cursos, ['multiple class'=>'chosen-select select-curso', 'multiple']) !!}
+				</span>
 		</tr>
 		<hr />
 		<tr style = "margin-bottom: 20px">

@@ -56,6 +56,29 @@ class ExampleTest extends TestCase
             ->click('opcLogout');
     }
 
+    public function test0904()
+    {
+        $this->test09();
+        $this->click('opcListaDHoras')
+            ->see('Lista de Actualizaciones de Horarios Disponibles')
+            ->click('opcListaDCursos')
+            ->see('Lista de Actualizaciones de Cursos Disponibles')
+            ->click('opcLogin')
+            ->click('opcLogout');
+    }
+
+    public function test0905()
+    {
+        $this->test09();
+        $this->click('opcSendEmail')
+            ->see('Grupos de Envios de Correos Electrónicos')
+            ->click('opcImportData')
+            ->see('Importación de datos')
+            ->click('opcLogin')
+            ->click('opcLogout');
+            //->click('opcExportData')
+            //->see('Exportación de datos')
+    }
 
     // Prueba acceso usuario 
     public function test02()

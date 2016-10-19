@@ -182,6 +182,11 @@ class DcursosController extends Controller
             //dd($dCursos);
             $dCursos->delete();  
         }
+        // Modifica switch respuesta en Denvios
+        $denvio = Denvio::where('user_id','=', $docente_id)
+                ->where('tipo','=','cursos')->get()->last();
+        $denvio->sw_rpta = '1';
+        $denvio->save();
         Flash::success('Se ha registrado la modificación de disponibilidad de cursos de forma exitosa');
         if (\Auth::user()->type == '09') {
             return redirect()->route('admin.users.index');
@@ -282,26 +287,28 @@ class DcursosController extends Controller
                     'status' => '1' // INFORMADO
                     ]);     
                 foreach ($denvios as $denvio) {
-                    if($denvio->updated_at > $denvio->menvio->fenvio){
-                        $registro = $registro->merge([                                
+                    $registro = $registro->merge([                                
                                 'sw_rpta' => $denvio->sw_rpta,
                                 'updated_at' => $denvio->updated_at->toDateString(),
                                 'fenvio' => $denvio->menvio->fenvio,
                                 'flimite' => $denvio->menvio->flimite,
-                                'sw_actualizacion' => 'actualizado',
                                 'tipo' => $denvio->menvio->tipo,
                                 'user_denvio' => $denvio->id
+                            ]);
+                    if($denvio->sw_rpta == '1'){
+                        $registro = $registro->merge([                                
+                                'sw_actualizacion' => 'actualizado'
                             ]);
                     }else{
-                        $registro = $registro->merge([
-                                'sw_rpta' => $denvio->sw_rpta,
-                                'updated_at' => $denvio->updated_at->toDateString(),
-                                'fenvio' => $denvio->menvio->fenvio,
-                                'flimite' => $denvio->menvio->flimite,
-                                'sw_actualizacion' => 'PENDIENTE',
-                                'tipo' => $denvio->menvio->tipo,
-                                'user_denvio' => $denvio->id
-                            ]);
+                        if($denvio->flimite < Carbon::today()->addDays(1)){
+                            $registro = $registro->merge([
+                                    'sw_actualizacion' => 'VENCIDO'
+                                ]);
+                        }else{
+                            $registro = $registro->merge([
+                                    'sw_actualizacion' => 'pendiente'
+                                ]);
+                        }
                     }
                     $xlista[$nxlista++] = $registro;
                 }
