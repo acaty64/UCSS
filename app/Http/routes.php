@@ -162,7 +162,7 @@ Route::group(['middleware' => ['auth']], function()
 				'as'	=>	'import.updata'
 			]);
 
-		// ********* RUTAS DE PRUEBA
+		// ********* RUTAS DE PRUEBA 
 		Route::get('/home2','HomeController@index');
 		Route::get('/prueba1',['uses'=>'PruebasController@backup', 'as'=>'backup']);
 		Route::get('/prueba2',['uses'=>'PruebasController@restore', 'as'=>'restore']);

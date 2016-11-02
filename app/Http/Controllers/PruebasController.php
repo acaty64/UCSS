@@ -18,7 +18,7 @@ class PruebasController extends Controller
     public function backup()
     {
         // Pruebas de filesystem 
-        
+      
         // Limpiar el directorio
         $directory = 'http---localhost';
         $files = Storage::allFiles($directory);
