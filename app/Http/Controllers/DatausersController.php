@@ -9,7 +9,7 @@ use App\User;
 use App\DataUser;
 use Laracasts\Flash\Flash;
 
-class DatausersController extends Controller
+class DataUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
