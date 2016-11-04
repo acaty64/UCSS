@@ -11,7 +11,7 @@
                     Si ha recibido usted el correo de requerimiento de disponibilidad de horarios y cursos haga click en el extremo superior derecho (Login) para identificarse.
                 
                     <hr>
-                    Si usted no ha recibido nuestro correo de invitación haga click en el enlace <a ref='#'>Contacto</a>  para asignarle un acceso de usuario.
+                    Si usted no ha recibido nuestro correo de invitación haga click en el siguiente enlace para asignarle un acceso de usuario. <a href="{{ route('solicitud.index') }}" class="btn btn-info">Correo de contacto</a>
                     <hr>
                 </div>
             </div>
@@ -19,3 +19,4 @@
     </div>
 </div>
 @endsection
+@section('view','/welcome.blade.php')

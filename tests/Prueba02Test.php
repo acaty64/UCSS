@@ -15,7 +15,7 @@ class Prueba02Test extends TestCase
             ->see('Login')
             ->seePageIs('/');
 
-        $this->visit('/login')
+        $this->click('Login')
             ->see('Acceder');
 
         $user = factory(App\User::class)

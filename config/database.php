@@ -58,20 +58,6 @@ return [
             'prefix' => '',
         ],
 
-        'mysql_test' => [
-            'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => 'test',
-            'username' => 'root',
-            'password' => '',
-            'charset' => 'utf8',
-            'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
-            'strict' => false,
-            'engine' => null,
-        ],
-
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
@@ -85,6 +71,20 @@ return [
             'strict' => false,
             'engine' => null,
             'dump_command_path' => env('DB_MYSQLDUMP', ''),
+        ],
+
+        'mysql_test' => [
+            'driver' => 'mysql',
+            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_PORT', '3306'),
+            'database' => 'test',
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'charset' => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix' => '',
+            'strict' => false,
+            'engine' => null,
         ],
 
         'pgsql' => [

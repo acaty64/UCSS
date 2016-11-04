@@ -26,11 +26,13 @@ Route::post('auth/login',[
 	'as'	=>	'auth.login'
 ]);
 
+
 Route::get('auth/logout',[
 	'uses'	=>	'Auth\AuthController@getLogout',
 	'as'	=>	'auth.logout'
 ]);
 
+Route::resource('solicitud','ContactoController');
 
 /***********************************************************************************/
 /* DEBE ESTAR LOGUEADO */
