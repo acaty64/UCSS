@@ -290,11 +290,11 @@ Route::group(['middleware' => ['auth']], function()
  
 //ruta para cerrar sesión
 //http://localhost/roles_users_laravel/public/logout
-Route::get("logout", function()
+/*Route::get("logout", function()
 {
 	Auth::logout();
 	return Redirect::to('login');
 });
-
+*/
 
 ?>

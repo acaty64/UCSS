@@ -85,7 +85,7 @@
             <!-- MODIFICAR CUANDO SE CORRIJA TABLA docentes -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" name='opcLogin'>{{ substr(Auth::user()->wdocente(Auth::user()->id),0,50) }}<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="{{ url('/logout') }}" name='opcLogout'>Salir</a></li>
+              <li><a href="{{ route('auth.logout') }}" name='opcLogout'>Salir</a></li>
             </ul>
           </li>
         </ul>

@@ -4,7 +4,8 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class Prueba02Test extends TestCase
+// Verificacion de funcionalidad de usuario MASTER
+class MasterTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -29,7 +30,7 @@ class Prueba02Test extends TestCase
                 'swcierre'  =>'false', 
                 'slug'      => ''
             ]);
-
+        $wdocente = $user->wdoc2 . ' ' . $user->wdoc3 . ', ' . $user->wdoc1;
         // Master
         $this->actingAs($user)
             ->visit('/home')
@@ -85,12 +86,13 @@ class Prueba02Test extends TestCase
             ->press('Grabar modificaciones')
             ->see('Se ha modificado el registro');
 
+
+
         // Modificar DHoras
         $this->click('Usuarios')
             ->seePageIs('users')
             ->click('Dhora'.$cod_test)
-            ->see('Disponibilidad Horaria del Docente')
-            ;
+            ->see('Disponibilidad Horaria del Docente');
             //->click('D1_H11');
 
         $curso = new App\Curso;
@@ -108,6 +110,22 @@ class Prueba02Test extends TestCase
             ->see('ACTIVIDADES I');
 */
 
+
+        /////////////////// PENDIENTE
+        // VERIFICACIONES
+            // Actualizacion de Disponilidad Horaria
+            // Actualizacion de Disponilidad de Cursos
+            // Actualizacion de Datos Usuarios
+        // ACCIONES
+            // Envíos de correos electrónicos
+            // Exportar información
+            // Importar información
+
+
+
+
+        //// VA AL FINAL
+
         // Eliminar Usuario
         $this->click('Usuarios')
             ->seePageIs('users')
@@ -122,5 +140,10 @@ class Prueba02Test extends TestCase
 */
 
 
+        // Salir del usuario
+        $this->click($wdocente)
+            ->click('Salir')
+            ->seePageIs('auth/logout')
+            ->see('Identifíquese');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class Prueba01Test extends TestCase
+class AccesosTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -16,6 +16,7 @@ class Prueba01Test extends TestCase
             ->seePageIs('/');
 
         $this->click('Login')
+            ->see('Identifíquese')
             ->see('Acceder');
 
         $user = factory(App\User::class)
@@ -29,7 +30,8 @@ class Prueba01Test extends TestCase
                 'swcierre'  =>'false', 
                 'slug'      => ''
             ]);
-
+        $wdocente = $user->wdoc2 . ' ' . $user->wdoc3 . ', ' . $user->wdoc1;
+        
         // Master
         $this->actingAs($user)
             ->visit('/home')
@@ -80,6 +82,13 @@ class Prueba01Test extends TestCase
                 ->see('Cursos')
              ->see('Carga Asignada')
              ->see('Prioridad Docentes');
+    }
+
+        // Salir del usuario
+        $this->click($wdocente)
+            ->click('Salir')
+            ->seePageIs('auth/logout')
+            ->see('Identifíquese');
     }
     
 }
