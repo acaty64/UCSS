@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddUsergruposTable extends Migration
+class CreateUsergruposTable extends Migration
 {
     /**
      * Run the migrations.

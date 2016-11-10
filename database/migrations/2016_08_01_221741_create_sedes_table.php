@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddCursosTable extends Migration
+class CreateSedesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class AddCursosTable extends Migration
      */
     public function up()
     {
-        Schema::create('cursos', function (Blueprint $table) {
+        Schema::create('sedes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('ccurso',6);
-            $table->string('wcurso',150);
+            $table->string('csede',3);
+            $table->string('wsede',50);
             $table->timestamps();
         });
     }
@@ -27,6 +27,6 @@ class AddCursosTable extends Migration
      */
     public function down()
     {
-        Schema::drop('cursos');
+        Schema::drop('sedes');
     }
 }
