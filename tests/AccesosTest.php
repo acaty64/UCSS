@@ -31,7 +31,7 @@ class AccesosTest extends TestCase
                 'slug'      => ''
             ]);
         $wdocente = $user->wdoc2 . ' ' . $user->wdoc3 . ', ' . $user->wdoc1;
-        
+
         // Master
         $this->actingAs($user)
             ->visit('/home')
@@ -82,7 +82,6 @@ class AccesosTest extends TestCase
                 ->see('Cursos')
              ->see('Carga Asignada')
              ->see('Prioridad Docentes');
-    }
 
         // Salir del usuario
         $this->click($wdocente)
