@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMenviosTable extends Migration
+class AddMenviosTable extends Migration
 {
     /**
      * Run the migrations.

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSemestresTable extends Migration
+class AddSedesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,10 @@ class CreateSemestresTable extends Migration
      */
     public function up()
     {
-        Schema::create('semestres', function (Blueprint $table) {
+        Schema::create('sedes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('semestre',6);
-            $table->boolean('swactivo');
-            $table->date('inicio');
-            $table->date('fin');
-            $table->date('cierredisp');
-            $table->date('cierredata');
-            
+            $table->string('csede',3);
+            $table->string('wsede',50);
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ class CreateSemestresTable extends Migration
      */
     public function down()
     {
-        Schema::drop('semestres');
+        Schema::drop('sedes');
     }
 }

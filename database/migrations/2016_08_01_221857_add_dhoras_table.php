@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDhorasTable extends Migration
+class AddDhorasTable extends Migration
 {
     /**
      * Run the migrations.

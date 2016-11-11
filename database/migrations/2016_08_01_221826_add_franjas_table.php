@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGruposTable extends Migration
+class AddFranjasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,20 @@ class CreateGruposTable extends Migration
      */
     public function up()
     {
-        Schema::create('grupos', function (Blueprint $table) {
+        Schema::create('franjas', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('dia');
+            $table->integer('turno');
+            $table->integer('hora');
+            $table->string('wfranja',11);
             //$table->string('semestre',6);
-            $table->string('cgrupo',3);
-            $table->string('wgrupo',50);
+            $table->string('csede',3);
 
             //$table->integer('semestr_id')->unsigned();
-            
+            $table->integer('sede_id')->unsigned();
+
             //$table->foreign('semestr_id')->references('id')->on('semestres')->onDelete('cascade');
+            $table->foreign('sede_id')->references('id')->on('sedes')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -32,6 +37,6 @@ class CreateGruposTable extends Migration
      */
     public function down()
     {
-        Schema::drop('grupos');
+        Schema::drop('franjas');
     }
 }
