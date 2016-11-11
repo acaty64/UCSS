@@ -14,8 +14,8 @@ class AddUserGruposTable extends Migration
     {
         Schema::create('usergrupos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned;
-            $table->integer('grupo_id')->unsigned;
+            $table->integer('user_id')->unsigned();
+            $table->integer('grupo_id')->unsigned();
             $table->string('cgrupo');
             $table->string('cdocente');
             

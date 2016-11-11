@@ -18,7 +18,7 @@ class AddUploadsTable extends Migration
             $table->string('fileuser',60);
             $table->string('tipo',2);
             $table->string('subtipo',2);
-            $table->integer('user_id')->unsigned;
+            $table->integer('user_id')->unsigned();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();

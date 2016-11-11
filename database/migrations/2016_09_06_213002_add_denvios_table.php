@@ -14,8 +14,8 @@ class AddDenviosTable extends Migration
     {
         Schema::create('denvios', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned;
-            $table->integer('menvio_id')->unsigned;
+            $table->integer('user_id')->unsigned();
+            $table->integer('menvio_id')->unsigned();
             $table->string('email_to');
             $table->string('email_cc');
             $table->boolean('sw_envio');
