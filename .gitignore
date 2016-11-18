@@ -3,7 +3,6 @@
 Homestead.yaml
 Homestead.json
 .env
-.env.local.gmail
-.env.remote.gmail
+.env.*
 /.phpintel
 /.git

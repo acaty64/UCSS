@@ -33,7 +33,7 @@ class MasterTest extends TestCase
         $wdocente = $user->wdoc2 . ' ' . $user->wdoc3 . ', ' . $user->wdoc1;
         // Master
         $this->actingAs($user)
-            ->visit('/home')
+             ->visit('/home')
              ->seePageIs('home')
              ->see($user->wdoc3)
              ->see('Usuarios');
@@ -44,34 +44,54 @@ class MasterTest extends TestCase
             ->click('Registrar Nuevo Usuario')
             ->seePageIs('users/create');
         
-        $sede = new App\Sede;
+/*        $sede = new App\Sede;
         $sede->create([
                     'csede' => 'LIM',
                     'wsede' => 'SEDE CENTRAL'
                 ]);
+*/
+
         $cod_test = '000002';
 
         $this->see('Registrar')
             ->type($cod_test, 'username')
             ->type($cod_test, 'password')
-            ->type('Nombre2', 'wdoc1')
-            ->type('ApellidoP2', 'wdoc2')
-            ->type('ApellidoM2', 'wdoc3')
+            ->type('A', 'wdoc1')
+            ->type('B', 'wdoc2')
+            ->type('C', 'wdoc3')
             ->select('01','type')
+            ->press('Registrar')
+            ->see('El campo wdoc1 debe contener al menos 2 caracteres.')
+            ->see('El campo wdoc2 debe contener al menos 2 caracteres.')
+            ->type($cod_test, 'password')
+            ->type('Nombre', 'wdoc1')
+            ->type('ApellidoP1', 'wdoc2')
+            ->type('ApellidoM1', 'wdoc3')
             ->press('Registrar')
             ->see('Se ha registrado ')
             ->see(' de forma exitosa')
-            ->seePageIs('users');
+            ->seePageIs('users')
+            ->seeInDatabase('users',[
+                'username'  => $cod_test,
+                'wdoc1'     => 'Nombre'
+                ])
+            ->seeInDatabase('dhoras',[
+                'cdocente'  => $cod_test
+                ]);
  
         // Modificar Usuario
         $this->click('Mody'.$cod_test)
+            ->seePageIs('users/2/edit')
+            ->newSeeInField('wdoc1','Nombre')
             ->type('NuevoNombre', 'wdoc1')
             ->press('Grabar modificaciones')
-            ->seePageIs('users')
+            ->seePageIs('users/2/edit')
             ->see('NuevoNombre');
 
         // Modificar Password
-        $this->click('EditPass'.$cod_test)
+        $this->click('Usuarios')
+            ->click('EditPass'.$cod_test)
+            ->seePageIs('users/2/editpass')
             ->type('NuevoPassword', 'password')
             ->type('NuevoPassword', 'checkpassword')
             ->press('Grabar nuevo password')
@@ -79,22 +99,46 @@ class MasterTest extends TestCase
             ->see('Se ha modificado el password de ');
 
         // Modificar DataUsers
-        $this->click('EditData'.$cod_test)
+        $this->click('Usuarios')
+            ->click('EditData'.$cod_test)
+            ->seePageIs('datausers/2/edit')
             ->type('5330008', 'fono1')
             ->type('5330224', 'fono2')
             ->type('5330224', 'email1')
             ->press('Grabar modificaciones')
+            ->seePageIs('datausers/2/edit')
             ->see('Se ha modificado el registro');
 
+        // Agregar las franjas horarias
+        
+        $franja = App\Franja::create([
+                'csede' => 'LIM',
+                'dia'   => 1,
+                'turno' => 1,
+                'hora'  => 1, 
+                'wfranja' => '08:30-10:00'
+            ]);
 
-
+        // MODULO DISPONIBILIDAD DE HORAS
         // Modificar DHoras
         $this->click('Usuarios')
             ->seePageIs('users')
             ->click('Dhora'.$cod_test)
-            ->see('Disponibilidad Horaria del Docente');
-            //->click('D1_H11');
+            ->see('08:30-10:00')
+            ->seePageIs('dhoras/2/edit')
+            ->see('Disponibilidad Horaria del Docente')
+//            ->newSeeInField('D1_H11', 'off');
+            ->check('D1_H11')
+            ->press('Grabar modificaciones')
+            ->seeInDatabase('dhoras',[
+                'cdocente'  => $cod_test,
+                'D1_H11'    => '1'
+                ])
+            ->seePageIs('users')
+            ->see('Se ha registrado la modificación de forma exitosa');
 
+
+        // MODULO DISPONIBILIDAD DE CURSOS
         $curso = new App\Curso;
         $curso->ccurso = '180001';
         $curso->wcurso = 'ACTIVIDADES I';
@@ -105,6 +149,7 @@ class MasterTest extends TestCase
             ->seePageIs('users')
             ->click('Dcurso'.$cod_test)
             ->see('Disponibilidad de Cursos');
+//            ->newSeeInField('cursos[]', 'ACTIVIDADES I');
 /*          NO SE COMO AGREGAR UN CURSO EN SELECT MULTIPLE-CHOICE
             ->select('1','cursos[]')
             ->see('ACTIVIDADES I');
@@ -123,7 +168,7 @@ class MasterTest extends TestCase
 
 
 
-
+/*
         //// VA AL FINAL
 
         // Eliminar Usuario
@@ -139,11 +184,13 @@ class MasterTest extends TestCase
             ->Dontsee('NuevoNombre');
 */
 
-
+/*
         // Salir del usuario
         $this->click($wdocente)
             ->click('Salir')
             ->seePageIs('auth/logout')
             ->see('Identifíquese');
+*/
+
     }
 }

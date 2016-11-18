@@ -78,7 +78,7 @@ class AddDhorasTable extends Migration
             $table->integer('user_id')->unsigned();
 
             //$table->foreign('semestr_id')->references('id')->on('semestres')->onDelete('cascade');
-            $table->foreign('sede_id')->references('id')->on('sedes')->onDelete('cascade');
+            //$table->foreign('sede_id')->references('id')->on('sedes')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();

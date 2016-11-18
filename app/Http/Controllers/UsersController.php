@@ -10,8 +10,8 @@ use Laracasts\Flash\Flash;
 use Carbon\Carbon;
 
 use App\User;
-use App\Datauser;
-use App\Dhora;
+use App\DataUser;
+use App\DHora;
 use App\Franja;
 use App\Sede;
 
@@ -53,18 +53,20 @@ class UsersController extends Controller
     public function store(UserRequest $request)
     {
         // Recibe los datos del formulario de resources\admin\users\create.blade.php
-        //dd('UsersController.store() Recibe los datos del formulario de resources\admin\users\create.blade.php');
-        $user = new user($request->all());
+        $user = new User($request->all());
         $user->password = bcrypt($request->password);
         $user->swcierre = '0';
         $user->slug = '';
         $user->save(); 
-        $datauser = new Datauser();
+        
+        // Crea un registro en DataUser
+        $datauser = new DataUser();
         $datauser->cdocente = $user->username;
         $datauser->user()->associate($user);
         $datauser->save();
 
-        $dhora = new Dhora();
+        // Crea un registro en DHora
+        $dhora = new DHora();
         //$dhora->csede = 'LIM';
         $dhora->cdocente = $user->username;
         //$dhora->sede_id = Sede::where('csede','=', $dhora->csede)->first()->id;
@@ -110,7 +112,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
         $user = User::find($id);
         $user->fill($request->all());

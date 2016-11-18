@@ -9,7 +9,7 @@ use Laracasts\Flash\Flash;
 use Maatwebsite\Excel\Facades\Excel;
 
 use App\User;
-use App\Dhora;
+use App\DHora;
 use App\Franja;
 use App\Denvio;
 use App\Menvio;
@@ -70,6 +70,17 @@ class DhorasController extends Controller
         
         $franjas = Franja::get();
         $gfranjas = Franja::orderby('turno','ASC')->orderby('hora','ASC')->groupby('turno','hora')->get();
+        $checks = [];
+        foreach ($franjas as $franja) {
+            $campo = "D".$franja->dia.'_H'.$franja->turno.$franja->hora;
+            if ( $franja->$campo == 1 ){
+                array_push($checks, [
+                    'campo'=>$campo, 
+                    'wfranja' =>$franja->wfranja
+                    ]);
+            }
+        }
+
         $wdocente = User::find($user_id);
         $dhoras = $wdocente->dhora;
         if(empty($dhoras)){
@@ -86,7 +97,8 @@ class DhorasController extends Controller
             ->with('franjas', $franjas)
             ->with('gfranjas',$gfranjas)
             ->with('dhoras', $dhoras)
-            ->with('wdocente',$wdocente);
+            ->with('wdocente',$wdocente)
+            ->with ('checks',$checks);
     }
 
     /**
@@ -99,7 +111,7 @@ class DhorasController extends Controller
     public function update(Request $request)
     {
         // Actualiza la disponibilidad horaria
-        $dhoras = Dhora::find($request->dhoras_id);
+        $dhoras = DHora::find($request->dhoras_id);
 //dd($dhoras);
         // Rehacer data
         $franjas = Franja::get();

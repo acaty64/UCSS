@@ -69,7 +69,7 @@ class DataUsersController extends Controller
     public function edit($user_id)
     {
         $datauser = User::find($user_id)->datauser;
-        return view('admin.DataUsers.edit')->with('datauser', $datauser);
+        return view('admin.datausers.edit')->with('datauser', $datauser);
     }
 
     /**

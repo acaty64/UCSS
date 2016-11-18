@@ -255,14 +255,14 @@ Route::group(['middleware' => ['auth']], function()
 	Route::get('/home', function()
 	{
 		// Identifica los requerimientos de informacion
-		$errors = [];
+		$aerrors = [];
 		$contador = 0;
 		$check_dhora = App\Denvio::where('user_id','=',Auth::user()->id)
 			->where('tipo','=','horas')
 			->get();
 		if (count($check_dhora)>0) {
 			if($check_dhora->last()->sw_rpta == '0') {
-				$errors[$contador++] = 'Debe actualizar su disponibilidad horaria.';
+				$aerrors[$contador++] = 'Debe actualizar su disponibilidad horaria.';
 			}
 		}
 		$check_dcurso = App\Denvio::where('user_id','=',Auth::user()->id)
@@ -270,7 +270,7 @@ Route::group(['middleware' => ['auth']], function()
 			->get();
 		if (count($check_dcurso)>0) {
 			if($check_dcurso->last()->sw_rpta == '0') {
-				$errors[$contador++] = 'Debe actualizar su disponibilidad de cursos.';
+				$aerrors[$contador++] = 'Debe actualizar su disponibilidad de cursos.';
 			}
 		}
 		$check_dcarga = App\Denvio::where('user_id','=',Auth::user()->id)
@@ -278,9 +278,10 @@ Route::group(['middleware' => ['auth']], function()
 			->get();
 		if (count($check_dcarga)>0) {
 			if($check_dcarga->last()->sw_rpta == '0') {
-				$errors[$contador++] = 'Debe confirmar su carga asignada.';
+				$aerrors[$contador++] = 'Debe confirmar su carga asignada.';
 			}
 		}
+		$errors = collect($aerrors);
 	 	return view('main')->with('errors',$errors);
 	 	//"Si estás logueado ya puedes acceder aquí, tu eres " . getRole(Auth::user()->type);
 	     

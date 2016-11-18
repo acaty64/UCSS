@@ -22,7 +22,19 @@
 				<tr class = 'horario-franja'>
 					@for ($i=1; $i < 7 ; $i++)
 						<td class = 'horario-dia'>
-							<div id='cD{{$i}}_H{{$gfranja->turno}}{{$gfranja->hora}}' class = 'horario-hora'>
+							<div class = 'horario-hora'>
+								<?php  $campo = 'D'.$i.'_H'.$gfranja->turno.$gfranja->hora ?>
+								@if($dhoras->$campo == '1')
+									<input type='checkbox' 	
+										name = {{$campo}}
+										checked>
+										{{$gfranja->wfranja}}
+								@else
+									<input type='checkbox' 	
+										name = {{$campo}}
+										unchecked>
+										{{$gfranja->wfranja}}
+								@endif
 							</div>
 						</td>
 					@endfor
@@ -40,47 +52,7 @@
 		@endif
 		{!! Form::close() !!}
 	</div>	
-					
-	<script	type="text/javascript">	
-		<?php $ahoras = $dhoras->toArray() ?>
-	
-		<?php foreach	($franjas	as	$franja):	?>
-			<?php	$xfranja	=	'D'.$franja->dia.'_H'.$franja->turno.$franja->hora;	?>			
-			<?php	$xdiv 		=	'c'.$xfranja;	?>
 
-//console.log("{{$xfranja}}");
-			var 	container	=	document.getElementById("{{$xdiv}}");
-			var checkbox = document.createElement('input');
-			checkbox.type = "checkbox";
-			checkbox.name = "{{$xfranja}}";
-			checkbox.id = "{{$xfranja}}";
-
-			check("{{$xfranja}}");
-			var label = document.createElement('label');
-			label.htmlFor = "{{$xfranja}}";
-			label.appendChild(document.createTextNode("{{ $franja->wfranja }}"));
-			container.appendChild(checkbox);
-			container.appendChild(label);
-		<?php endforeach	?>
-
-		function check( xfranja )
-		{
-//console.log("Franja: ",xfranja);
-			<?php foreach ($ahoras as $xcampo => $value): ?>
-//console.log( "Campo: ","{{$xcampo}}" );
-				if("{{$xcampo}}" == xfranja)
-				{
-//console.log("Valor: ","{{$value}}");
-					if("{{$value}}" == "1")
-					{
-//console.log("checked");
-						checkbox.checked = 'checked';
-					}
-				}
-			
-			<?php endforeach ?>
-		}
-	</script>				
 @endsection
 
 @section('view','admin/dhoras/edit.blade.php')

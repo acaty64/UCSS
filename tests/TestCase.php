@@ -22,4 +22,36 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
 
         return $app;
     }
+
+    public function newSeeInField($selector, $expected)
+    {
+        $this->assertSame(
+            $expected,
+            $this->getInputOrTextArea($selector),
+            "The input [{$selector}] has not the value [{$expected}]."
+        );
+        return $this;
+    }
+
+    public function getInputOrTextArea($selector)
+    {
+        $field = $this->filterByNameOrId($selector);
+
+        if($field->count() == 0){
+            throw new Exception("There are no elements with the name or ID [$selector]");
+        }
+
+        $element = $field->nodeName();
+        
+        if($element == 'input'){
+            return $field->attr('value');
+        }
+
+        if ($element == 'textarea') {
+            return  $field->text();
+        }
+
+        throw new Exception("[$selector] is neither an input nor a textarea");
+        
+    }
 }
