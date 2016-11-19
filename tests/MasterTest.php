@@ -44,12 +44,12 @@ class MasterTest extends TestCase
             ->click('Registrar Nuevo Usuario')
             ->seePageIs('users/create');
         
-/*        $sede = new App\Sede;
+        $sede = new App\Sede;
         $sede->create([
                     'csede' => 'LIM',
                     'wsede' => 'SEDE CENTRAL'
                 ]);
-*/
+
 
         $cod_test = '000002';
 
@@ -109,14 +109,14 @@ class MasterTest extends TestCase
             ->seePageIs('datausers/2/edit')
             ->see('Se ha modificado el registro');
 
-        // Agregar las franjas horarias
-        
+        // Agregar las franjas horarias        
         $franja = App\Franja::create([
                 'csede' => 'LIM',
                 'dia'   => 1,
                 'turno' => 1,
                 'hora'  => 1, 
-                'wfranja' => '08:30-10:00'
+                'wfranja' => '08:30-10:00',
+                'sede_id'  => 1
             ]);
 
         // MODULO DISPONIBILIDAD DE HORAS

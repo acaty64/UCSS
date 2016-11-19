@@ -9,19 +9,19 @@ class Franja extends Model
     protected $table = 'franjas';		
     protected $fillable = [		
     	//'semestre',
-        'csede','dia', 'turno', 'hora', 'wfranja'	
+        'csede','dia', 'turno', 'hora', 'wfranja', 'sede_id'	
     ];	
 
     public function dhoras()
     {
-         return $this->hasMany('App\Dhora');
+         return $this->hasMany('App\DHora');
     }
 
-    public function semestre()
+/*    public function semestre()
     {
         return $this->belongsTo('App\Semestre');
     }
-
+*/
     public function sede()
     {
         return $this->belongsTo('App\Sede');

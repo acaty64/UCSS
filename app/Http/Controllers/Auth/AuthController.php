@@ -81,11 +81,12 @@ class AuthController extends Controller
         //dd('\app\Http\Controllers\Auth\AuthController\getLogin()');
         return view('auth.login');
     }
-    protected function postLogin(){
+*/
+/*    protected function postLogin(){
         //dd('\app\Http\Controllers\Auth\AuthController\postLogin()');
-        return view('index');
-    }*/
-
+        return redirectTo(url('/home'));
+    }
+*/
     protected function getLogout(){
         //dd(Auth::guest());
         \Auth::logout();
