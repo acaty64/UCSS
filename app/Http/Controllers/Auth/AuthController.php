@@ -90,7 +90,8 @@ class AuthController extends Controller
     protected function getLogout(){
         //dd(Auth::guest());
         \Auth::logout();
-        return view('auth.login');
+        return \Redirect::to('/');
+        //return view('auth.login');
     }
 
 }

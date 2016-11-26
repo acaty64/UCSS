@@ -3,7 +3,6 @@
 @section('title','Lista de Usuarios')
 
 @section('content')
-	<hr>
 		@if(\Auth::user()->type =='09')
 			<a href="{{ route('admin.users.create') }}" class="btn btn-info" id='NuevoUsuario'>Registrar Nuevo Usuario</a>
 		@endif

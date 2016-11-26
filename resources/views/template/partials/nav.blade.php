@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-default "> 
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -13,11 +13,13 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">     
       @if(Auth::user())
+        <!-- Opcion inicio (para todos los logeados) -->
         <ul class="nav navbar-nav">
           <li>
             <a href="{{ '/home' }}">Inicio <span class="sr-only">(current)</span></a>
           </li>
         </ul>
+        <!-- Opciones para type == '09' Master -->
         @if(Auth::user()->type == '09')
           <ul class="nav navbar-nav">
             <li><a href="{{ route('admin.users.index') }}">Usuarios</a></li>
@@ -57,11 +59,13 @@
             </li>
           </ul> 
         @endif
+        <!-- Opciones para type == '01' Administrativos -->
         @if(Auth::user()->type == '01')
           <ul class="nav navbar-nav">
             <li><a href="{{ route('admin.users.index') }}">Datos Personales</a></li>
           </ul>
         @endif
+        <!-- Opciones para type == '02' y '03' Docentes y Responsables -->
         @if(Auth::user()->type == '02' or Auth::user()->type == '03')
           <ul class="nav navbar-nav">
             <li><a href="{{ route('admin.datausers.edit', Auth::user()->id) }}">Datos Personales</a></li>
@@ -79,7 +83,7 @@
             @endif
           </ul>
         @endif
-
+        <!-- Nombre del usuario / Salir -->
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <!-- MODIFICAR CUANDO SE CORRIJA TABLA docentes -->
@@ -89,7 +93,12 @@
             </ul>
           </li>
         </ul>
-    @endif
+      @endif
+      @if(!Auth::user())
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{{ route('auth.login') }}">Login</a></li>
+        </ul>
+      @endif
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

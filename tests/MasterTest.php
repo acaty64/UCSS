@@ -148,7 +148,12 @@ class MasterTest extends TestCase
         $this->click('Usuarios')
             ->seePageIs('users')
             ->click('Dcurso'.$cod_test)
-            ->see('Disponibilidad de Cursos');
+            ->see('Disponibilidad de Cursos')
+            ->select('ACTIVIDADES I','cursos[]')
+            ->see('Grabar o Confirmar cursos');
+//            ->press('Grabar');
+/*            ->see('Se ha registrado la modificación de disponibilidad de cursos de forma exitosa');
+//            ->see('ACTIVIDADES I');
 //            ->newSeeInField('cursos[]', 'ACTIVIDADES I');
 /*          NO SE COMO AGREGAR UN CURSO EN SELECT MULTIPLE-CHOICE
             ->select('1','cursos[]')

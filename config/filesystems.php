@@ -42,6 +42,12 @@ return [
     */
 
     'disks' => [
+
+        'upload_pdf' => [
+            'driver' => 'local',
+            'root' => storage_path('upload'),
+        ],
+
         'exports' => [
             'driver' => 'local',
             'root' => storage_path('exports'),

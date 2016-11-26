@@ -86,8 +86,8 @@ class AccesosTest extends TestCase
         // Salir del usuario
         $this->click($wdocente)
             ->click('Salir')
-            ->seePageIs('auth/logout')
-            ->see('Identifíquese');
+            ->seePageIs('/')
+            ->see('Bienvenido');
     }
     
 }

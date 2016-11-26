@@ -1,26 +1,14 @@
-<!DOCTYPE html>
+
+<!DOCTYPE html> 
+
 <html lang="es">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <!--link rel="icon" type="image/png" href="favicon.ico"-->
-
-    <title>UCSS - FCEC</title>
-
-    <!-- Styles  -->
-    <link rel="stylesheet" href="{{ asset('plugins\bootstrap\css\bootstrap.css') }}" >
+    <title>UCSS-FCEC</title>
+    <link rel="stylesheet" href="{{ asset('plugins\bootstrap\css\bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css\estilos.css') }}">
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
 </head>
 <body id="admin-body">
     <nav class="navbar navbar-default navbar-static-top" >
@@ -37,19 +25,7 @@
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
-                    @if (Auth::guest())
-                        <li><a href="{{ route('auth.login') }}">Login</a></li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ substr(Auth::user()->wdocente(Auth::user()->id),0,50) }} <span class="caret"></span>
-                            </a>
-
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ route('auth.logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                            </ul>
-                        </li>
-                    @endif
+                    <li><a href="{{ route('auth.login') }}">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -60,7 +36,7 @@
     
     <!-- JavaScripts -->
     <script src="{{asset('plugins\jquery\js\jquery-3.1.0.js')}}"></script>
-    <script src="{{asset('plugins\bootstrap\js\bootstrap.js')}}"></script>
+    <script src="{{asset('plugins\bootstrap\js\bootstrap.min.js')}}"></script>
 
     <div class="panel-footer">
         @include('template.partials.footer')

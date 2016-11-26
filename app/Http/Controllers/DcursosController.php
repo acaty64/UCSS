@@ -185,8 +185,10 @@ class DcursosController extends Controller
         // Modifica switch respuesta en Denvios
         $denvio = Denvio::where('user_id','=', $docente_id)
                 ->where('tipo','=','cursos')->get()->last();
-        $denvio->sw_rpta = '1';
-        $denvio->save();
+        if(!empty($denvio)){
+            $denvio->sw_rpta = '1';
+            $denvio->save();
+        }
         Flash::success('Se ha registrado la modificación de disponibilidad de cursos de forma exitosa');
         if (\Auth::user()->type == '09') {
             return redirect()->route('admin.users.index');

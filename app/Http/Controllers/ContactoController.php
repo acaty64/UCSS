@@ -40,26 +40,46 @@ class ContactoController extends Controller
      */
     public function store(Request $request)
     {
+        // Identifica el solicitante
         $data = $request->all();
         if (Auth::guest()){
             $solicitante = $data['name2']." ".$data['name3'].", ".$data['name1'];
-        }else{
+        }else{ // Un docente puede presentar a un nuevo docente ???? como ?????
             $solicitante = Auth::user()->wdocente(Auth::user()->id);
         }
+        // Verificacion de las carateristicas del documento adjunto        
+        $file = $request->file('cv');
+        $extension = $file->getMimeType();
+        $tamano = $file->getSize(); 
+        // Verificacion de la extension y tamaño < 5 Mb
+        if ( $extension == 'application/pdf' && $tamano < 5242880){
+            // Definir el nombre del documento ** No lo he cifrado porque se elimina despues
+            $filename = $file->getClientOriginalName();
+            // Guardar el archivo en la carpeta Storage\upload_pdf
+//            \Storage::disk('upload_pdf')->put($filename,  \File::get($file));
 
-        try{
-            Mail::send('emails.solicitud', $data, function ($message) use($solicitante) {
-                $message->from(config('mail.username'), $solicitante)
-                    ->to(config('mail.username'), 'master_project')
-                    ->subject('Solicitud de Contacto');
-            });
-            Flash::success('Mensaje enviado, espere nuestro correo de invitación.');
-            return redirect()->route('solicitud.index'); 
-        } catch(Swift_SwiftException $e) {
-            Flash::danger('Lo siento, no se ha podido enviar la información.');
-            return redirect()->route('welcome');
+            // Ruta y nombre del archivo temporal
+            $arch_pdf = $file->getPathname();
+            // Envia el correo
+            try{
+                
+                // Envio del correo de contacto
+                Mail::send('emails.solicitud', $data, function ($message) use($solicitante, $arch_pdf, $filename, $extension) {
+                    $message->from(config('mail.username'), $solicitante)
+                        ->to(config('mail.username'), 'master_project')
+                        ->subject('Solicitud de Contacto')
+                        ->attach($arch_pdf, ['as'=>$filename,'mime'=>$extension]);
+                });
+                Flash::success('Mensaje enviado, espere nuestro correo de invitación.');
+                return redirect()->back(); 
+            } catch(Swift_SwiftException $e) {
+                Flash::error('Lo siento, no se ha podido enviar la información.');
+                return redirect()->back();
+            }
+        }else{
+            Flash::error('El archivo debe tener la extensión PDF y máximo de 5 Mb.');
+            return redirect()->back();
         }
-        
     }
 
     /**
