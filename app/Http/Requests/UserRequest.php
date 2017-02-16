@@ -24,7 +24,7 @@ class UserRequest extends Request
     public function rules()
     {
         return [
-            'username'  => 'min:6|max:6|unique:users|required',
+            'username'  => 'min:6|max:6|required',
             'wdoc1' => 'min:2|max:30|required',
             'wdoc2' => 'min:2|max:30|required'
         ];

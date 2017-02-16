@@ -48,8 +48,7 @@
                 <li><a href="{{ route('admin.menvios.index') }}" name="opcSendEmail">Envíos de Correos Electrónicos</a></li>
                 <li><a href="#"></a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="{{ route('acciones.exportsql') }}" name="opcExportData">Exportar información</a></li>
-                <li><a href="{{ route('import.index') }}" name="opcImportData">Importar información</a></li>
+                <li><a href="{{ route('acciones.index') }}" name="opcAcciones">Exportar/Importar</a></li>
                 <li role="separator" class="divider"></li>
                 @if($app->environment() == 'local')
                   <li role="separator" class="divider"></li>

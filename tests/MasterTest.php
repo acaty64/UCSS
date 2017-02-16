@@ -38,11 +38,7 @@ class MasterTest extends TestCase
              ->see($user->wdoc3)
              ->see('Usuarios');
 
-        // Agregar Usuario 
-        $this->click('Usuarios')
-            ->seePageIs('users')
-            ->click('Registrar Nuevo Usuario')
-            ->seePageIs('users/create');
+        
         
         $sede = new App\Sede;
         $sede->create([
@@ -51,7 +47,13 @@ class MasterTest extends TestCase
                 ]);
 
 
+
         $cod_test = '000002';
+        // Agregar Usuario 
+        $this->click('Usuarios')
+            ->seePageIs('users')
+            ->click('Registrar Nuevo Usuario')
+            ->seePageIs('users/create');
 
         $this->see('Registrar')
             ->type($cod_test, 'username')
@@ -78,14 +80,29 @@ class MasterTest extends TestCase
             ->seeInDatabase('dhoras',[
                 'cdocente'  => $cod_test
                 ]);
- 
+
+        // Verificar error al agregar usuario con username igual
+        $this->click('Usuarios')
+            ->seePageIs('users')
+            ->click('Registrar Nuevo Usuario')
+            ->seePageIs('users/create')
+            ->type($cod_test, 'username')
+            ->type($cod_test, 'password')
+            ->type('Nombre', 'wdoc1')
+            ->type('ApellidoP1', 'wdoc2')
+            ->type('ApellidoM1', 'wdoc3')
+            ->press('Registrar')
+            ->see('ERROR, Ya existe el código de usuario:');
+
         // Modificar Usuario
-        $this->click('Mody'.$cod_test)
+        $this->click('Usuarios')
+            ->seePageIs('users')
+            ->click('Mody'.$cod_test)
             ->seePageIs('users/2/edit')
             ->newSeeInField('wdoc1','Nombre')
             ->type('NuevoNombre', 'wdoc1')
             ->press('Grabar modificaciones')
-            ->seePageIs('users/2/edit')
+            ->seePageIs('users')
             ->see('NuevoNombre');
 
         // Modificar Password
@@ -150,7 +167,14 @@ class MasterTest extends TestCase
             ->click('Dcurso'.$cod_test)
             ->see('Disponibilidad de Cursos')
             ->select('ACTIVIDADES I','cursos[]')
-            ->see('Grabar o Confirmar cursos');
+            ->select('xxxxxx','cursos[]')
+            ->see('ACTIVIDADES I')
+            ->see('Grabar o Confirmar cursos')
+            ->press('Grabar o Confirmar cursos')
+            ->seeInDatabase('dcursos',[
+                'cdocente' => $cod_test,
+                'ccurso' => '180001'
+                ]);
 //            ->press('Grabar');
 /*            ->see('Se ha registrado la modificación de disponibilidad de cursos de forma exitosa');
 //            ->see('ACTIVIDADES I');

@@ -143,7 +143,29 @@ Route::group(['middleware' => ['auth']], function()
 		Route::get('envios/{data}/send',['uses'  => 'EnviosController@send','as'	=> 'admin.envios.send']);
 		Route::get('envios/testsend',['uses'  => 'EnviosController@testsend','as'	=> 'admin.envios.testsend']);
 		Route::get('envios/{user_id, tipo}/enviados',['uses'  => 'EnviosController@enviados','as'	=> 'admin.envios.enviados']);
+		
 		// Rutas para importacion/exportacion
+		Route::get('acciones/index',[
+				'uses'	=>	'AccionesController@index',
+				'as'	=>	'acciones.index'
+			]);
+		Route::get('acciones/exportLocal/{file_name}',[
+				'uses'	=>	'AccionesController@exportLocal',
+				'as'	=>	'acciones.exportLocal'
+			]);
+		Route::get('acciones/importLocal',[
+				'uses'	=>	'AccionesController@importLocal',
+				'as'	=>	'acciones.importLocal'
+			]);
+		Route::get('acciones/exportServe',[
+				'uses'	=>	'AccionesController@exportServe',
+				'as'	=>	'acciones.exportServe'
+			]);
+		Route::get('acciones/importServe',[
+				'uses'	=>	'AccionesController@importServe',
+				'as'	=>	'acciones.importServe'
+			]);
+
 		Route::get('acciones/downdata',[
 				'uses'	=>	'AccionesController@DownData',
 				'as'	=>	'acciones.downdata'
@@ -158,7 +180,6 @@ Route::group(['middleware' => ['auth']], function()
 				'uses'	=>	'ImportController@index',
 				'as'	=>	'import.index'
 			]);
-
 		Route::post('importar/updata',[
 				'uses'	=>	'ImportController@updata',
 				'as'	=>	'import.updata'

@@ -56,7 +56,7 @@
 			{!! Form::select('curso_id', $lxgrupos, null, ['class'=>'chosen-select select-curso', 'include_group_label_in_selected'=>'true']) !!}
 		</div>
 		<div class="col-xs-3">
-			{!! Form::submit('Ver silabo' ,['class'=>'btn btn-primary btn-xs']) !!}
+			{!! Form::submit('Ver silabo' ,['class'=>'btn btn-primary btn-xs', 'id'=>'ver']) !!}
 		</div>
 		{!! Form::close() !!}
 		<!-- FIN Formulario para ver silabo de cursos -->

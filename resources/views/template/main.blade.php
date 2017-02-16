@@ -35,6 +35,7 @@
 			@include('template.partials.footer')
 		</div>
 		<div class="panel-footer">
+			enviroment: {{env('APP_ENV')}}</br>
 			@yield('view','Archivo view')
 		</div>
 	</div>

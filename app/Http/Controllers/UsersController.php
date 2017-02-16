@@ -52,31 +52,37 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
-        // Recibe los datos del formulario de resources\admin\users\create.blade.php
-        $user = new User($request->all());
-        $user->password = bcrypt($request->password);
-        $user->swcierre = '0';
-        $user->slug = '';
-        $user->save(); 
-        
-        // Crea un registro en DataUser
-        $datauser = new DataUser();
-        $datauser->cdocente = $user->username;
-        $datauser->user()->associate($user);
-        $datauser->save();
+        // Verifica que no exista el username
+        $check = User::where('username','=',$request->username)->first();
+        if(empty($check))
+        {// Recibe los datos del formulario de resources\admin\users\create.blade.php
+            $user = new User($request->all());
+            $user->password = bcrypt($request->password);
+            $user->swcierre = '0';
+            $user->slug = '';
+            $user->save(); 
+            
+            // Crea un registro en DataUser
+            $datauser = new DataUser();
+            $datauser->cdocente = $user->username;
+            $datauser->user()->associate($user);
+            $datauser->save();
 
-        // Crea un registro en DHora
-        $dhora = new DHora();
-        //$dhora->csede = 'LIM';
-        $dhora->cdocente = $user->username;
-        //$dhora->sede_id = Sede::where('csede','=', $dhora->csede)->first()->id;
-        $dhora->user()->associate($user);
-//        $dhora->sede()->associate($sede);
-        $dhora->save();
+            // Crea un registro en DHora
+            $dhora = new DHora();
+            //$dhora->csede = 'LIM';
+            $dhora->cdocente = $user->username;
+            //$dhora->sede_id = Sede::where('csede','=', $dhora->csede)->first()->id;
+            $dhora->user()->associate($user);
+    //        $dhora->sede()->associate($sede);
+            $dhora->save();
 
-        Flash::success('Se ha registrado '.$user->username.' de forma exitosa');
-        return redirect()->route('admin.users.index');
-
+            Flash::success('Se ha registrado '.$user->username.' de forma exitosa');
+            return redirect()->route('admin.users.index');
+        }else{
+            Flash::error('ERROR, Ya existe el código de usuario: '.$request->username);
+            return redirect()->back();
+        }
     }
 
     

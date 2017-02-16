@@ -163,6 +163,7 @@ class DcursosController extends Controller
         foreach ($agregados as $curso_id) {
             $curso = Curso::find($curso_id);
             $nuevo = ['user_id'=>$user->id,
+                        'cdocente'=>$user->cdocente,
                         'curso_id'=>$curso->id, 
                         'ccurso' =>$curso->ccurso,
                         'prioridad' => '99',

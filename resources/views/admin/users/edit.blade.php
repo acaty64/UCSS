@@ -1,10 +1,10 @@
 @extends('template.main')
 
-@section('title','Modificar Usuario '.$user->wdoc1." : Código ".$user->coduser)
+@section('title','Modificar Usuario '.$user->wdocente($user->id) . ' / código: ' . $user->username)
 
 @section('content')
-
 	{!! Form::model($user, array('route' => array('admin.users.update', $user->id), 'method' => 'PUT')) !!}
+		{{Form::hidden('username',$user->username)}}
 		<div class="form-group">
 			{!! Form::label('wdoc1','Nombres') !!}
 			{!! Form::text('wdoc1', $user->wdoc1, ['class'=>'form-control', 'placeholder'=>'Ingrese sus Nombres','required']) !!}
